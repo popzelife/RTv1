@@ -1,0 +1,783 @@
+# depslib dependency file v1.0
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_color.c
+	"rtv1.h"
+
+1480038382 c:\users\proprietaire\google drive\42-projects\rtv1\includes\rtv1.h
+	"stdafx.h"
+	"global.h"
+	"esdl.h"
+	"kernel.h"
+	"vec3.h"
+
+1479947471 c:\users\proprietaire\google drive\42-projects\rtv1\includes\stdafx.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+	"libft.h"
+	"ft_printf.h"
+	"get_next_line.h"
+
+1479949104 c:\users\proprietaire\google drive\42-projects\rtv1\libft\includes\libft.h
+	<string.h>
+	<stdlib.h>
+	<unistd.h>
+	<fcntl.h>
+	<stddef.h>
+	<wchar.h>
+	<stdint.h>
+
+1479947471 c:\users\proprietaire\google drive\42-projects\rtv1\libft\includes\ft_printf.h
+	"libft.h"
+	<unistd.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stdio.h>
+	<wchar.h>
+
+1479947471 c:\users\proprietaire\google drive\42-projects\rtv1\libft\includes\get_next_line.h
+	"libft.h"
+	<unistd.h>
+	<fcntl.h>
+
+1480031319 c:\users\proprietaire\google drive\42-projects\rtv1\includes\global.h
+
+1480012044 c:\users\proprietaire\google drive\42-projects\rtv1\includes\esdl.h
+	<SDL.h>
+	<SDL2/SDL.h>
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<iconv.h>
+	<sal.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_config.h
+	"SDL_platform.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\begin_code.h
+
+1451732398 d:\dvpt engine\sdl 2.0\include\close_code.h
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<mbarrier.h>
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_pixels.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451732398 d:\dvpt engine\sdl 2.0\include\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1480008714 c:\users\proprietaire\google drive\42-projects\rtv1\includes\kernel.h
+	<OpenCL/opencl.h>
+	<CL/cl.h>
+
+1473087116 c:\program files\nvidia gpu computing toolkit\cuda\v8.0\include\cl\opencl.h
+	<OpenCL/cl.h>
+	<OpenCL/cl_gl.h>
+	<OpenCL/cl_gl_ext.h>
+	<OpenCL/cl_ext.h>
+	<CL/cl.h>
+	<CL/cl_gl.h>
+	<CL/cl_gl_ext.h>
+	<CL/cl_ext.h>
+
+1473087116 c:\program files\nvidia gpu computing toolkit\cuda\v8.0\include\cl\cl.h
+	<OpenCL/cl_platform.h>
+	<CL/cl_platform.h>
+
+1473087116 c:\program files\nvidia gpu computing toolkit\cuda\v8.0\include\cl\cl_platform.h
+	<AvailabilityMacros.h>
+	<stdint.h>
+	<stddef.h>
+	<altivec.h>
+	<intrin.h>
+	<xmmintrin.h>
+	<intrin.h>
+	<emmintrin.h>
+	<mmintrin.h>
+	<intrin.h>
+	<immintrin.h>
+
+1473087116 c:\program files\nvidia gpu computing toolkit\cuda\v8.0\include\cl\cl_gl.h
+	<OpenCL/cl.h>
+	<CL/cl.h>
+
+1473087116 c:\program files\nvidia gpu computing toolkit\cuda\v8.0\include\cl\cl_gl_ext.h
+	<OpenCL/cl_gl.h>
+	<CL/cl_gl.h>
+
+1473087116 c:\program files\nvidia gpu computing toolkit\cuda\v8.0\include\cl\cl_ext.h
+	<OpenCL/cl.h>
+	<AvailabilityMacros.h>
+	<CL/cl.h>
+
+1480027626 c:\users\proprietaire\google drive\42-projects\rtv1\includes\vec3.h
+
+1480012066 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_events.c
+	"rtv1.h"
+
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_exit.c
+	"rtv1.h"
+
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_fps.c
+	"rtv1.h"
+
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_image.c
+	"rtv1.h"
+
+1480009383 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_init.c
+	"rtv1.h"
+
+1480034138 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_pixel.c
+	"rtv1.h"
+
+1480011906 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_surface.c
+	"rtv1.h"
+
+1479950478 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\kernel_main.c
+	"rtv1.h"
+
+1480035135 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\main.c
+	"rtv1.h"
+
+1480038427 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_plane.c
+	"rtv1.h"
+
+1480002367 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_ray.c
+	"rtv1.h"
+
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_raytrace.c
+	"rtv1.h"
+
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_vector.c
+	"rtv1.h"
+
+1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_vector_op.c
+	"rtv1.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<iconv.h>
+	<sal.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\begin_code.h
+
+1451764693 c:\mingw-devlib\include\sdl2\close_code.h
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<mbarrier.h>
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_pixels.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1451764693 c:\mingw-devlib\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1480005059 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\kernel_isopencl.c
+	"rtv1.h"
+
+1480029450 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_camera.c
+	"rtv1.h"
+
+1480037529 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_object.c
+	"rtv1.h"
+

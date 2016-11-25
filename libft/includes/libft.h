@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 15:03:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/21 12:31:55 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/24 00:58:24 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <stddef.h>
 # include <wchar.h>
+# include <stdint.h>
 
 void			ft_bzero(void *src, size_t len);
 void			ft_memdel(void **a_ptr);

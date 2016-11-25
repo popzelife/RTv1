@@ -6,14 +6,18 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/23 18:13:05 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/24 19:27:24 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _ESDL_H
 # define _ESDL_H
 
+# ifdef __APPLE__
 # include <SDL.h>
+# else
+# include <SDL2/SDL.h>
+# endif
 
 typedef struct			s_input
 {

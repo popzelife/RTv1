@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   kernel_main.c                                      :+:      :+:    :+:   */
+/*   kernel_isopencl.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/16 17:12:12 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/16 17:15:53 by qfremeau         ###   ########.fr       */
+/*   Created: 2016/11/24 01:31:11 by qfremeau          #+#    #+#             */
+/*   Updated: 2016/11/24 16:51:01 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void		kernel_isopencl(void)
 {
-	register cl_uint		i;
-	register cl_device_id	*devices;
-	register char			buf[128];
-	cl_uint					num_devices;
+	cl_uint			i;
+	cl_device_id	*devices;
+	cl_uint			num_devices;
+	char			buf[128];
 
 	clGetDeviceIDs(NULL, CL_DEVICE_TYPE_ALL, 0, NULL, &num_devices);
 	devices = malloc(sizeof(cl_device_id) * num_devices);

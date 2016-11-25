@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/23 19:18:51 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 02:56:15 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,13 @@ int			main(int ac, char **av)
 	(void)			av;
 	(void)			ac;
 	t_rt			rt;
+	t_scene			*scene;
 
-	kernel_isopencl();
+	//kernel_isopencl();
 	init_rt(&rt);
-	SDL_Delay(2000);
+	scene = init_scene();
+	draw_scene(&rt, scene);
+	//SDL_Delay(2000);
 	SDL_SetWindowSize(rt.esdl->eng.win, WIN_RX, WIN_RY);
 	SDL_SetWindowMinimumSize(rt.esdl->eng.win, WIN_RX - 400, WIN_RY - 300);
 	SDL_SetWindowPosition(rt.esdl->eng.win, SDL_WINDOWPOS_CENTERED, \

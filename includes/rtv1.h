@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/23 19:14:11 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 02:48:54 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,53 @@
 # include "kernel.h"
 # include "vec3.h"
 
-typedef struct	s_color
+typedef struct	s_plane
 {
-	UCHAR			rgba[4];
-}				t_color;
+	t_vec3			*normal;
+	float			distance;
+}				t_plane;
+
+typedef struct	s_sphere
+{
+	t_vec3			*center;
+	float			radius;
+}				t_sphere;
 
 typedef struct s_obj
 {
-	t_vec3			pos;
-	t_color			color;
+	t_vec3			*pos;
+	int				color;
 	UCHAR			type;
-	int				(*hit)(struct s_obj*, t_vec3*, t_vec3*, double*);
-	void			(*norm)(t_vec3*, struct s_obj*, t_vec3*, t_vec3*);
+	void			*p_obj;
+	t_vec3			(*hit)(void*, t_vec3*);
 }				t_obj;
 
-typedef struct	s_plane
+typedef struct s_light
 {
-	t_vec3			pos;
-}				t_plane;
+	t_vec3			*vec;
+}				t_light;
 
 typedef struct	s_cam
 {
-	t_vec3			pos;
-	float			foc;
-
+	t_vec3			*pos;
+	t_vec3			*dir;
+	t_vec3			*right;
+	t_vec3			*up;
 }				t_cam;
 
 typedef struct	s_scene
 {
-	t_cam			cam;
-	t_obj			*obj;
-
+	t_cam			*cam;
+	t_obj			**obj;
+	t_light			**light;
+	int				obj_nb;
+	int				light_nb;
 }				t_scene;
 
 typedef struct	s_rt
 {
 	t_esdl			*esdl;
 	SDL_Texture		*t_load;
-
 	SDL_Rect		*r_view;
 	SDL_Surface		*s_view;
 	SDL_Texture		*t_view;
@@ -65,5 +74,20 @@ typedef struct	s_rt
 	SDL_Surface		*s_menu;
 	SDL_Texture		*t_menu;
 }				t_rt;
+
+t_scene		*init_scene(void);
+t_scene		*new_scene(t_cam *cam, t_obj **obj, t_light **light);
+
+t_cam		*init_camera(t_vec3 *pos, t_vec3 look_at);
+t_cam		*new_camera(t_vec3 *pos, t_vec3 *dir, t_vec3 *right, t_vec3 *up);
+
+t_obj		*create_object(t_vec3 *pos, const float param, const int color, \
+	const UCHAR type);
+
+t_plane		*new_plane(t_vec3 *normal, const float distance);
+t_vec3		*intersect_plane(void *plane, t_vec3 *ray);
+
+t_sphere	*new_sphere(t_vec3 *center, const float radius);
+t_vec3		*intersect_sphere(void *sphere, t_vec3 *ray);
 
 #endif

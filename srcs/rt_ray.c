@@ -16,12 +16,16 @@ t_vec3		*init_ray()
 {
 	t_vec3		*vec;
 
-
+	vec = malloc(sizeof(t_vec3));
+    return (vec);
 }
 
-t_vec3		*intersect(t_scene const s, t_vec3 const v, )
+t_vec3		*intersect(t_scene const s, t_vec3 const v)
 {
+    (void)s;
+    (void)v;
 	t_vec3		*vec;
 
-	while
+    vec = malloc(sizeof(t_vec3));
+	return (vec);
 }

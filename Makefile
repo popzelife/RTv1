@@ -6,14 +6,13 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/11/23 18:06:18 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/11/24 23:51:21 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation
 CC =		gcc
-CFLAGS =	-Wall -Wextra 
-#-Werror
+CFLAGS =	-Wall -Wextra -Werror -O3
 ADDFLAGS =	
 
 # Precompiled header
@@ -29,9 +28,24 @@ DST =
 # Directories
 SRCDIR =	srcs
 OBJDIR =	objs
-INCDIR =	includes\
-			libft/includes\
-			/Library/Frameworks/SDL2.framework/Headers
+ifeq ($(OS),Windows_NT)
+	INCDIR =	includes\
+				libft/includes
+	CFSDL =		
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		INCDIR =	includes\
+					libft/includes\
+					/Library/Frameworks/SDL2.framework/Headers
+		CFSDL =		
+	endif
+	ifeq ($(UNAME_S),Linux)
+		INCDIR =	includes\
+					libft/includes
+		CFSDL =		`sdl2-config --cflags`
+	endif
+endif
 PREDIR =	includes
 
 # Sources
@@ -45,16 +59,35 @@ SRC = \
 			esdl_pixel.c\
 			esdl_image.c\
 			esdl_exit.c\
-			rt_vector.c\
-			rt_vector_op.c\
+			v3_create.c\
+			v3_operation.c\
+			v3_transform.c\
 			rt_raytrace.c\
-			kernel_main.c
+			rt_scene.c\
+			rt_camera.c\
+			rt_plane.c\
+			kernel_isopencl.c
 
 OBJ =		$(SRC:.c=.o)
 
 # Prefixes
-OPNCL =		-framework OpenCL
-LSDL2 =		-F /Library/Frameworks -framework SDL2
+ifeq ($(OS),Windows_NT)
+	OPNCL =		-L/lib/ -lOpenCL
+	LSDL2 =		-L/lib/ -lSDL2
+	LMATH =		
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		OPNCL =		-framework OpenCL
+		LSDL2 =		-F /Library/Frameworks -framework SDL2
+		LMATH =		
+	endif
+	ifeq ($(UNAME_S),Linux)
+		OPNCL =		-L/usr/lib/x86_64-linux-gnu -lOpenCL
+		LSDL2 =		`sdl2-config --libs`
+		LMATH =		-lm
+	endif
+endif
 LIBFT =		-Llibft/ -lft
 
 
@@ -83,6 +116,7 @@ LOG_WHITE		= \033[1;37m
 
 # **************************************************************************** #
 # RULES
+.SILENT:
 
 # Main rules
 default:
@@ -100,7 +134,7 @@ libftcomp:
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo -e "--$(LOG_CLEAR)$(LOG_VIOLET)$(NAME)$(LOG_NOCOLOR)....................... $(LOG_YELLOW)$<$(LOG_NOCOLOR)$(LOG_UP)"
-	@$(CC) $(CFLAGS) $(ADDFLAGS) -c -o $@ $^ $(INCP) -F /Library/Frameworks -I /Library/Frameworks/SDL2.framework/Headers
+	@$(CC) $(CFLAGS) $(ADDFLAGS) -c -o $@ $^ $(INCP) `sdl2-config --cflags`
 
 $(OBJDIR):
 	@echo -e "$(LOG_CLEAR)$(LOG_BLUE)build $(NAME)$(LOG_NOCOLOR)"
@@ -108,7 +142,7 @@ $(OBJDIR):
 
 $(NAME): $(OBJP)
 	@echo -e "--$(LOG_CLEAR)$(LOG_VIOLET)$(NAME)$(LOG_NOCOLOR)....................... $(LOG_YELLOW)assembling$(LOG_NOCOLOR)$(LOG_UP)"
-	@$(CC) $(CFLAGS) $(ADDFLAGS) -o $@ $^ $(INCP) $(OPNCL) $(LIBFT) -F /Library/Frameworks -framework SDL2 -F /Library/Frameworks -I /Library/Frameworks/SDL2.framework/Headers
+	@$(CC) $(CFLAGS) $(ADDFLAGS) -o $@ $^ $(OPNCL) $(LSDL2) $(LIBFT) $(LMATH) $(INCP)
 	@echo -e "--$(LOG_CLEAR)$(LOG_VIOLET)$(NAME)$(LOG_NOCOLOR) compiled.............. $(LOG_GREEN)✓$(LOG_NOCOLOR)"
 
 # MrProper's legacy

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 12:55:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/23 14:45:24 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/24 19:25:06 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,22 @@ SDL_Surface			*esdl_create_surface(int width, int height)
 		exit(1);
 	}
 	return (surf);
+}
+
+void			esdl_clear_surface(SDL_Surface *surf, const int color)
+{
+	register int		x;
+	register int		y;
+
+	y = 0;
+	while (y < surf->h)
+	{
+		x = 0;
+		while (x < surf->w)
+		{
+			esdl_put_pixel(surf, x, y, color);
+			x++;
+		}
+		y++;
+	}
 }

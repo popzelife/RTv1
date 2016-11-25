@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:43:54 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 02:44:33 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:16:26 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_sphere	*new_sphere(t_vec3 *center, const float radius)
 
 t_vec3		*intersect_sphere(void *sphere, t_vec3 *ray)
 {
+	(void)ray;
 	t_sphere	*s;
 	t_vec3		*vec;
 

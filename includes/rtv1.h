@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 02:48:54 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:35:30 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,16 @@ typedef struct	s_rt
 	SDL_Texture		*t_menu;
 }				t_rt;
 
-t_scene		*init_scene(void);
 t_scene		*new_scene(t_cam *cam, t_obj **obj, t_light **light);
+t_scene		*init_scene(void);
 
-t_cam		*init_camera(t_vec3 *pos, t_vec3 look_at);
+void		draw_view(t_rt *rt, t_scene *scene);
+void		draw_menu(t_rt *rt);
+
 t_cam		*new_camera(t_vec3 *pos, t_vec3 *dir, t_vec3 *right, t_vec3 *up);
+t_cam		*init_camera(t_vec3 *pos, t_vec3 look_at);
 
-t_obj		*create_object(t_vec3 *pos, const float param, const int color, \
+t_obj		*new_object(t_vec3 *pos, const float param, const int color, \
 	const UCHAR type);
 
 t_plane		*new_plane(t_vec3 *normal, const float distance);

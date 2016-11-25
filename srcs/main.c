@@ -6,16 +6,11 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 02:56:15 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:39:46 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-static void	init_cam(t_rt *rt)
-{
-	(void)rt;
-}
 
 void		init_rt(t_rt *rt)
 {
@@ -32,40 +27,16 @@ void		init_rt(t_rt *rt)
 	SDL_RenderPresent(rt->esdl->eng.render);
 	SDL_DestroyTexture(rt->t_load);
 	free(r_load);
-	init_cam(rt);
 	rt->r_view = malloc(sizeof (SDL_Rect));
 	rt->r_menu = malloc(sizeof (SDL_Rect));
 }
 
 void		display_rt(t_rt *rt)
 {
-	SDL_GetWindowSize(rt->esdl->eng.win, &rt->r_view->w, &rt->r_view->h);
-	rt->r_view->x = 0;
-	rt->r_view->y = 0;
-	rt->r_view->w -= MENU_RX;
-	rt->s_view = esdl_create_surface(rt->r_view->w, rt->r_view->h);
-	esdl_clear_surface(rt->s_view, 0xffc8c8c8);
-
-	SDL_GetWindowSize(rt->esdl->eng.win, &rt->r_menu->x, &rt->r_menu->h);
-	rt->r_menu->x -= MENU_RX;
-	rt->r_menu->y = 0;
-	rt->r_menu->w = MENU_RX;
-	rt->s_menu = esdl_create_surface(rt->r_menu->w, rt->r_menu->h);
-	esdl_clear_surface(rt->s_menu, 0xff373737);
-
-
-	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
-	rt->t_menu = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_menu);
 	SDL_RenderClear(rt->esdl->eng.render);
-
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_menu, NULL, rt->r_menu);
-
 	SDL_RenderPresent(rt->esdl->eng.render);
-	SDL_DestroyTexture(rt->t_view);
-	SDL_DestroyTexture(rt->t_menu);
-	SDL_FreeSurface(rt->s_view);
-	SDL_FreeSurface(rt->s_menu);
 }
 
 void		quit_rt(t_rt *rt)
@@ -83,13 +54,14 @@ int			main(int ac, char **av)
 	//kernel_isopencl();
 	init_rt(&rt);
 	scene = init_scene();
-	draw_scene(&rt, scene);
-	//SDL_Delay(2000);
+	SDL_Delay(2000);
 	SDL_SetWindowSize(rt.esdl->eng.win, WIN_RX, WIN_RY);
 	SDL_SetWindowMinimumSize(rt.esdl->eng.win, WIN_RX - 400, WIN_RY - 300);
 	SDL_SetWindowPosition(rt.esdl->eng.win, SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED);
 	SDL_SetWindowBordered(rt.esdl->eng.win, TRUE);
+	draw_view(&rt, scene);
+	draw_menu(&rt);
 	while (rt.esdl->run)
 	{
 		esdl_update_events(&rt.esdl->eng.input, &rt.esdl->run);

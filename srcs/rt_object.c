@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 00:30:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 02:32:09 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:19:34 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	*select_obj(t_vec3 *v, const float f, const UCHAR t)
 		p = (void*)new_plane(v, f);
 	else if (t == OBJ_SPHERE)
 		p = (void*)new_sphere(v, f);
+	else
+		p = NULL;
 	return (p);
 }
 
@@ -31,10 +33,12 @@ static void	*select_hit(const UCHAR t)
 		f = (void*)&intersect_plane;
 	else if (t == OBJ_SPHERE)
 		f = (void*)&intersect_sphere;
+	else
+		f = NULL;
 	return (f);
 }
 
-t_obj		*create_object(t_vec3 *pos, const float param, const int color, \
+t_obj		*new_object(t_vec3 *pos, const float param, const int color, \
 	const UCHAR type)
 {
 	t_obj	*o;

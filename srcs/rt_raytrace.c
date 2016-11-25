@@ -6,73 +6,34 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/16 16:23:48 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:38:57 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-/*void	ray_trace(t_img *img)
+void	draw_menu(t_rt *rt)
 {
-	t_obj		object;
-	t_obj		curs_obj;
-	t_point		p_hit;
-	t_norm		n_hit;
-	t_ray		prim_ray;
-	t_ray		shadow_ray;
-	float		min_distance;
-	float		distance;
-	int			x;
-	int			y;
-	int			i;
-	BOOL		is_in_shadow;
+	SDL_GetWindowSize(rt->esdl->eng.win, &rt->r_menu->x, &rt->r_menu->h);
+	rt->r_menu->x -= MENU_RX;
+	rt->r_menu->y = 0;
+	rt->r_menu->w = MENU_RX;
+	rt->s_menu = esdl_create_surface(rt->r_menu->w, rt->r_menu->h);
+	esdl_clear_surface(rt->s_menu, 0xff373737);
+	rt->t_menu = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_menu);
+	SDL_FreeSurface(rt->s_menu);
+}
 
-	y = 0;
-	while (y < img->height)
-	{
-		x = 0
-		{
-			while (x < img->width)
-			{
-				compute_ray(i, j, &prim_ray);
-				min_distance = INFINITY;
-				object = NULL;
-				i = 0;
-				while (i < object->size)
-				{
-					if (is_intersect(object[i], prim_raym &p_hit, &n_hit))
-					{
-						distance == get_distance(eye_position, p_hit);
-						if (distance < min_distance)
-						{
-							object = object[i];
-							min_distance = distance;
-						}
-					}
-					++i;
-				}
-				if (object != NULL)
-				{
-					shadow_ray.direction = light_position - p_hit;
-					is_in_shadow = FALSE;
-					i = 0;
-					while (i < object->size)
-					{
-						if (is_intersect(objet[i], shadow_ray))
-						{
-							is_in_shadow = TRUE;
-							break;
-						}
-						++i;
-					}
-				}
-				++x;
-			}
-			if (!is_in_shadow)
-				pixels[x][y] = object->color * light.brightness;
-			else
-				pixels[x][y] = 0;
-			++y;
-		}
-	}
-}*/
+void	draw_view(t_rt *rt, t_scene *scene)
+{
+	(void)scene;
+
+	SDL_GetWindowSize(rt->esdl->eng.win, &rt->r_view->w, &rt->r_view->h);
+	rt->r_view->x = 0;
+	rt->r_view->y = 0;
+	rt->r_view->w -= MENU_RX;
+	rt->s_view = esdl_create_surface(rt->r_view->w, rt->r_view->h);
+	esdl_clear_surface(rt->s_view, 0xffc8c8c8);
+	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
+	SDL_FreeSurface(rt->s_view);
+}

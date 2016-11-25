@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/11/24 23:51:21 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/11/25 11:17:56 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,11 @@ SRC = \
 			v3_operation.c\
 			v3_transform.c\
 			rt_raytrace.c\
+			rt_object.c\
 			rt_scene.c\
 			rt_camera.c\
 			rt_plane.c\
+			rt_sphere.c\
 			kernel_isopencl.c
 
 OBJ =		$(SRC:.c=.o)
@@ -134,7 +136,7 @@ libftcomp:
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo -e "--$(LOG_CLEAR)$(LOG_VIOLET)$(NAME)$(LOG_NOCOLOR)....................... $(LOG_YELLOW)$<$(LOG_NOCOLOR)$(LOG_UP)"
-	@$(CC) $(CFLAGS) $(ADDFLAGS) -c -o $@ $^ $(INCP) `sdl2-config --cflags`
+	@$(CC) $(CFLAGS) $(ADDFLAGS) -c -o $@ $^ $(INCP) $(CFSDL)
 
 $(OBJDIR):
 	@echo -e "$(LOG_CLEAR)$(LOG_BLUE)build $(NAME)$(LOG_NOCOLOR)"

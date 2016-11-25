@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 02:50:40 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:10:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ t_scene		*init_scene(void)
 	obj_nb = 3;
 	obj = malloc(obj_nb * sizeof(t_obj*));
 	plane_pos = v3_new_vec(0, 0, 0);
-	obj[0] = create_object(plane_pos, 1, 0xffc8c8c8, OBJ_PLANE);
+	obj[0] = new_object(plane_pos, 1, 0xffc8c8c8, OBJ_PLANE);
 	sphere_pos = v3_new_vec(0, 0, 0);
-	obj[1] = create_object(sphere_pos, 1, 0xff999900, OBJ_SPHERE);
+	obj[1] = new_object(sphere_pos, 1, 0xff999900, OBJ_SPHERE);
 	sphere2_pos = v3_new_vec(0.5, 0.25, 0);
-	obj[2] = create_object(sphere2_pos, 0.5, 0xff009999, OBJ_SPHERE);
+	obj[2] = new_object(sphere2_pos, 0.5, 0xff009999, OBJ_SPHERE);
 	light_nb = 1;
 	light = malloc(light_nb * sizeof(t_light*));
 	scene = new_scene(cam, obj, light);

@@ -6,33 +6,29 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 00:30:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 11:19:34 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/28 19:25:39 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	*select_obj(t_vec3 *v, const float f, const UCHAR t)
+static void	*select_obj(t_vec3 *p, const float f, const UCHAR t)
 {
-	void	*p;
+	void	*o;
 
-	if (t == OBJ_PLANE)
-		p = (void*)new_plane(v, f);
-	else if (t == OBJ_SPHERE)
-		p = (void*)new_sphere(v, f);
+	if (t == OBJ_SPHERE)
+		o = (void*)new_sphere(p, f);
 	else
-		p = NULL;
-	return (p);
+		o = NULL;
+	return (o);
 }
 
 static void	*select_hit(const UCHAR t)
 {
 	void	*f;
 
-	if (t == OBJ_PLANE)
-		f = (void*)&intersect_plane;
-	else if (t == OBJ_SPHERE)
-		f = (void*)&intersect_sphere;
+	if (t == OBJ_SPHERE)
+		f = &hit_sphere;
 	else
 		f = NULL;
 	return (f);
@@ -44,10 +40,9 @@ t_obj		*new_object(t_vec3 *pos, const float param, const int color, \
 	t_obj	*o;
 
 	o = malloc(sizeof(t_obj));
-	o->pos = pos;
 	o->color = color;
 	o->type = type;
-	o->p_obj = select_obj(o->pos, param, o->type);
+	o->p_obj = select_obj(pos, param, o->type);
 	o->hit = select_hit(o->type);
 	return (o);
 }

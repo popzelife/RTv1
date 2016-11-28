@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 00:48:39 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/28 21:32:57 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define UCHAR			unsigned char
 # define UINT			unsigned int
+# define BOOL			int
 # define TRUE			1
 # define FALSE			0
 

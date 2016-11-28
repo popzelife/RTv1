@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:57:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 00:50:06 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/28 16:00:17 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,10 @@ float		v3_dot_float(t_vec3 const v1, t_vec3 const v2)
 
 float		v3_magnitude_float(t_vec3 const v)
 {
-	return (1 / sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z)));
+	return (1 / sqrt(v3_dot_float(v, v)));
+}
+
+float		v3_lenght_float(t_vec3 const v)
+{
+	return (sqrt(v3_dot_float(v, v)));
 }

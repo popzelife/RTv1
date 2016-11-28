@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stdafx.h                                           :+:      :+:    :+:   */
+/*   v3_unit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/23 10:42:25 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 19:30:15 by qfremeau         ###   ########.fr       */
+/*   Created: 2016/11/28 15:57:44 by qfremeau          #+#    #+#             */
+/*   Updated: 2016/11/28 16:01:29 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _STDAFX_h
-# define _STDAFX_h
+#include "rtv1.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <string.h>
-# include <math.h>
-# include <float.h>
-# include <pthread.h>
+t_vec3		*v3_unit_vec(t_vec3 const v)
+{
+	t_vec3		*vec;
 
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-
-#endif
+	vec = v3_div_vec(v, v3_lenght_float(v));
+	return (vec);
+}

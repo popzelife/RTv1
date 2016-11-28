@@ -6,13 +6,13 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/11/25 11:17:56 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/11/28 21:34:58 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation
 CC =		gcc
-CFLAGS =	-Wall -Wextra -Werror -O3
+CFLAGS =	-Wall -Wextra -O3
 ADDFLAGS =	
 
 # Precompiled header
@@ -62,12 +62,14 @@ SRC = \
 			v3_create.c\
 			v3_operation.c\
 			v3_transform.c\
+			v3_unit.c\
 			rt_raytrace.c\
 			rt_object.c\
+			rt_ray.c\
 			rt_scene.c\
 			rt_camera.c\
-			rt_plane.c\
 			rt_sphere.c\
+			rt_render.c\
 			kernel_isopencl.c
 
 OBJ =		$(SRC:.c=.o)

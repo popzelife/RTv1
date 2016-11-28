@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 14:46:22 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/25 00:24:05 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/28 15:56:22 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,15 @@ t_vec3		*v3_scale_vec(t_vec3 const v, float const c)
 	vec = v3_new_vec(v.x * c,
 					v.y * c,
 					v.z * c);
+	return (vec);
+}
+
+t_vec3		*v3_div_vec(t_vec3 const v, float const c)
+{
+	t_vec3		*vec;
+
+	vec = v3_new_vec(v.x / c,
+					v.y / c,
+					v.z / c);
 	return (vec);
 }

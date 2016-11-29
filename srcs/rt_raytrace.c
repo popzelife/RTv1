@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 22:00:33 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/29 03:09:43 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 void		render(t_rt *rt, t_scene *scene)
 {
+	printf("%s\n", __FUNCTION__);
 	pthread_t	t1;
 	pthread_t	t2;
 	pthread_t	t3;
@@ -49,7 +50,6 @@ void		render(t_rt *rt, t_scene *scene)
 	arg4.scene = scene;
 	arg4.j = 3;
 	pthread_create(&t4, NULL, (void*)thread_render, (void*)&arg4);
-
 	arg5.rt = rt;
 	arg5.scene = scene;
 	arg5.j = 4;
@@ -60,6 +60,8 @@ void		render(t_rt *rt, t_scene *scene)
 	pthread_join(t3, NULL);
 	pthread_join(t4, NULL);
 	pthread_join(t5, NULL);
+
+	printf("%s\n", __FUNCTION__);
 
 	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
 	SDL_FreeSurface(rt->s_view);

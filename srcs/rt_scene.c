@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 20:46:12 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/29 02:19:22 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ t_scene		*init_scene(void)
 	cam_lookat = v3(0.0, 0.0, -1.0);
 	cam = init_camera(cam_eye, cam_lookat);
 
-	obj_nb = 3;
+	obj_nb = 2;
 	obj = malloc(obj_nb * sizeof(t_obj*));
 	sphere_pos = v3_new_vec(0.0, 0.0, -1.0);
-	obj[1] = new_object(sphere_pos, 0.5, 0xff999900, OBJ_SPHERE);
+	obj[0] = new_object(sphere_pos, 0.5, 0xff999900, OBJ_SPHERE);
 	sphere2_pos = v3_new_vec(0.0, -100.5, -1);
-	obj[2] = new_object(sphere2_pos, 100.0, 0xff009999, OBJ_SPHERE);
-	sphere3_pos = v3_new_vec(-0.4, -0.3, -0.8);
-	obj[0] = new_object(sphere3_pos, 0.2, 0xff009999, OBJ_SPHERE);
+	obj[1] = new_object(sphere2_pos, 100.0, 0xff009999, OBJ_SPHERE);
+	//sphere3_pos = v3_new_vec(-0.4, -0.3, -0.8);
+	//obj[2] = new_object(sphere3_pos, 0.2, 0xff009999, OBJ_SPHERE);
 
 	light_nb = 1;
 	light = malloc(light_nb * sizeof(t_light*));

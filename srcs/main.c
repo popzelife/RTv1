@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 22:02:41 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/28 21:31:06 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			main(int ac, char **av)
 	t_rt			rt;
 	t_scene			*scene;
 
-	kernel_isopencl();
+	//kernel_isopencl();
 	init_rt(&rt);
 	scene = init_scene();
 	draw_view(&rt);

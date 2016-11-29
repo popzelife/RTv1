@@ -13,10 +13,11 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-march=athlon-fx" />
+					<Add option="-O3" />
 					<Add option="-Wall" />
 					<Add option="-std=c99" />
 					<Add option="-m32" />
-					<Add option="-g" />
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
@@ -91,6 +92,9 @@
 		<Unit filename="srcs/rt_raytrace.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="srcs/rt_render.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="srcs/rt_scene.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -104,6 +108,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="srcs/v3_transform.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="srcs/v3_unit.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

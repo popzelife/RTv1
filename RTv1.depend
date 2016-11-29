@@ -2,18 +2,20 @@
 1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_color.c
 	"rtv1.h"
 
-1480038382 c:\users\proprietaire\google drive\42-projects\rtv1\includes\rtv1.h
+1480368476 c:\users\proprietaire\google drive\42-projects\rtv1\includes\rtv1.h
 	"stdafx.h"
 	"global.h"
 	"esdl.h"
 	"kernel.h"
 	"vec3.h"
 
-1479947471 c:\users\proprietaire\google drive\42-projects\rtv1\includes\stdafx.h
+1480368476 c:\users\proprietaire\google drive\42-projects\rtv1\includes\stdafx.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<math.h>
+	<float.h>
+	<pthread.h>
 	"libft.h"
 	"ft_printf.h"
 	"get_next_line.h"
@@ -40,7 +42,7 @@
 	<unistd.h>
 	<fcntl.h>
 
-1480031319 c:\users\proprietaire\google drive\42-projects\rtv1\includes\global.h
+1480368476 c:\users\proprietaire\google drive\42-projects\rtv1\includes\global.h
 
 1480012044 c:\users\proprietaire\google drive\42-projects\rtv1\includes\esdl.h
 	<SDL.h>
@@ -409,7 +411,7 @@
 	<AvailabilityMacros.h>
 	<CL/cl.h>
 
-1480027626 c:\users\proprietaire\google drive\42-projects\rtv1\includes\vec3.h
+1480368476 c:\users\proprietaire\google drive\42-projects\rtv1\includes\vec3.h
 
 1480012066 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\esdl_events.c
 	"rtv1.h"
@@ -435,16 +437,16 @@
 1479950478 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\kernel_main.c
 	"rtv1.h"
 
-1480035135 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\main.c
+1480368666 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\main.c
 	"rtv1.h"
 
-1480038427 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_plane.c
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_plane.c
 	"rtv1.h"
 
-1480002367 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_ray.c
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_ray.c
 	"rtv1.h"
 
-1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_raytrace.c
+1480388983 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_raytrace.c
 	"rtv1.h"
 
 1479947471 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_vector.c
@@ -775,9 +777,30 @@
 1480005059 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\kernel_isopencl.c
 	"rtv1.h"
 
-1480029450 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_camera.c
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_camera.c
 	"rtv1.h"
 
-1480037529 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_object.c
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_object.c
+	"rtv1.h"
+
+1480385962 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_scene.c
+	"rtv1.h"
+
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_sphere.c
+	"rtv1.h"
+
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\v3_create.c
+	"rtv1.h"
+
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\v3_operation.c
+	"rtv1.h"
+
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\v3_transform.c
+	"rtv1.h"
+
+1480368476 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\v3_unit.c
+	"rtv1.h"
+
+1480388928 source:c:\users\proprietaire\google drive\42-projects\rtv1\srcs\rt_render.c
 	"rtv1.h"
 

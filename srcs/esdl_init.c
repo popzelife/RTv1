@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:11:48 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/24 18:43:03 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/29 17:18:37 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		esdl_init(t_esdl *esdl, const int rx, const int ry, char * name)
 	}
 	esdl->eng.win = SDL_CreateWindow(name, SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED, rx, ry, \
-		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+		SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
 	if (!esdl->eng.win)
 	{
 		ret = -1;

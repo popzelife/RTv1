@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 16:39:43 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 16:13:36 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/30 11:54:40 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		v3_free(t_vec3 *v);
 t_vec3		*v3_add_vec(t_vec3 const v1, t_vec3 const v2);
 t_vec3		*v3_sub_vec(t_vec3 const v1, t_vec3 const v2);
 t_vec3		*v3_cross_vec(t_vec3 const v1, t_vec3 const v2);
+t_vec3		*v3_multiple_vec(t_vec3 const v1, t_vec3 const v2);
 t_vec3		*v3_scale_vec(t_vec3 const v, float const c);
 t_vec3		*v3_div_vec(t_vec3 const v, float const c);
 

@@ -6,13 +6,13 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/11/28 21:34:58 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/11/29 19:27:46 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation
 CC =		gcc
-CFLAGS =	-Wall -Wextra -O3
+CFLAGS =	-Wall -Wextra
 ADDFLAGS =	
 
 # Precompiled header
@@ -69,6 +69,8 @@ SRC = \
 			rt_scene.c\
 			rt_camera.c\
 			rt_sphere.c\
+			rt_random.c\
+			rt_material.c\
 			rt_render.c\
 			kernel_isopencl.c
 

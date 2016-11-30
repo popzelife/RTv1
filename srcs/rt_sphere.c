@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:43:54 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 19:49:10 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/29 19:48:24 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ BOOL		hit_sphere(void *obj, const t_ray *ray, const float t_min, \
 	t_sphere	*sphere;
 	t_vec3		*oc;
 	t_vec3		*v;
+	t_vec3		*set;
 	float		a;
 	float		b;
 	float		c;
@@ -45,13 +46,18 @@ BOOL		hit_sphere(void *obj, const t_ray *ray, const float t_min, \
 	v3_free(oc);
 	if (discriminant > 0)
 	{
+
 		temp = (-b - sqrt(discriminant)) / a;
 		if (temp < t_max && temp > t_min)
 		{
 			param->t = temp;
-			param->pos = ray_point_at(ray, param->t);
+			set = ray_point_at(ray, param->t);
+			v3_set(param->pos, set->x, set->y, set->z);
+			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(sphere->center));
-			param->normal = v3_div_vec(*v, sphere->radius);
+			set = v3_div_vec(*v, sphere->radius);
+			v3_set(param->normal, set->x, set->y, set->z);
+			v3_free(set);
 			v3_free(v);
 			return (TRUE);
 		}
@@ -60,9 +66,13 @@ BOOL		hit_sphere(void *obj, const t_ray *ray, const float t_min, \
 		if (temp < t_max && temp > t_min)
 		{
 			param->t = temp;
-			param->pos = ray_point_at(ray, param->t);
+			set = ray_point_at(ray, param->t);
+			v3_set(param->pos, set->x, set->y, set->z);
+			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(sphere->center));
-			param->normal = v3_div_vec(*v, sphere->radius);
+			set = v3_div_vec(*v, sphere->radius);
+			v3_set(param->normal, set->x, set->y, set->z);
+			v3_free(set);
 			v3_free(v);
 			return (TRUE);
 		}

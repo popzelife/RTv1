@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/28 21:32:57 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/29 16:06:25 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@
 # define ERROR			-1
 # define EXIT			1
 
-# define OBJ_PLANE		0
-# define OBJ_SPHERE		1
-# define OBJ_CUBE		2
-# define OBJ_PYRAMID	3
-# define OBJ_CYLINDER	4
-# define OBJ_SKYBOX		5
+# define OBJ_PLANE		0x1
+# define OBJ_SPHERE		0x2
+# define OBJ_CUBE		0x4
+# define OBJ_PYRAMID	0x8
+# define OBJ_CYLINDER	0x10
+# define OBJ_SKYBOX		0x20
+
+# define MAT_LAMBERT	0x1
+# define MAT_METAL		0x2
 
 #endif

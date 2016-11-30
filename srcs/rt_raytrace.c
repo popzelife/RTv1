@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/29 03:09:43 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/11/29 20:19:17 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,30 @@
 #define max(a,b) (a>=b?a:b)
 #define min(a,b) (a<=b?a:b)
 
+/*
+  Need sufficient malloc on each pthread #pthread_attr_getstack()
+*/
+
 void		render(t_rt *rt, t_scene *scene)
 {
-	printf("%s\n", __FUNCTION__);
-	pthread_t	t1;
+	/*pthread_t	t1;
 	pthread_t	t2;
 	pthread_t	t3;
 	pthread_t	t4;
-	pthread_t	t5;
+	pthread_t	t5;*/
 	t_tharg		arg1;
-	t_tharg		arg2;
+	/*t_tharg		arg2;
 	t_tharg		arg3;
 	t_tharg		arg4;
-	t_tharg		arg5;
-
-	rt->s_view = esdl_create_surface(rt->r_view->w, rt->r_view->h);
+	t_tharg		arg5;*/
 
 	arg1.rt = rt;
 	arg1.scene = scene;
 	arg1.j = 0;
-	pthread_create(&t1, NULL, (void*)thread_render, (void*)&arg1);
+	thread_render(&arg1);
+	//pthread_create(&t1, NULL, (void*)thread_render, (void*)&arg1);
 
-	arg2.rt = rt;
+	/*arg2.rt = rt;
 	arg2.scene = scene;
 	arg2.j = 1;
 	pthread_create(&t2, NULL, (void*)thread_render, (void*)&arg2);
@@ -59,9 +61,7 @@ void		render(t_rt *rt, t_scene *scene)
 	pthread_join(t2, NULL);
 	pthread_join(t3, NULL);
 	pthread_join(t4, NULL);
-	pthread_join(t5, NULL);
-
-	printf("%s\n", __FUNCTION__);
+	pthread_join(t5, NULL);*/
 
 	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
 	SDL_FreeSurface(rt->s_view);

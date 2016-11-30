@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v3_unit.c                                          :+:      :+:    :+:   */
+/*   rt_random.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/28 15:57:44 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/29 19:47:41 by qfremeau         ###   ########.fr       */
+/*   Created: 2016/11/29 14:54:32 by qfremeau          #+#    #+#             */
+/*   Updated: 2016/11/29 20:04:47 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec3		*v3_unit_vec(t_vec3 const v)
+float				f_random()
 {
-	t_vec3		*vec;
+	return ((float)rand() / RAND_MAX);
+}
 
-	vec = v3_div_vec(v, v3_lenght_float(v));
-	return (vec);
+t_vec3				*random_in_unit_sphere()
+{
+	t_vec3		p;
+
+	p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, \
+			2.0 * f_random() - 1.0);
+	while (v3_dot_float(p, p) >= 1.0)
+	{
+		p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, \
+			2.0 * f_random() - 1.0);
+	}
+	return (v3_copy_vec(p));
 }

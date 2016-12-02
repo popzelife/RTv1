@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/30 11:59:16 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/02 15:11:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
   All vectors need to get a unit length #v3_normalize()
 */
 
-# define ALIASING		1
+# define ALIASING		10
 # define NO_DEPTH		1
 
 static SDL_Color	vec3_to_sdlcolor(t_vec3 v)
@@ -61,30 +61,59 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
 	t_vec3		*v1;
 	t_vec3		*v2;
 	t_vec3		*ret;
+	t_vec3		*target;
 
 	t_vec3		*emission;
-	t_ray		*scattered = NULL;
-	t_vec3		*attenuation = NULL;
+	t_ray		*scattered;
+	t_vec3		*attenuation;
+	t_vec3		*reflected;
 	float		t;
 
 	param.pos = v3_new_vec(0.0, 0.0, 0.0);
 	param.normal = v3_new_vec(0.0, 0.0, 0.0);
 	if (hit_list(scene, ray, 0.001, FLT_MAX, &param))
 	{
-		if (depth < 10 && param.material->scatter(param.material, ray, \
-			&param, attenuation, scattered))
+		if (depth < 50)//&& param.material->scatter(ray, param, \
+			attenuation, scattered))
 		{
+			if (param.material->type_mat == MAT_METAL)
+			{
+				v1 = v3_unit_vec(*(ray->dir));
+				reflected = reflect(*v1, *(param.normal));
+				scattered = new_ray(v3_copy_vec(*param.pos), reflected);
+				attenuation = param.material->albedo;
+				v3_free(v1);
+
+				if (v3_dot_float(*(scattered->dir), *(param.normal)) <= 0)
+					return (v3_new_vec(0.0, 0.0, 0.0));
+			}
+			else if (param.material->type_mat == MAT_LAMBERT)
+			{
+				v1 = v3_add_vec(*(param.pos), *(param.normal));
+				v2 = random_in_unit_sphere();
+				target = v3_add_vec(*v1, *v2);
+				v3_free(v1);
+				v3_free(v2);
+				scattered = new_ray(v3_copy_vec(*param.pos), \
+				v3_sub_vec(*target, *(param.pos)));
+				v3_free(target);
+				attenuation = param.material->albedo;
+			}
+			else
+				return (v3_new_vec(0.0, 0.0, 0.0));
+
 			emission = color(scattered, scene, depth + 1);
 			ret = v3_multiple_vec(*attenuation, *emission);
 			v3_free(emission);
-			v3_free(attenuation);
 			v3_free(param.pos);
 			v3_free(param.normal);
 			free_ray(scattered);
 			return (ret);
 		}
 		else
+		{
 			return (v3_new_vec(0.0, 0.0, 0.0));
+		}
 	}
 	else
 	{

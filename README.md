@@ -24,3 +24,6 @@ Raytracer in C using SDL2 and OpenCL. Generate a 3D view out of a given scene :
 
 #### Infinite Mirror Surface
 ![preview2](rtv1-preview2.jpg)
+
+#### What's Behind Camera
+![preview3](rtv1-preview3.jpg)

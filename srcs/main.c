@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/29 19:47:02 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/03 15:57:13 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		init_rt(t_rt *rt)
 
 void	draw_menu(t_rt *rt)
 {
-	SDL_GL_GetDrawableSize(rt->win_temp, &rt->r_menu->x, &rt->r_menu->h);
+	SDL_GetWindowSize(rt->win_temp, &rt->r_menu->x, &rt->r_menu->h);
 	rt->r_menu->x -= MENU_RX;
 	rt->r_menu->y = 0;
 	rt->r_menu->w = MENU_RX;
@@ -46,7 +46,7 @@ void	draw_view(t_rt *rt)
 	rt->win_temp = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, \
 		SDL_WINDOWPOS_UNDEFINED, WIN_RX, WIN_RY, \
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_ALLOW_HIGHDPI);
-	SDL_GL_GetDrawableSize(rt->win_temp, &rt->r_view->w, &rt->r_view->h);
+	SDL_GetWindowSize(rt->win_temp, &rt->r_view->w, &rt->r_view->h);
 	rt->r_view->x = 0;
 	rt->r_view->y = 0;
 	rt->r_view->w -= MENU_RX;
@@ -70,29 +70,30 @@ int			main(int ac, char **av)
 {
 	(void)			av;
 	(void)			ac;
-	t_rt			rt;
+	t_rt			*rt;
 	t_scene			*scene;
 
+	rt = malloc(sizeof(t_rt));
 	kernel_isopencl();
-	init_rt(&rt);
-	scene = init_scene();
-	draw_view(&rt);
-	draw_menu(&rt);
-	render(&rt, scene);
+	init_rt(rt);
+	draw_view(rt);
+	draw_menu(rt);
+	scene = init_scene(rt);
+	render(rt, scene);
 
-	SDL_SetWindowSize(rt.esdl->eng.win, WIN_RX, WIN_RY);
-	SDL_SetWindowMinimumSize(rt.esdl->eng.win, WIN_RX - 400, WIN_RY - 300);
-	SDL_SetWindowPosition(rt.esdl->eng.win, SDL_WINDOWPOS_CENTERED, \
+	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
+	SDL_SetWindowMinimumSize(rt->esdl->eng.win, WIN_RX - 400, WIN_RY - 300);
+	SDL_SetWindowPosition(rt->esdl->eng.win, SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED);
-	SDL_SetWindowBordered(rt.esdl->eng.win, TRUE);
+	SDL_SetWindowBordered(rt->esdl->eng.win, TRUE);
 	
-	while (rt.esdl->run)
+	while (rt->esdl->run)
 	{
-		esdl_update_events(&rt.esdl->eng.input, &rt.esdl->run);
-		display_rt(&rt);
-		esdl_fps_limit(rt.esdl);
-		esdl_fps_counter(rt.esdl);
+		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+		display_rt(rt);
+		esdl_fps_limit(rt->esdl);
+		esdl_fps_counter(rt->esdl);
 	}
-	quit_rt(&rt);
+	quit_rt(rt);
 	return (0);
 }

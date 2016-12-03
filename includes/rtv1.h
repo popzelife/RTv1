@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/02 14:13:05 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/03 17:44:28 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ typedef struct	s_cam
 	t_vec3			*horizontal;
 	t_vec3			*vertical;
 	t_vec3			*orig;
+	t_vec3			*u;
+	t_vec3			*v;
+	t_vec3			*w;
 }				t_cam;
 
 typedef struct	s_scene
@@ -105,7 +108,7 @@ typedef struct	s_tharg
 }				t_tharg;
 
 t_scene		*new_scene(t_cam *cam, t_obj **obj, t_light **light);
-t_scene		*init_scene(void);
+t_scene		*init_scene(t_rt *rt);
 
 void		draw_view(t_rt *rt);
 void		draw_menu(t_rt *rt);
@@ -119,9 +122,10 @@ t_ray		*new_ray(t_vec3 *orig, t_vec3 *dir);
 t_vec3		*ray_point_at(const t_ray *ray, const float point);
 void		free_ray(t_ray *ray);
 
-t_cam		*new_camera(t_vec3 *lw_lft, t_vec3 *hor, t_vec3 *vert, \
-	t_vec3 *orig);
-t_cam		*init_camera(t_vec3 *eye, t_vec3 look_at);
+t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
+	t_vec3 *u, t_vec3 *v, t_vec3 *w);
+t_cam		*init_camera(const t_vec3 look_from, const t_vec3 look_at, \
+	const t_vec3 v_up, float vfov, float aspect);
 t_ray		*camera_ray(t_cam *cam, float u, float v);
 
 t_obj		*new_object(t_vec3 *pos, const float param, \

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 14:46:22 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/30 11:58:41 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/03 17:18:52 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_vec3		*v3_cross_vec(t_vec3 const v1, t_vec3 const v2)
 	return (vec);
 }
 
-t_vec3		*v3_multiple_vec(t_vec3 const v1, t_vec3 const v2)
+t_vec3		*v3_multiply_vec(t_vec3 const v1, t_vec3 const v2)
 {
 	t_vec3		*vec;
 

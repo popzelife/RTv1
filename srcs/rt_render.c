@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/03 17:18:40 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/05 18:50:38 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 /*
   All vectors need to get a unit length #v3_normalize()
 */
-
-# define ALIASING		1
-# define NO_ALIASING	1
-# define MAX_DEPTH		2
 
 static SDL_Color	vec3_to_sdlcolor(t_vec3 v)
 {
@@ -75,8 +71,13 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
 	if (hit_list(scene, ray, 0.001, FLT_MAX, &param))
 	{
 		if (depth < MAX_DEPTH)// && param.material->scatter(ray, param, \
-			attenuation, scattered))
+			//attenuation, scattered))
 		{
+
+			/*
+			  Pick material as for now scatter func_ptr* doesn't work
+			*/
+
 			if (param.material->type_mat == MAT_METAL)
 			{
 				v1 = v3_unit_vec(*(ray->dir));
@@ -112,6 +113,10 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
 				return (v3_new_vec(0.0, 0.0, 0.0));
 			}
 
+			/*
+			  Does the job for rendering material
+			*/
+
 			emission = color(scattered, scene, depth + 1);
 			ret = v3_multiply_vec(*attenuation, *emission);
 			v3_free(emission);
@@ -129,6 +134,10 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
 	}
 	else
 	{
+		/*
+		  Draw skybox
+		*/
+
 		unit_dir = v3_unit_vec(*ray->dir);
 		t = 0.5 * (unit_dir->y + 1.0);
 		v1 = v3_scale_vec(v3(1.0, 1.0, 1.0), 1.0 - t);
@@ -149,25 +158,19 @@ void				thread_render(t_tharg *arg)
 {
 	register int	x;
 	register int	y;
-	register int	s;
 	register float	u;
 	register float	v;
-	t_vec3			*temp;
-	t_vec3			*ret;
-	//t_vec3		*p;
+	t_vec3	        *temp;
 	t_ray			*ray;
 	SDL_Color		pixel;
 
-	ret = v3_new_vec(0, 0, 0);
-	y = arg->rt->r_view->h - arg->j;
-	while (y >= 0)
+	y = arg->j;
+	while (y < arg->rt->r_view->h)
 	{
-		x = arg->rt->r_view->w;
-		while (x >= 0)
+		x = 0;
+		while (x < arg->rt->r_view->w)
 		{
-			v3_set(ret, 0, 0, 0);
-			s = 0;
-			while (s < ALIASING)
+			if (*(arg->s) <= ALIASING)
 			{
 				u = (float)((float)x + (ALIASING == NO_ALIASING ? 0 : \
 					f_random())) / (float)arg->rt->r_view->w;
@@ -175,23 +178,25 @@ void				thread_render(t_tharg *arg)
 					f_random())) / (float)arg->rt->r_view->h;
 
 				ray = camera_ray(arg->scene->cam, u, v);
-				//p = ray_point_at(ray, 2.0);
 
 				temp = color(ray, arg->scene, 0);
-				v3_set(ret, temp->x + ret->x, temp->y + ret->y, temp->z + ret->z);
-
-				v3_free(temp);
+				v3_set(arg->tab[x][y], temp->x + arg->tab[x][y]->x, \
+					temp->y + arg->tab[x][y]->y, \
+					temp->z + arg->tab[x][y]->z);
 				free_ray(ray);
-				++s;
+				v3_set(temp, sqrt(arg->tab[x][y]->x / *(arg->s)), \
+					sqrt(arg->tab[x][y]->y / *(arg->s)), \
+					sqrt(arg->tab[x][y]->z / *(arg->s)));
 			}
-			v3_set(ret, sqrt(ret->x / ALIASING), sqrt(ret->y / ALIASING), \
-				sqrt(ret->z / ALIASING));
-			pixel = vec3_to_sdlcolor(*ret);
-			esdl_put_pixel(arg->rt->s_view, arg->rt->r_view->w - x, \
-				arg->rt->r_view->h - y, esdl_color_to_int(pixel));
-			--x;
+			else
+				return ;
+			pixel = vec3_to_sdlcolor(*(temp));
+			esdl_put_pixel(arg->rt->s_view, arg->rt->r_view->w - (x + 1), \
+				arg->rt->r_view->h - (y + 1), esdl_color_to_int(pixel));
+			v3_free(temp);
+			++x;
 		}
-		y -= 1;
+		y += 5;
 	}
-	v3_free(ret);
+	++(*(arg->s));
 }

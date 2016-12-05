@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/24 19:27:24 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/05 17:09:19 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		esdl_fps_counter(t_esdl *esdl);
 
 int			esdl_color_to_int(SDL_Color color);
 SDL_Color	esdl_int_to_color(int color);
-void		esdl_put_pixel(SDL_Surface *const surf, \
+void		esdl_put_pixel(SDL_Surface *surf, \
 	const int x, const int y, const int color);
 void		esdl_draw_filled_square(SDL_Surface *surf, \
 	const SDL_Rect rect, const int color);

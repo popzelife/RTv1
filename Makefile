@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/11/29 19:27:46 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/05 18:47:33 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC = \
 			esdl_pixel.c\
 			esdl_image.c\
 			esdl_exit.c\
+			ft_list.c\
 			v3_create.c\
 			v3_operation.c\
 			v3_transform.c\

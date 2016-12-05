@@ -35,7 +35,7 @@ t_scene		*init_scene(t_rt *rt)
 	int			obj_nb;
 	int			light_nb;
 
-	cam_lookfrom = v3_new_vec(-2.0, 2.0, 1.0);
+	cam_lookfrom = v3_new_vec(0.0, 0.0, 0.3);
 	cam_lookat = v3_new_vec(0.0, 0.0, -1.0);
 	cam_vup = v3_new_vec(0.0, 1.0, 0.0);
 	cam = init_camera(*cam_lookfrom, *cam_lookat, *cam_vup, 90.0, \

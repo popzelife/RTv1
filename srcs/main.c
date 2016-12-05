@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/03 15:57:13 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/05 19:22:42 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +71,82 @@ int			main(int ac, char **av)
 	(void)			av;
 	(void)			ac;
 	t_rt			*rt;
-	t_scene			*scene;
+	int				i;
+	int				j;
 
 	rt = malloc(sizeof(t_rt));
 	kernel_isopencl();
 	init_rt(rt);
 	draw_view(rt);
 	draw_menu(rt);
-	scene = init_scene(rt);
-	render(rt, scene);
+	rt->scene = init_scene(rt);
+
+	/*
+	  Fill tab[x][y] with (0.0, 0.0, 0.0) vec3 ptr*
+	*/
+
+	rt->tab = (t_vec3***)malloc(rt->r_view->w * sizeof(t_vec3**));
+	i = 0;
+	while (i < rt->r_view->w)
+	{
+		rt->tab[i] = (t_vec3**)malloc(rt->r_view->h * sizeof(t_vec3*));
+		j = 0;
+		while (j < rt->r_view->h)
+		{
+			rt->tab[i][j] = v3_new_vec(0.0, 0.0, 0.0);
+			++j;
+		}
+		++i;
+	}
+
+	/*
+	  Prepare the rendering thread conditions
+	*/
+
+	rt->iter = NULL;
+	i = 0;
+	while (i < 5)
+	{
+		rt->iter = lst_new_iter(&(rt->iter), i);
+		++i;
+	}
+
+	posix_memalign(&(rt->stack), PAGE_SIZE, STACK_SIZE);
+	rt->t = NULL;
+	i = 0;
+	while (i < 5)
+	{
+		rt->t = lst_new_thread(&(rt->t));
+		++i;
+	}
+
+	/*
+	  Start first render while loading panel is still on screen
+	*/
+
+	render(rt);
+
+	/*
+	  Render to screen the view window
+	*/
 
 	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
 	SDL_SetWindowMinimumSize(rt->esdl->eng.win, WIN_RX - 400, WIN_RY - 300);
 	SDL_SetWindowPosition(rt->esdl->eng.win, SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED);
 	SDL_SetWindowBordered(rt->esdl->eng.win, TRUE);
-	
+
+	/*
+	  Start the rendering loop
+	*/
+
 	while (rt->esdl->run)
 	{
 		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+
 		display_rt(rt);
+		render(rt);	
+
 		esdl_fps_limit(rt->esdl);
 		esdl_fps_counter(rt->esdl);
 	}

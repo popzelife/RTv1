@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/03 17:44:28 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/05 19:23:00 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_hit
 {
 	float			t;
 	t_vec3			*pos;
-	t_vec3			*normal;	
+	t_vec3			*normal;
 	struct s_mat	*material;
 }				t_hit;
 
@@ -87,17 +87,33 @@ typedef struct	s_scene
 	int				light_nb;
 }				t_scene;
 
+typedef struct	s_iter
+{
+	int				s;
+	struct s_iter	*next;
+}				t_iter;
+
 typedef struct	s_rt
 {
 	t_esdl			*esdl;
+
 	SDL_Window		*win_temp;
 	SDL_Texture		*t_load;
+
 	SDL_Rect		*r_view;
 	SDL_Surface		*s_view;
 	SDL_Texture		*t_view;
+
 	SDL_Rect		*r_menu;
 	SDL_Surface		*s_menu;
 	SDL_Texture		*t_menu;
+
+	t_vec3			***tab;
+	t_iter			*iter;
+	void			*stack;
+	struct s_thread	*t;
+
+	t_scene			*scene;
 }				t_rt;
 
 typedef struct	s_tharg
@@ -105,7 +121,21 @@ typedef struct	s_tharg
 	t_rt		*rt;
 	t_scene		*scene;
 	int			j;
+
+	t_vec3		***tab;
+	int			*s;
 }				t_tharg;
+
+typedef struct	s_thread
+{
+	pthread_t			thread;
+	pthread_attr_t		attr;
+	t_tharg				arg;
+	struct s_thread		*next;
+}				t_thread;
+
+t_iter		*lst_new_iter(t_iter **iter, int i);
+t_thread	*lst_new_thread(t_thread **thread);
 
 t_scene		*new_scene(t_cam *cam, t_obj **obj, t_light **light);
 t_scene		*init_scene(t_rt *rt);
@@ -113,7 +143,7 @@ t_scene		*init_scene(t_rt *rt);
 void		draw_view(t_rt *rt);
 void		draw_menu(t_rt *rt);
 
-void		render(t_rt *rt, t_scene *scene);
+void		render(t_rt *rt);
 void		thread_render(t_tharg *arg);
 
 t_vec3		*color(t_ray *ray, t_scene *scene, int depth);

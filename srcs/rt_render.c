@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 17:29:28 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 19:03:46 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ BOOL				hit_list(t_scene *scene, const t_ray *ray, \
 	return (hit_anything);
 }
 
-t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
+t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 {
 	t_hit		param;
 	t_vec3		*unit_dir;
@@ -70,7 +70,7 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
 	param.normal = v3_new_vec(0.0, 0.0, 0.0);
 	if (hit_list(scene, ray, 0.001, FLT_MAX, &param))
 	{
-		if (depth < MAX_DEPTH)// && param.material->scatter(ray, param, \
+		if (depth < max_depth)// && param.material->scatter(ray, param, \
 			//attenuation, scattered))
 		{
 
@@ -117,7 +117,7 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth)
 			  Does the job for rendering material
 			*/
 
-			emission = color(scattered, scene, depth + 1);
+			emission = color(scattered, scene, depth + 1, max_depth);
 			ret = v3_multiply_vec(*attenuation, *emission);
 			v3_free(emission);
 			v3_free(param.pos);
@@ -172,14 +172,15 @@ void				thread_render(t_tharg *arg)
 		{
 			if (*(arg->s) <= ALIASING)
 			{
-				u = (float)((float)x + (ALIASING == NO_ALIASING ? 0 : \
+				u = (float)((float)x + (*(arg->s) == NO_ALIASING ? 0 : \
 					f_random())) / (float)arg->rt->r_view->w;
-				v = (float)((float)y + (ALIASING == NO_ALIASING ? 0 : \
+				v = (float)((float)y + (*(arg->s) == NO_ALIASING ? 0 : \
 					f_random())) / (float)arg->rt->r_view->h;
 
 				ray = camera_ray(arg->scene->cam, u, v);
 
-				temp = color(ray, arg->scene, 0);
+				temp = color(ray, arg->scene, 0, \
+					(*(arg->s) == NO_ALIASING ? 1 : MAX_DEPTH));
 				v3_set(arg->tab[x][y], temp->x + arg->tab[x][y]->x, \
 					temp->y + arg->tab[x][y]->y, \
 					temp->z + arg->tab[x][y]->z);

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 17:29:22 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 19:24:08 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,10 @@ void	draw_menu(t_rt *rt)
 	rt->r_menu->y = 0;
 	rt->r_menu->w = MENU_RX;
 	rt->s_menu = esdl_create_surface(rt->r_menu->w, rt->r_menu->h);
-	SDL_DestroyWindow(rt->win_temp);
 }
 
 void	draw_view(t_rt *rt)
 {
-	rt->win_temp = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, \
-		SDL_WINDOWPOS_UNDEFINED, WIN_RX, WIN_RY, \
-		SDL_WINDOW_HIDDEN | SDL_WINDOW_ALLOW_HIGHDPI);
 	SDL_GetWindowSize(rt->win_temp, &rt->r_view->w, &rt->r_view->h);
 	rt->r_view->x = 0;
 	rt->r_view->y = 0;
@@ -63,6 +59,11 @@ void		display_rt(t_rt *rt)
 
 void		quit_rt(t_rt *rt)
 {
+	SDL_FreeSurface(rt->s_view);
+	SDL_FreeSurface(rt->s_menu);
+	SDL_DestroyTexture(rt->t_view);
+	SDL_DestroyTexture(rt->t_menu);
+
 	esdl_exit(rt->esdl);
 }
 
@@ -74,10 +75,18 @@ void		render_loop(t_rt *rt)
 		{
 			render(rt);
 
-			pthread_mutex_lock(&rt->mutex);
-			pthread_cond_signal(&rt->display_cond);
-			pthread_mutex_unlock(&rt->mutex);
+			if (rt->iter->s == 2 || rt->iter->s == 3 || rt->iter->s == 11 \
+				|| rt->iter->s == 25 || rt->iter->s == 50)
+			{
+				pthread_mutex_lock(&rt->mutex);
+				pthread_cond_signal(&rt->display_cond);
+				pthread_mutex_unlock(&rt->mutex);
+			}
 		}
+
+		if (rt->render == -2)
+			reset_render(rt);
+
 		pthread_mutex_lock(&rt->mutex);
 		pthread_cond_signal(&rt->display_cond);
 		pthread_mutex_unlock(&rt->mutex);
@@ -101,6 +110,49 @@ void		display_loop(t_rt *rt)
 	pthread_exit(NULL);
 }
 
+void		reset_render(t_rt *rt)
+{
+	int			i;
+	int			j;
+
+	pthread_cancel(rt->render_th);
+	pthread_cancel(rt->display_th);
+
+	rt->tab = (t_vec3***)malloc(rt->r_view->w * sizeof(t_vec3**));
+	i = 0;
+	while (i < rt->r_view->w)
+	{
+		rt->tab[i] = (t_vec3**)malloc(rt->r_view->h * sizeof(t_vec3*));
+		j = 0;
+		while (j < rt->r_view->h)
+		{
+			rt->tab[i][j] = v3_new_vec(0.0, 0.0, 0.0);
+			++j;
+		}
+		++i;
+	}
+
+	rt->iter = NULL;
+	i = 0;
+	while (i < rt->m_thread)
+	{
+		rt->iter = lst_new_iter(&(rt->iter), 1);
+		++i;
+	}
+
+	posix_memalign(&(rt->stack), PAGE_SIZE, STACK_SIZE);
+	rt->t = NULL;
+	i = 0;
+	while (i < rt->m_thread)
+	{
+		rt->t = lst_new_thread(&(rt->t));
+		++i;
+	}
+
+	pthread_create(&rt->render_th, NULL, (void*)render_loop, (void*)rt);
+	pthread_create(&rt->display_th, NULL, (void*)display_loop, (void*)rt);
+}
+
 int			main(int ac, char **av)
 {
 	(void)			av;
@@ -108,12 +160,19 @@ int			main(int ac, char **av)
 	t_rt			*rt;
 	int				i;
 	int				j;
+	int				ret;	
 
 	rt = malloc(sizeof(t_rt));
 	kernel_isopencl();
 	init_rt(rt);
+
+	rt->win_temp = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, \
+		SDL_WINDOWPOS_UNDEFINED, WIN_RX, WIN_RY, \
+		SDL_WINDOW_HIDDEN | SDL_WINDOW_ALLOW_HIGHDPI);
 	draw_view(rt);
 	draw_menu(rt);
+	SDL_DestroyWindow(rt->win_temp);
+
 	rt->scene = init_scene(rt);
 
 	/*
@@ -138,7 +197,7 @@ int			main(int ac, char **av)
 	  Prepare the rendering thread conditions
 	*/
 
-	rt->m_thread = 4;
+	rt->m_thread = 8;
 	rt->iter = NULL;
 	i = 0;
 	while (i < rt->m_thread)
@@ -183,7 +242,8 @@ int			main(int ac, char **av)
 
 	while (rt->esdl->run)
 	{
-		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+		ret = esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+		rt_events(rt, ret);
 
 		esdl_fps_limit(rt->esdl);
 		esdl_fps_counter(rt->esdl);

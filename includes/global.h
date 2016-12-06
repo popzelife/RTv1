@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 17:12:09 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:47:56 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 //# define PAGE_SIZE		4096
 # define STACK_SIZE		(1 * PAGE_SIZE)
 
-# define ALIASING		10
+# define ALIASING		50
 # define NO_ALIASING	1
 # define MAX_DEPTH		20
 
 # define API_NAME		"RTv1"
-# define MAX_FPS		30
+# define MAX_FPS		60
 # define WIN_RX			1400
 # define WIN_RY			900
 # define MENU_RX		300
@@ -37,7 +37,9 @@
 
 # define HELP			-2
 # define ERROR			-1
-# define EXIT			1
+
+# define EV_EXIT		-1
+# define EV_RESIZE		-2
 
 # define OBJ_PLANE		0x1
 # define OBJ_SPHERE		0x2

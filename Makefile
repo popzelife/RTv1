@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/06 15:54:20 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/06 18:04:35 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC = \
 			rt_random.c\
 			rt_material.c\
 			rt_render.c\
+			rt_events.c\
 			kernel_isopencl.c
 
 OBJ =		$(SRC:.c=.o)

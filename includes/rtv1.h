@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 17:29:53 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 19:02:26 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,11 @@ void		draw_menu(t_rt *rt);
 void		render(t_rt *rt);
 void		thread_render(t_tharg *arg);
 
-t_vec3		*color(t_ray *ray, t_scene *scene, int depth);
+void		reset_render(t_rt *rt);
+
+void		rt_events(t_rt *rt, int ret);
+
+t_vec3		*color(t_ray *ray, t_scene *scene, int depth, int max_depth);
 
 t_ray		*new_ray(t_vec3 *orig, t_vec3 *dir);
 t_vec3		*ray_point_at(const t_ray *ray, const float point);

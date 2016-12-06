@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 14:47:31 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/24 19:27:46 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 18:30:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int					esdl_check_input(t_input *in, const int input)
 int					esdl_update_events(t_input *in, int *run)
 {
 	SDL_Event		event;
-	int				ret;
+	int				ret;	
 
 	ret = 0;
 	SDL_GetMouseState(&in->m_x, &in->m_y);
@@ -66,7 +66,15 @@ int					esdl_update_events(t_input *in, int *run)
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_QUIT || esdl_check_input(in, SDL_SCANCODE_ESCAPE))
+		{
 			*run = 0;
+			return (EV_EXIT);
+		}
+		else if (event.type == SDL_WINDOWEVENT)
+		{
+			if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+				return (EV_RESIZE);
+		}
 		if ((ret += esdl_get_input(&event, in)) > 0)
 			break ;
 		if ((ret += esdl_get_mouse(&event, in)) > 0)

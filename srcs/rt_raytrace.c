@@ -19,29 +19,51 @@
 
 void		set_thread(t_thread *t, t_rt *rt, int i, int *s)
 {
+	int		ret;
+
 	t->arg.rt = rt;
 	t->arg.scene = rt->scene;
 	t->arg.j = i;
 	t->arg.tab = rt->tab;
 	t->arg.s = s;
-	pthread_attr_init(&t->attr);
-	pthread_attr_setstack(&t->attr, &(rt->stack), STACK_SIZE);
-	if (pthread_create(&t->thread, &t->attr, (void*)thread_render, \
+	if (ret = pthread_attr_init(&t->attr))
+	{
+		ft_dprintf(2, "RTv1 error %d - pthread_attr_init failed\n", ret);
+		exit(-1);
+	}
+	if (ret = pthread_attr_setstack(&t->attr, &(rt->stack), STACK_SIZE))
+	{
+		//ft_dprintf(2, "RTv1 error %d - pthread_attr_setstack failed\n", ret);
+		//exit(-1);
+	}
+	if (ret = pthread_create(&t->thread, &t->attr, (void*)thread_render, \
 		(void*)&t->arg))
 	{
-		ft_dprintf(2, "RTv1 error - pthread_create failed");
+		ft_dprintf(2, "RTv1 error %d - pthread_create failed\n", ret);
 		exit(-1);
 	}
 }
 
 void		join_thread(t_thread *t)
 {
-	pthread_join(t->thread, NULL);
+	int		ret;
+
+	if (ret = pthread_join(t->thread, NULL))
+	{
+		ft_dprintf(2, "RTv1 error %d - pthread_join failed\n", ret);
+		exit(-1);
+	}
 }
 
 void		destroy_thread_attr(t_thread *t)
 {
-	pthread_attr_destroy(&(t->attr));
+	int		ret;
+
+	if (ret = pthread_attr_destroy(&t->attr))
+	{
+		ft_dprintf(2, "RTv1 error %d - pthread_attr_destroy failed\n", ret);
+		exit(-1);
+	}
 }
 
 void		render(t_rt *rt)
@@ -57,7 +79,7 @@ void		render(t_rt *rt)
 	i = 0;
 	th_curs = rt->t;
 	it_curs = rt->iter;
-	while (i < 5)
+	while (i < rt->m_thread)
 	{
 		set_thread(th_curs, rt, i, &(it_curs->s));
 		th_curs = th_curs->next;
@@ -71,7 +93,7 @@ void		render(t_rt *rt)
 
 	i = 0;
 	th_curs = rt->t;
-	while (i < 5)
+	while (i < rt->m_thread)
 	{
 		join_thread(th_curs);
 		th_curs = th_curs->next;
@@ -82,14 +104,14 @@ void		render(t_rt *rt)
 	  Destroy all threads
 	*/
 
-	i = 0;
+	/*i = 0;
 	th_curs = rt->t;
-	while (i < 5)
+	while (i < rt->m_thread)
 	{
 		destroy_thread_attr(th_curs);
 		th_curs = th_curs->next;
 		++i;
-	}
+	}*/
 
 	ft_printf("Render pass # %3d/%3d\r", rt->iter->s - 1, ALIASING);
 

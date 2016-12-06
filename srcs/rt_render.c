@@ -196,7 +196,7 @@ void				thread_render(t_tharg *arg)
 			v3_free(temp);
 			++x;
 		}
-		y += 5;
+		y += arg->rt->m_thread;
 	}
 	++(*(arg->s));
 }

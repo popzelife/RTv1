@@ -82,17 +82,20 @@ ifeq ($(OS),Windows_NT)
 	OPNCL =		-L/lib/ -lOpenCL
 	LSDL2 =		-L/lib/ -lSDL2
 	LMATH =		
+	LPTHR =		
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		OPNCL =		-framework OpenCL
 		LSDL2 =		-F /Library/Frameworks -framework SDL2
 		LMATH =		
+		LPTHR =		
 	endif
 	ifeq ($(UNAME_S),Linux)
 		OPNCL =		-L/usr/lib/x86_64-linux-gnu -lOpenCL
 		LSDL2 =		`sdl2-config --libs`
 		LMATH =		-lm
+		LPTHR =		-pthread
 	endif
 endif
 LIBFT =		-Llibft/ -lft
@@ -149,7 +152,7 @@ $(OBJDIR):
 
 $(NAME): $(OBJP)
 	@echo -e "--$(LOG_CLEAR)$(LOG_VIOLET)$(NAME)$(LOG_NOCOLOR)....................... $(LOG_YELLOW)assembling$(LOG_NOCOLOR)$(LOG_UP)"
-	@$(CC) $(CFLAGS) $(ADDFLAGS) -o $@ $^ $(OPNCL) $(LSDL2) $(LIBFT) $(LMATH) $(INCP)
+	@$(CC) $(CFLAGS) $(ADDFLAGS) -o $@ $^ $(OPNCL) $(LSDL2) $(LIBFT) $(LMATH) $(LPTHR) $(INCP)
 	@echo -e "--$(LOG_CLEAR)$(LOG_VIOLET)$(NAME)$(LOG_NOCOLOR) compiled.............. $(LOG_GREEN)✓$(LOG_NOCOLOR)"
 
 # MrProper's legacy

@@ -96,6 +96,7 @@ typedef struct	s_iter
 typedef struct	s_rt
 {
 	t_esdl			*esdl;
+	t_scene			*scene;
 
 	SDL_Window		*win_temp;
 	SDL_Texture		*t_load;
@@ -111,9 +112,14 @@ typedef struct	s_rt
 	t_vec3			***tab;
 	t_iter			*iter;
 	void			*stack;
+	int				m_thread;
 	struct s_thread	*t;
 
-	t_scene			*scene;
+	pthread_t		render_th;
+	pthread_t		display_th;
+	pthread_t		event_th;
+	pthread_cond_t	condition;
+	pthread_mutex_t	mutex;
 }				t_rt;
 
 typedef struct	s_tharg

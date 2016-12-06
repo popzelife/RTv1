@@ -19,11 +19,12 @@
 # define TRUE			1
 # define FALSE			0
 
-#define STACK_SIZE		(2 * PAGE_SIZE)
+# define PAGE_SIZE		4096
+# define STACK_SIZE		(2 * PAGE_SIZE)
 
-# define ALIASING		10
+# define ALIASING		5
 # define NO_ALIASING	1
-# define MAX_DEPTH		5
+# define MAX_DEPTH		20
 
 # define API_NAME		"RTv1"
 # define MAX_FPS		30

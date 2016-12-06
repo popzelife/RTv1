@@ -29,7 +29,7 @@ void		conv_s(t_spec *spec, t_print *print)
 		s = (char *)get_uni_param(E_LONG, print->ap);
 		if (!s)
 			s = "(null)";
-		neg = (spec->prec > -1 ? ft_min(spec->prec, ft_strlen(s)) :
+		neg = (spec->prec > -1 ? (unsigned)ft_min(spec->prec, ft_strlen(s)) :
 				ft_strlen(s));
 		(!(spec->flags & E_DASH)) ? apply_mfw(print, spec, spec->mfw - neg) : 0;
 		while (s[i] && (spec->prec--))

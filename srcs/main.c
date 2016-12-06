@@ -55,6 +55,7 @@ void	draw_view(t_rt *rt)
 
 void		display_rt(t_rt *rt)
 {
+	//join_thread(rt->loop_th);
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_menu, NULL, rt->r_menu);
@@ -64,6 +65,39 @@ void		display_rt(t_rt *rt)
 void		quit_rt(t_rt *rt)
 {
 	esdl_exit(rt->esdl);
+}
+
+void		render_loop(t_rt *rt)
+{
+	while (rt->esdl->run)
+	{
+		render(rt);
+		//pthread_mutex_lock(&rt->mutex);
+		//pthread_cond_signal(&rt->condition);
+		//pthread_mutex_unlock(&rt->mutex);
+	}
+}
+
+void		display_loop(t_rt *rt)
+{
+	while (rt->esdl->run)
+	{
+		//pthread_mutex_lock(&rt->mutex);
+		//pthread_cond_wait(&rt->condition, &rt->mutex);
+		display_rt(rt);
+		//pthread_mutex_unlock(&rt->mutex);
+	}
+}
+
+void		event_loop(t_rt *rt)
+{
+	while (rt->esdl->run)
+	{
+		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+
+		esdl_fps_limit(rt->esdl);
+		esdl_fps_counter(rt->esdl);
+	}
 }
 
 int			main(int ac, char **av)
@@ -103,18 +137,19 @@ int			main(int ac, char **av)
 	  Prepare the rendering thread conditions
 	*/
 
+	rt->m_thread = 12;
 	rt->iter = NULL;
 	i = 0;
-	while (i < 5)
+	while (i < rt->m_thread)
 	{
-		rt->iter = lst_new_iter(&(rt->iter), i);
+		rt->iter = lst_new_iter(&(rt->iter), 1);
 		++i;
 	}
 
 	posix_memalign(&(rt->stack), PAGE_SIZE, STACK_SIZE);
 	rt->t = NULL;
 	i = 0;
-	while (i < 5)
+	while (i < rt->m_thread)
 	{
 		rt->t = lst_new_thread(&(rt->t));
 		++i;
@@ -126,30 +161,29 @@ int			main(int ac, char **av)
 
 	render(rt);
 
-	/*
-	  Render to screen the view window
-	*/
-
 	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
 	SDL_SetWindowMinimumSize(rt->esdl->eng.win, WIN_RX - 400, WIN_RY - 300);
 	SDL_SetWindowPosition(rt->esdl->eng.win, SDL_WINDOWPOS_CENTERED, \
 		SDL_WINDOWPOS_CENTERED);
 	SDL_SetWindowBordered(rt->esdl->eng.win, TRUE);
 
+	display_rt(rt);
+
 	/*
-	  Start the rendering loop
+	  Start the rendering and display loop
 	*/
 
-	while (rt->esdl->run)
-	{
-		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+	pthread_cond_init(&rt->condition, NULL);
+	pthread_mutex_init(&rt->mutex, NULL);
 
-		display_rt(rt);
-		render(rt);	
+	pthread_create(&rt->render_th, NULL, (void*)render_loop, (void*)rt);
+	pthread_create(&rt->display_th, NULL, (void*)display_loop, (void*)rt);
+	pthread_create(&rt->event_th, NULL, (void*)event_loop, (void*)rt);
 
-		esdl_fps_limit(rt->esdl);
-		esdl_fps_counter(rt->esdl);
-	}
+	pthread_join(rt->render_th, NULL);
+	pthread_join(rt->display_th, NULL);
+	pthread_join(rt->event_th, NULL);
+
 	quit_rt(rt);
 	return (0);
 }

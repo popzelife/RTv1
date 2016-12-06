@@ -13,15 +13,15 @@
 #ifndef _STDAFX_h
 # define _STDAFX_h
 
+# include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
 # include <float.h>
 # include <pthread.h>
-
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
 
 #endif

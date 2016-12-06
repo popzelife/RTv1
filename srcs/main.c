@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 19:22:42 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:29:22 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	draw_view(t_rt *rt)
 
 void		display_rt(t_rt *rt)
 {
-	//join_thread(rt->loop_th);
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_menu, NULL, rt->r_menu);
@@ -71,33 +70,35 @@ void		render_loop(t_rt *rt)
 {
 	while (rt->esdl->run)
 	{
-		render(rt);
-		//pthread_mutex_lock(&rt->mutex);
-		//pthread_cond_signal(&rt->condition);
-		//pthread_mutex_unlock(&rt->mutex);
+		while (rt->render)
+		{
+			render(rt);
+
+			pthread_mutex_lock(&rt->mutex);
+			pthread_cond_signal(&rt->display_cond);
+			pthread_mutex_unlock(&rt->mutex);
+		}
+		pthread_mutex_lock(&rt->mutex);
+		pthread_cond_signal(&rt->display_cond);
+		pthread_mutex_unlock(&rt->mutex);
 	}
+
+	pthread_exit(NULL);
 }
 
 void		display_loop(t_rt *rt)
 {
 	while (rt->esdl->run)
 	{
-		//pthread_mutex_lock(&rt->mutex);
-		//pthread_cond_wait(&rt->condition, &rt->mutex);
+		pthread_mutex_lock(&rt->mutex);
+		pthread_cond_wait(&rt->display_cond, &rt->mutex);
+
 		display_rt(rt);
-		//pthread_mutex_unlock(&rt->mutex);
-	}
-}
 
-void		event_loop(t_rt *rt)
-{
-	while (rt->esdl->run)
-	{
-		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
-
-		esdl_fps_limit(rt->esdl);
-		esdl_fps_counter(rt->esdl);
+		pthread_mutex_unlock(&rt->mutex);
 	}
+
+	pthread_exit(NULL);
 }
 
 int			main(int ac, char **av)
@@ -137,7 +138,7 @@ int			main(int ac, char **av)
 	  Prepare the rendering thread conditions
 	*/
 
-	rt->m_thread = 12;
+	rt->m_thread = 4;
 	rt->iter = NULL;
 	i = 0;
 	while (i < rt->m_thread)
@@ -159,6 +160,7 @@ int			main(int ac, char **av)
 	  Start first render while loading panel is still on screen
 	*/
 
+	rt->render = 1;
 	render(rt);
 
 	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
@@ -173,16 +175,22 @@ int			main(int ac, char **av)
 	  Start the rendering and display loop
 	*/
 
-	pthread_cond_init(&rt->condition, NULL);
 	pthread_mutex_init(&rt->mutex, NULL);
-
+	pthread_cond_init(&rt->display_cond, NULL);
+	
 	pthread_create(&rt->render_th, NULL, (void*)render_loop, (void*)rt);
 	pthread_create(&rt->display_th, NULL, (void*)display_loop, (void*)rt);
-	pthread_create(&rt->event_th, NULL, (void*)event_loop, (void*)rt);
+
+	while (rt->esdl->run)
+	{
+		esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
+
+		esdl_fps_limit(rt->esdl);
+		esdl_fps_counter(rt->esdl);
+	}
 
 	pthread_join(rt->render_th, NULL);
 	pthread_join(rt->display_th, NULL);
-	pthread_join(rt->event_th, NULL);
 
 	quit_rt(rt);
 	return (0);

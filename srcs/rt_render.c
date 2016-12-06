@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 18:50:38 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:29:28 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,10 @@ void				thread_render(t_tharg *arg)
 					sqrt(arg->tab[x][y]->z / *(arg->s)));
 			}
 			else
+			{
+				arg->rt->render = 0;
 				return ;
+			}
 			pixel = vec3_to_sdlcolor(*(temp));
 			esdl_put_pixel(arg->rt->s_view, arg->rt->r_view->w - (x + 1), \
 				arg->rt->r_view->h - (y + 1), esdl_color_to_int(pixel));

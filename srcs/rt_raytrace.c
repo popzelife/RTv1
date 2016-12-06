@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 19:23:59 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 15:35:07 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ void		set_thread(t_thread *t, t_rt *rt, int i, int *s)
 	t->arg.j = i;
 	t->arg.tab = rt->tab;
 	t->arg.s = s;
-	if (ret = pthread_attr_init(&t->attr))
+	if ((ret = pthread_attr_init(&t->attr)) != 0)
 	{
 		ft_dprintf(2, "RTv1 error %d - pthread_attr_init failed\n", ret);
 		exit(-1);
 	}
-	if (ret = pthread_attr_setstack(&t->attr, &(rt->stack), STACK_SIZE))
+	if ((ret = pthread_attr_setstack(&t->attr, &(rt->stack), STACK_SIZE)) != 0)
 	{
 		//ft_dprintf(2, "RTv1 error %d - pthread_attr_setstack failed\n", ret);
 		//exit(-1);
 	}
-	if (ret = pthread_create(&t->thread, &t->attr, (void*)thread_render, \
-		(void*)&t->arg))
+	if ((ret = pthread_create(&t->thread, &t->attr, (void*)thread_render, \
+		(void*)&t->arg)) != 0)
 	{
 		ft_dprintf(2, "RTv1 error %d - pthread_create failed\n", ret);
 		exit(-1);
@@ -48,7 +48,7 @@ void		join_thread(t_thread *t)
 {
 	int		ret;
 
-	if (ret = pthread_join(t->thread, NULL))
+	if ((ret = pthread_join(t->thread, NULL)) != 0)
 	{
 		ft_dprintf(2, "RTv1 error %d - pthread_join failed\n", ret);
 		exit(-1);
@@ -59,7 +59,7 @@ void		destroy_thread_attr(t_thread *t)
 {
 	int		ret;
 
-	if (ret = pthread_attr_destroy(&t->attr))
+	if ((ret = pthread_attr_destroy(&t->attr)) != 0)
 	{
 		ft_dprintf(2, "RTv1 error %d - pthread_attr_destroy failed\n", ret);
 		exit(-1);

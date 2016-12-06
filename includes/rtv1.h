@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 19:23:00 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/06 17:29:53 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ typedef struct	s_rt
 	SDL_Surface		*s_menu;
 	SDL_Texture		*t_menu;
 
+	int				render;
+
 	t_vec3			***tab;
 	t_iter			*iter;
 	void			*stack;
@@ -117,9 +119,8 @@ typedef struct	s_rt
 
 	pthread_t		render_th;
 	pthread_t		display_th;
-	pthread_t		event_th;
-	pthread_cond_t	condition;
 	pthread_mutex_t	mutex;
+	pthread_cond_t	display_cond;
 }				t_rt;
 
 typedef struct	s_tharg

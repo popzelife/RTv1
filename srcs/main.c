@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 19:24:08 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 17:24:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		render_loop(t_rt *rt)
 			render(rt);
 
 			if (rt->iter->s == 2 || rt->iter->s == 3 || rt->iter->s == 11 \
-				|| rt->iter->s == 25 || rt->iter->s == 50)
+				|| rt->iter->s == 26 || rt->iter->s == 51 || rt->iter->s == 101)
 			{
 				pthread_mutex_lock(&rt->mutex);
 				pthread_cond_signal(&rt->display_cond);

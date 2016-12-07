@@ -6,14 +6,14 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 19:03:46 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 18:21:28 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
-  All vectors need to get a unit length #v3_normalize()
+  All vectors should get a unit length #v3_normalize()
 */
 
 static SDL_Color	vec3_to_sdlcolor(t_vec3 v)
@@ -80,29 +80,39 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 
 			if (param.material->type_mat == MAT_METAL)
 			{
+				//scatter_metal(ray, param, attenuation, scattered);
 				v1 = v3_unit_vec(*(ray->dir));
 				reflected = reflect(*v1, *(param.normal));
-				scattered = new_ray(v3_copy_vec(*param.pos), reflected);
-				attenuation = param.material->albedo;
 				v3_free(v1);
+			
+				v1 = random_in_unit_sphere();
+				v2 = v3_scale_vec(*v1, param.material->t);
+				v3_free(v1);
+				v1 =  v3_add_vec(*reflected, *v2);
+				v3_free(v2);
+				v3_free(reflected);
+			
+				scattered = new_ray(v3_copy_vec(*param.pos), v1);
+				attenuation = param.material->albedo;
 
-				if (v3_dot_float(*(scattered->dir), *(param.normal)) <= 0)
+				/*if (v3_dot_float(*(scattered->dir), *(param.normal)) <= 0)
 				{
 					v3_free(param.pos);
 					v3_free(param.normal);
 					free_ray(scattered);
 					return (v3_new_vec(0.0, 0.0, 0.0));
-				}
+				}*/
 			}
 			else if (param.material->type_mat == MAT_LAMBERT)
 			{
+				//scatter_lambertian(ray, param, attenuation, scattered);
 				v1 = v3_add_vec(*(param.pos), *(param.normal));
 				v2 = random_in_unit_sphere();
 				target = v3_add_vec(*v1, *v2);
 				v3_free(v1);
 				v3_free(v2);
 				scattered = new_ray(v3_copy_vec(*param.pos), \
-				v3_sub_vec(*target, *(param.pos)));
+					v3_sub_vec(*target, *(param.pos)));
 				v3_free(target);
 				attenuation = param.material->albedo;
 			}
@@ -180,7 +190,7 @@ void				thread_render(t_tharg *arg)
 				ray = camera_ray(arg->scene->cam, u, v);
 
 				temp = color(ray, arg->scene, 0, \
-					(*(arg->s) == NO_ALIASING ? 1 : MAX_DEPTH));
+					(*(arg->s) == -NO_ALIASING ? 1 : MAX_DEPTH));
 				v3_set(arg->tab[x][y], temp->x + arg->tab[x][y]->x, \
 					temp->y + arg->tab[x][y]->y, \
 					temp->z + arg->tab[x][y]->z);

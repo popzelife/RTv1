@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 00:30:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/30 11:33:06 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 19:13:49 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ static void	*select_scatter(const UCHAR t)
 		s = (void*)&scatter_lambertian;
 	else if (t == MAT_METAL)
 		s = (void*)&scatter_metal;
+	else if (t == MAT_DIELECT)
+		s = (void*)&scatter_dielectric;
 	else
 		s = NULL;
 	return (s);
 }
 
 t_obj		*new_object(t_vec3 *pos, const float param, \
-	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat)
+	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat, const float t)
 {
 	t_obj	*o;
 
@@ -56,7 +58,7 @@ t_obj		*new_object(t_vec3 *pos, const float param, \
 	o->type_obj = type_obj;
 	o->p_obj = select_obj(pos, param, o->type_obj);
 	o->hit = select_hit(o->type_obj);
-	o->p_mat = new_material(albedo);
+	o->p_mat = new_material(albedo, t);
 	o->p_mat->type_mat = type_mat;
 	o->p_mat->scatter = select_scatter(o->type_obj);
 	return (o);

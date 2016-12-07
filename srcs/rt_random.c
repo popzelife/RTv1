@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 14:54:32 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/29 20:04:47 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 16:52:13 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ t_vec3				*random_in_unit_sphere()
 	{
 		p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, \
 			2.0 * f_random() - 1.0);
+	}
+	return (v3_copy_vec(p));
+}
+
+t_vec3				*random_in_unit_disk()
+{
+	t_vec3		p;
+
+	p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, 0);
+	while (v3_dot_float(p, p) >= 1.0)
+	{
+		p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, 0);
 	}
 	return (v3_copy_vec(p));
 }

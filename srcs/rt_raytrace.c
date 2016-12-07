@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 15:35:07 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 15:46:14 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ void		render(t_rt *rt)
 	  Destroy all threads
 	*/
 
-	/*i = 0;
+	i = 0;
 	th_curs = rt->t;
 	while (i < rt->m_thread)
 	{
 		destroy_thread_attr(th_curs);
 		th_curs = th_curs->next;
 		++i;
-	}*/
+	}
 
 	ft_printf("Render pass # %3d/%3d\r", rt->iter->s - 1, ALIASING);
 

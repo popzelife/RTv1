@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 19:02:26 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 19:12:06 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_mat
 {
 	UCHAR			type_mat;
 	t_vec3			*albedo;
+	float			t;
 	BOOL			(*scatter)(const t_ray*, const t_hit, t_vec3*, t_ray*);
 }				t_mat;
 
@@ -76,6 +77,7 @@ typedef struct	s_cam
 	t_vec3			*u;
 	t_vec3			*v;
 	t_vec3			*w;
+	float			lens_radius;
 }				t_cam;
 
 typedef struct	s_scene
@@ -164,28 +166,31 @@ t_vec3		*ray_point_at(const t_ray *ray, const float point);
 void		free_ray(t_ray *ray);
 
 t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
-	t_vec3 *u, t_vec3 *v, t_vec3 *w);
+	t_vec3 *u, t_vec3 *v, t_vec3 *w, float lens_radius);
 t_cam		*init_camera(const t_vec3 look_from, const t_vec3 look_at, \
-	const t_vec3 v_up, float vfov, float aspect);
-t_ray		*camera_ray(t_cam *cam, float u, float v);
+	const t_vec3 v_up, float vfov, float aspect, float aperture, float focus);
+t_ray		*camera_ray(t_cam *cam, float s, float t);
 
 t_obj		*new_object(t_vec3 *pos, const float param, \
-	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat);
+	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat, const float t);
 
 t_sphere	*new_sphere(t_vec3 *center, const float radius);
 BOOL		hit_sphere(void *obj, const t_ray *r, const float t_min, \
 	const float t_max, t_hit *param);
 
-t_mat		*new_material(t_vec3 *albedo);
+t_mat		*new_material(t_vec3 *albedo, float t);
 
 t_vec3		*reflect(const t_vec3 v, const t_vec3 n);
 BOOL		scatter_lambertian(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
 BOOL		scatter_metal(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
+BOOL		scatter_dielectric(const t_ray *ray, const t_hit param, \
+	t_vec3 *attenuation, t_ray *scattered);
 
 
 t_vec3		*random_in_unit_sphere();
+t_vec3		*random_in_unit_disk();
 float		f_random();
 
 #endif

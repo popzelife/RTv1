@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 18:47:56 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/07 19:21:25 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 # define TRUE			1
 # define FALSE			0
 
-//# define PAGE_SIZE		4096
+# ifdef __linux__
+# define PAGE_SIZE		4096
+# endif
 # define STACK_SIZE		(1 * PAGE_SIZE)
 
-# define ALIASING		50
+# define ALIASING		100
 # define NO_ALIASING	1
 # define MAX_DEPTH		20
 
@@ -48,7 +50,10 @@
 # define OBJ_CYLINDER	0x10
 # define OBJ_SKYBOX		0x20
 
+# define NULL_PARAM		0.0
+
 # define MAT_LAMBERT	0x1
 # define MAT_METAL		0x2
+# define MAT_DIELECT	0x2
 
 #endif

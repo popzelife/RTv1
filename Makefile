@@ -6,14 +6,14 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/06 18:04:35 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/07 15:31:08 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation
 CC =		gcc
 CFLAGS =	-Wall -Wextra
-ADDFLAGS =	
+ADDFLAGS =	-g
 
 # Precompiled header
 PRECOMP =	stdafx.h

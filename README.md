@@ -1,6 +1,7 @@
 ![42-Project](https://dl.dropboxusercontent.com/u/59532932/48-cole204220logo.png)
 # RTv1
 Raytracer in C using SDL2 and OpenCL. Generate a 3D view out of a given scene file. Scene file is just some text from a specific format to specify the rendering.
+Rendering is progressiv, you'll need to wait for 25 render passes to get a realistic picture... and up to a 100 to get near to a smooth picture. First render can take 1 or 2 seconds, while a full render may take between 20 and 45 minutes.
 
 - SDL used to manage windows, hook events and draw a pixel on surface;
 - Simple objects: sphere, plane, cone (only sphere for now); 
@@ -40,11 +41,9 @@ The raytracer use a personal libc provided under libft folder. Makefile just do 
 - Open CL to use GPU.
 
 # Preview
-#### Lambert and Metal Spheres
-![preview](rtv1-preview.jpg)
-
-#### Infinite Mirror Surface
-![preview2](rtv1-preview2.jpg)
-
 #### What's Behind Camera
 ![preview3](rtv1-preview3.jpg)
+
+#### Light in the Dark
+![preview2](rtv1-preview2.jpg)
+

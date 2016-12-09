@@ -197,7 +197,7 @@ int			main(int ac, char **av)
 	  Prepare the rendering thread conditions
 	*/
 
-	rt->m_thread = 8;
+	rt->m_thread = 16;
 	rt->iter = NULL;
 	i = 0;
 	while (i < rt->m_thread)
@@ -228,6 +228,7 @@ int			main(int ac, char **av)
 		SDL_WINDOWPOS_CENTERED);
 	SDL_SetWindowBordered(rt->esdl->eng.win, TRUE);
 
+	SDL_Delay(100);
 	display_rt(rt);
 
 	/*

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
+#    By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/07 15:31:08 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/08 19:58:13 by popzelife        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRC = \
 			rt_sphere.c\
 			rt_random.c\
 			rt_material.c\
+			rt_light.c\
 			rt_render.c\
 			rt_events.c\
 			kernel_isopencl.c

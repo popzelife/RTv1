@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_object.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 00:30:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 19:13:49 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/09 05:44:49 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static void	*select_scatter(const UCHAR t)
 		s = (void*)&scatter_metal;
 	else if (t == MAT_DIELECT)
 		s = (void*)&scatter_dielectric;
+	else if (t == MAT_DIFF_LIGHT)
+		s = (void*)&scatter_diffuse_light;
 	else
 		s = NULL;
 	return (s);
@@ -61,5 +63,9 @@ t_obj		*new_object(t_vec3 *pos, const float param, \
 	o->p_mat = new_material(albedo, t);
 	o->p_mat->type_mat = type_mat;
 	o->p_mat->scatter = select_scatter(o->type_obj);
+	if (type_mat == MAT_DIFF_LIGHT)
+		o->p_mat->emitted = albedo;
+	else
+		o->p_mat->emitted = v3_new_vec(0.0, 0.0, 0.0);
 	return (o);
 }

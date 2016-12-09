@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 19:21:25 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/09 05:21:19 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 
 # define MAT_LAMBERT	0x1
 # define MAT_METAL		0x2
-# define MAT_DIELECT	0x2
+# define MAT_DIELECT	0x4
+# define MAT_DIFF_LIGHT	0x8
 
 #endif

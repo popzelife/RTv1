@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 19:12:06 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/09 05:29:59 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_mat
 {
 	UCHAR			type_mat;
 	t_vec3			*albedo;
+	t_vec3			*emitted;
 	float			t;
 	BOOL			(*scatter)(const t_ray*, const t_hit, t_vec3*, t_ray*);
 }				t_mat;
@@ -186,6 +187,9 @@ BOOL		scatter_lambertian(const t_ray *ray, const t_hit param, \
 BOOL		scatter_metal(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
 BOOL		scatter_dielectric(const t_ray *ray, const t_hit param, \
+	t_vec3 *attenuation, t_ray *scattered);
+
+BOOL		scatter_diffuse_light(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
 
 

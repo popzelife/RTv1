@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_scene.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 19:15:59 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/09 05:37:59 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_scene		*init_scene(t_rt *rt)
 	v3_free(cam_lookat);
 	v3_free(cam_lookfrom);
 
-	obj_nb = 6;
+	obj_nb = 7;
 	obj = malloc(obj_nb * sizeof(t_obj*));
 	obj[0] = new_object(v3_new_vec(0.0, 0.0, -1.0), 0.6, \
 		OBJ_SPHERE, v3_new_vec(1.0, 0.1, 0.1), MAT_LAMBERT, NULL_PARAM);
@@ -65,6 +65,8 @@ t_scene		*init_scene(t_rt *rt)
 		OBJ_SPHERE, v3_new_vec(0.1, 0.1, 0.8), MAT_LAMBERT, NULL_PARAM);
 	obj[5] = new_object(v3_new_vec(0.0, 0.0, -3.0), 2.0, \
 		OBJ_SPHERE, v3_new_vec(0.1, 0.1, 0.1), MAT_LAMBERT, NULL_PARAM);
+	obj[6] = new_object(v3_new_vec(0.0, 2.0, 0.0), 1.0, \
+		OBJ_SPHERE, v3_new_vec(1.0, 1.0, 1.0), MAT_DIFF_LIGHT, NULL_PARAM);
 
 	light_nb = 1;
 	light = malloc(light_nb * sizeof(t_light*));

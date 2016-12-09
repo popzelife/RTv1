@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 18:21:28 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/09 05:40:57 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 				scattered = new_ray(v3_copy_vec(*param.pos), v1);
 				attenuation = param.material->albedo;
 
-				/*if (v3_dot_float(*(scattered->dir), *(param.normal)) <= 0)
+				if (v3_dot_float(*(scattered->dir), *(param.normal)) <= 0)
 				{
 					v3_free(param.pos);
 					v3_free(param.normal);
 					free_ray(scattered);
-					return (v3_new_vec(0.0, 0.0, 0.0));
-				}*/
+					return (v3_copy_vec(*(param.material->emitted)));
+				}
 			}
 			else if (param.material->type_mat == MAT_LAMBERT)
 			{
@@ -116,11 +116,17 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 				v3_free(target);
 				attenuation = param.material->albedo;
 			}
+			else if (param.material->type_mat == MAT_DIFF_LIGHT)
+			{
+				v3_free(param.pos);
+				v3_free(param.normal);
+				return (v3_copy_vec(*(param.material->emitted)));
+			}
 			else
 			{
 				v3_free(param.pos);
 				v3_free(param.normal);
-				return (v3_new_vec(0.0, 0.0, 0.0));
+				return (v3_copy_vec(*(param.material->emitted)));
 			}
 
 			/*
@@ -128,7 +134,9 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 			*/
 
 			emission = color(scattered, scene, depth + 1, max_depth);
-			ret = v3_multiply_vec(*attenuation, *emission);
+			v1 = v3_multiply_vec(*attenuation, *emission);
+			ret = v3_add_vec(*(param.material->emitted), *v1);
+			v3_free(v1);
 			v3_free(emission);
 			v3_free(param.pos);
 			v3_free(param.normal);
@@ -139,7 +147,7 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 		{
 			v3_free(param.pos);
 			v3_free(param.normal);
-			return (v3_new_vec(0.0, 0.0, 0.0));
+			return (v3_copy_vec(*(param.material->emitted)));
 		}
 	}
 	else
@@ -148,7 +156,7 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 		  Draw skybox
 		*/
 
-		unit_dir = v3_unit_vec(*ray->dir);
+		/*unit_dir = v3_unit_vec(*ray->dir);
 		t = 0.5 * (unit_dir->y + 1.0);
 		v1 = v3_scale_vec(v3(1.0, 1.0, 1.0), 1.0 - t);
 		v2 = v3_scale_vec(v3(0.5, 0.7, 1.0), t);
@@ -159,7 +167,15 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 		v3_free(v2);
 		v3_free(param.pos);
 		v3_free(param.normal);
-		return (ret);
+		return (ret);*/
+
+		/*
+		  Black background
+		*/
+
+		v3_free(param.pos);
+		v3_free(param.normal);
+		return (v3_new_vec(0.0, 0.0, 0.0));
 	}
 	return (NULL);
 }

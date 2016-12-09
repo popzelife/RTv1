@@ -42,8 +42,11 @@ The raytracer use a personal libc provided under libft folder. Makefile just do 
 
 # Preview
 #### What's Behind Camera
-![preview3](rtv1-preview3.jpg)
+![preview1](rtv1-preview3.jpg)
 
 #### Light in the Dark
 ![preview2](rtv1-preview2.jpg)
+
+#### Comic Mode
+![preview3](rtv1-preview.jpg)
 

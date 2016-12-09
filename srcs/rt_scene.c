@@ -6,20 +6,19 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/09 05:37:59 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/09 06:52:36 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_scene		*new_scene(t_cam *cam, t_obj **obj, t_light **light)
+t_scene		*new_scene(t_cam *cam, t_obj **obj)
 {
 	t_scene		*s;
 
 	s = malloc(sizeof(t_scene));
 	s->cam = cam;
 	s->obj = obj;
-	s->light = light;
 	return (s);
 }
 
@@ -28,7 +27,6 @@ t_scene		*init_scene(t_rt *rt)
 	t_scene		*scene;
 	t_obj		**obj;
 	t_cam		*cam;
-	t_light		**light;
 	t_vec3		*temp;
 	t_vec3		*cam_lookfrom;
 	t_vec3		*cam_lookat;
@@ -36,7 +34,6 @@ t_scene		*init_scene(t_rt *rt)
 	float		focus;
 	float		aperture;
 	int			obj_nb;
-	int			light_nb;
 
 	cam_lookfrom = v3_new_vec(3.0, 3.0, -2.0);
 	cam_lookat = v3_new_vec(0.0, 0.0, -1.0);
@@ -68,10 +65,7 @@ t_scene		*init_scene(t_rt *rt)
 	obj[6] = new_object(v3_new_vec(0.0, 2.0, 0.0), 1.0, \
 		OBJ_SPHERE, v3_new_vec(1.0, 1.0, 1.0), MAT_DIFF_LIGHT, NULL_PARAM);
 
-	light_nb = 1;
-	light = malloc(light_nb * sizeof(t_light*));
-	scene = new_scene(cam, obj, light);
+	scene = new_scene(cam, obj);
 	scene->obj_nb = obj_nb;
-	scene->light_nb = light_nb;
 	return (scene);
 }

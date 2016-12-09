@@ -6,7 +6,7 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/09 05:29:59 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/09 06:54:17 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,6 @@ typedef struct s_obj
 	t_mat			*p_mat;
 }				t_obj;
 
-typedef struct s_light
-{
-	t_vec3			*vec;
-}				t_light;
-
 typedef struct	s_cam
 {
 	t_vec3			*low_left_corner;
@@ -85,9 +80,7 @@ typedef struct	s_scene
 {
 	t_cam			*cam;
 	t_obj			**obj;
-	t_light			**light;
 	int				obj_nb;
-	int				light_nb;
 }				t_scene;
 
 typedef struct	s_iter
@@ -147,7 +140,7 @@ typedef struct	s_thread
 t_iter		*lst_new_iter(t_iter **iter, int i);
 t_thread	*lst_new_thread(t_thread **thread);
 
-t_scene		*new_scene(t_cam *cam, t_obj **obj, t_light **light);
+t_scene		*new_scene(t_cam *cam, t_obj **obj);
 t_scene		*init_scene(t_rt *rt);
 
 void		draw_view(t_rt *rt);

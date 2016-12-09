@@ -6,7 +6,7 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/09 05:40:57 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/09 20:28:22 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,10 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 		  Draw skybox
 		*/
 
-		/*unit_dir = v3_unit_vec(*ray->dir);
+		unit_dir = v3_unit_vec(*ray->dir);
 		t = 0.5 * (unit_dir->y + 1.0);
-		v1 = v3_scale_vec(v3(1.0, 1.0, 1.0), 1.0 - t);
-		v2 = v3_scale_vec(v3(0.5, 0.7, 1.0), t);
+		v1 = v3_scale_vec(v3(0.0, 0.0, 0.0), 1.0 - t);
+		v2 = v3_scale_vec(v3(0.0, 0.05, 0.1), t);
 		ret = v3_add_vec(*v1, *v2);
 
 		v3_free(unit_dir);
@@ -167,15 +167,15 @@ t_vec3				*color(t_ray *ray, t_scene *scene, int depth, int max_depth)
 		v3_free(v2);
 		v3_free(param.pos);
 		v3_free(param.normal);
-		return (ret);*/
+		return (ret);
 
 		/*
 		  Black background
 		*/
 
-		v3_free(param.pos);
+		/*v3_free(param.pos);
 		v3_free(param.normal);
-		return (v3_new_vec(0.0, 0.0, 0.0));
+		return (v3_new_vec(0.0, 0.0, 0.0));*/
 	}
 	return (NULL);
 }

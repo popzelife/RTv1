@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_random.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 14:54:32 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 16:52:13 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/09 21:18:57 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_vec3				*random_in_unit_sphere()
 			2.0 * f_random() - 1.0);
 	}
 	return (v3_copy_vec(p));
+	//return (v3_new_vec(0.0, 0.0, 0.0));
 }
 
 t_vec3				*random_in_unit_disk()
@@ -41,4 +42,5 @@ t_vec3				*random_in_unit_disk()
 		p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, 0);
 	}
 	return (v3_copy_vec(p));
+	//return (v3_new_vec(0.0, 0.0, 0.0));
 }

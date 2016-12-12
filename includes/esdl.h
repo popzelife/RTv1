@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   esdl.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 17:09:19 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/12 21:40:57 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # ifdef __APPLE__
 # include <SDL.h>
+# include <SDL_ttf.h>
 # else
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_ttf.h>
 # endif
 
 typedef struct			s_input
@@ -54,6 +56,7 @@ typedef	struct			s_esdl
 	t_engine			eng;
 	t_timer				fps;
 	int					run;
+	int					ttf;
 }						t_esdl;
 
 int			esdl_init(t_esdl *esdl, const int rx, const int ry, char * name);
@@ -76,5 +79,11 @@ void		esdl_clear_surface(SDL_Surface *surf, const int color);
 SDL_Texture	*esdl_load_texture(t_esdl *esdl, const char *path, int *w, int *h);
 
 void		esdl_exit(t_esdl *esdl);
+
+/*
+  SDL_TTF
+*/
+
+int			esdl_init_ttf(t_esdl *esdl);
 
 #endif

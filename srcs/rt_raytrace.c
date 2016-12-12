@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_raytrace.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/07 15:46:14 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/12 23:08:57 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,4 @@ void		render(t_rt *rt)
 	*/
 
 	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
-	esdl_clear_surface(rt->s_menu, 0xff373737);
-	rt->t_menu = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_menu);
 }

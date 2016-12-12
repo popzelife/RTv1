@@ -6,7 +6,7 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/09 06:54:17 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/12 23:02:35 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,12 @@ typedef struct	s_iter
 	struct s_iter	*next;
 }				t_iter;
 
+typedef struct	s_panel
+{
+	SDL_Texture		*t_objview;
+	SDL_Rect 		*r_objview;
+}				t_panel;
+
 typedef struct	s_rt
 {
 	t_esdl			*esdl;
@@ -104,6 +110,8 @@ typedef struct	s_rt
 	SDL_Rect		*r_menu;
 	SDL_Surface		*s_menu;
 	SDL_Texture		*t_menu;
+
+	t_panel			*panel;
 
 	int				render;
 

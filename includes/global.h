@@ -6,7 +6,7 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/09 19:57:24 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/12 23:14:15 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define ALIASING		100
 # define NO_ALIASING	1
-# define MAX_DEPTH		20
+# define MAX_DEPTH		2
 
 # define API_NAME		"RTv1"
 # define MAX_FPS		60
@@ -36,6 +36,7 @@
 # define LOAD_NAME		"Loader.bmp"
 # define LOAD_RX		900
 # define LOAD_RY		563
+# define QUICKFONT		"font/Quicksand_Book.otf"
 
 # define HELP			-2
 # define ERROR			-1

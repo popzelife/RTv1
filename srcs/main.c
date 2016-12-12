@@ -6,7 +6,7 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/09 19:57:19 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/12 23:04:09 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void		init_rt(t_rt *rt)
 	SDL_Rect		*r_load;
 
 	rt->esdl = malloc(sizeof(t_esdl));
-	if (esdl_init(rt->esdl, LOAD_RX, LOAD_RY, API_NAME) == -1)
+	if (esdl_init(rt->esdl, LOAD_RX, LOAD_RY, API_NAME) == -1 ||
+		esdl_init_ttf(rt->esdl) == -1)
 		esdl_exit(rt->esdl);
 	SDL_SetWindowBordered(rt->esdl->eng.win, FALSE);
 	r_load = malloc(sizeof(SDL_Rect));
@@ -29,15 +30,6 @@ void		init_rt(t_rt *rt)
 	free(r_load);
 	rt->r_view = malloc(sizeof (SDL_Rect));
 	rt->r_menu = malloc(sizeof (SDL_Rect));
-}
-
-void	draw_menu(t_rt *rt)
-{
-	SDL_GetWindowSize(rt->win_temp, &rt->r_menu->x, &rt->r_menu->h);
-	rt->r_menu->x -= MENU_RX;
-	rt->r_menu->y = 0;
-	rt->r_menu->w = MENU_RX;
-	rt->s_menu = esdl_create_surface(rt->r_menu->w, rt->r_menu->h);
 }
 
 void	draw_view(t_rt *rt)
@@ -54,6 +46,9 @@ void		display_rt(t_rt *rt)
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_menu, NULL, rt->r_menu);
+
+	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->t_objview, NULL, rt->panel->r_objview);
+
 	SDL_RenderPresent(rt->esdl->eng.render);
 }
 

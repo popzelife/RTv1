@@ -6,7 +6,7 @@
 #    By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/08 19:58:13 by popzelife        ###   ########.fr        #
+#    Updated: 2016/12/12 21:52:41 by popzelife        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ PREDIR =	includes
 SRC = \
 			main.c\
 			esdl_init.c\
+			esdl_ttf.c\
 			esdl_fps.c\
 			esdl_surface.c\
 			esdl_events.c\
@@ -67,6 +68,7 @@ SRC = \
 			rt_raytrace.c\
 			rt_object.c\
 			rt_ray.c\
+			rt_menu.c\
 			rt_scene.c\
 			rt_camera.c\
 			rt_sphere.c\
@@ -82,20 +84,20 @@ OBJ =		$(SRC:.c=.o)
 # Prefixes
 ifeq ($(OS),Windows_NT)
 	OPNCL =		-L/lib/ -lOpenCL
-	LSDL2 =		-L/lib/ -lSDL2
+	LSDL2 =		-L/lib/ -lSDL2 -lSDL2_ttf
 	LMATH =		
 	LPTHR =		
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		OPNCL =		-framework OpenCL
-		LSDL2 =		-F /Library/Frameworks -framework SDL2
+		LSDL2 =		-F /Library/Frameworks -framework SDL2 -lSDL2_ttf
 		LMATH =		-lm
 		LPTHR =		-lpthread
 	endif
 	ifeq ($(UNAME_S),Linux)
 		OPNCL =		-L/usr/lib/x86_64-linux-gnu -lOpenCL
-		LSDL2 =		`sdl2-config --libs`
+		LSDL2 =		`sdl2-config --libs` -lSDL2_ttf
 		LMATH =		-lm
 		LPTHR =		-pthread
 	endif

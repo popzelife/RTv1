@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:16:22 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 18:14:11 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ void		display_rt(t_rt *rt)
 {
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
-	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->lst_surf->text, NULL, \
+
+	/*SDL_RenderCopy(rt->esdl->eng.render, rt->panel->lst_surf->text, NULL, \
 		rt->panel->lst_surf->rect);
 
 	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->objview.text, NULL, \
-		rt->panel->objview.rect);
+		rt->panel->objview.rect);*/
 
 	SDL_RenderPresent(rt->esdl->eng.render);
 }
@@ -159,7 +160,7 @@ int			main(int ac, char **av)
 	int				ret;	
 
 	rt = malloc(sizeof(t_rt));
-	kernel_isopencl();
+	//kernel_isopencl();
 	init_rt(rt);
 
 	rt->win_temp = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, \

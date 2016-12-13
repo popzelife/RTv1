@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rt_menu.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 21:17:20 by popzelife         #+#    #+#             */
-/*   Updated: 2016/12/12 23:15:07 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/13 12:59:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+
 
 void	draw_menu(t_rt *rt)
 {
@@ -22,25 +24,22 @@ void	draw_menu(t_rt *rt)
 
 	rt->panel = malloc(sizeof(t_panel));
 
-	TTF_Font *quicksand = TTF_OpenFont(QUICKFONT, 24);
-	if (quicksand == NULL)
-	{
-		ft_dprintf(2, "Draw_menu() failed: quicksand font not found\n");
-		esdl_exit(rt->esdl);
-		exit(0);
-	}
-	SDL_Color white = {230, 230, 230, 0}; 
-
-	SDL_Surface *s_objview = TTF_RenderText_Solid(quicksand, \
-	"Object View", white);
-	rt->panel->t_objview = SDL_CreateTextureFromSurface(rt->esdl->eng.render, \
-		s_objview);
-	rt->panel->r_objview = malloc(sizeof(SDL_Rect));
-	rt->panel->r_objview->x = WIN_RX - MENU_RX;
-	rt->panel->r_objview->y = 0;
-	SDL_QueryTexture(rt->panel->t_objview, NULL, NULL, \
-		&(rt->panel->r_objview->w), &(rt->panel->r_objview->h));
-
-	esdl_clear_surface(rt->s_menu, 0xff373737);
+	rt->lst_surf = lst_new_surface(rt->lst_surf, surfparam(NULL_RECT, \
+		0xff373737), rt->esdl->eng.render, esdl_clear_surface);
+	esdl_clear_surface(rt->s_menu, NULL_RECT, 0xff373737);
+	esdl_draw_filled_square(rt->panel->s_3dview, 0xffffffff);
 	rt->t_menu = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_menu);
+	rt->t_3dview = SDL_CreateTextureFromSurface(rt->esdl->eng.render, \
+		rt->s_3dview);
+	SDL_FreeSurface(rt->s_menu);
+	SDL_FreeSurface(rt->s_3dview);
+
+	rt->panel->title1 = esdl_load_font(QUICKFONT, 20, 0xccccccff);
+
+	rt->panel->objview = esdl_render_blendedtext("Object View", \
+		rt->panel->title1, ft_tab2(WIN_RX - MENU_RX + 5, 5), \
+		rt->esdl->eng.render);
+	//rt->panel->objview = esdl_render_blendedtext("Object View", \
+		rt->panel->title1, ft_tab2(WIN_RX - MENU_RX + 5, 5), \
+		rt->esdl->eng.render);
 }

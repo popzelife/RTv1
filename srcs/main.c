@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/12 23:04:09 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/13 12:16:22 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void		display_rt(t_rt *rt)
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_menu, NULL, rt->r_menu);
 
-	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->t_objview, NULL, rt->panel->r_objview);
+	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->objview.text, NULL, \
+		rt->panel->objview.rect);
 
 	SDL_RenderPresent(rt->esdl->eng.render);
 }

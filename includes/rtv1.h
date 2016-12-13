@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/12 23:02:35 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/13 12:58:03 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,26 @@ typedef struct	s_iter
 	struct s_iter	*next;
 }				t_iter;
 
+typedef struc	s_surfparam
+{
+	SDL_Rect		rect;
+	int				color;
+}				t_surfparam;
+
+typedef struct	s_surface
+{
+	SDL_Surface			*surf;
+	SDL_Texture			*text;
+	SDL_Rect			*rect;
+	struct s_surface	*next;
+}				t_surface; 
+
 typedef struct	s_panel
 {
-	SDL_Texture		*t_objview;
-	SDL_Rect 		*r_objview;
+	t_surface		*lst_surf;
+
+	t_font			title1;
+	t_text			objview;
 }				t_panel;
 
 typedef struct	s_rt
@@ -145,8 +161,13 @@ typedef struct	s_thread
 	struct s_thread		*next;
 }				t_thread;
 
+int			*ft_tab2(const int x, const int y);
+t_surfparam	surf_param(SDL_Rect rect, int color)
+
 t_iter		*lst_new_iter(t_iter **iter, int i);
 t_thread	*lst_new_thread(t_thread **thread);
+t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
+	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int));
 
 t_scene		*new_scene(t_cam *cam, t_obj **obj);
 t_scene		*init_scene(t_rt *rt);
@@ -192,7 +213,6 @@ BOOL		scatter_dielectric(const t_ray *ray, const t_hit param, \
 
 BOOL		scatter_diffuse_light(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
-
 
 t_vec3		*random_in_unit_sphere();
 t_vec3		*random_in_unit_disk();

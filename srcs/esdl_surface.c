@@ -6,13 +6,13 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 12:55:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/24 19:25:06 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 12:14:21 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void			esdl_mask_byteorder(Uint32 *rmask, Uint32 *gmask, \
+static void		esdl_mask_byteorder(Uint32 *rmask, Uint32 *gmask, \
 	Uint32 *bmask, Uint32 *amask)
 {
 	if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
@@ -31,7 +31,7 @@ static void			esdl_mask_byteorder(Uint32 *rmask, Uint32 *gmask, \
 	}
 }
 
-SDL_Surface			*esdl_create_surface(int width, int height)
+SDL_Surface		*esdl_create_surface(int width, int height)
 {
 	SDL_Surface		*surf;
 	Uint32			rmask;
@@ -50,11 +50,13 @@ SDL_Surface			*esdl_create_surface(int width, int height)
 	return (surf);
 }
 
-void			esdl_clear_surface(SDL_Surface *surf, const int color)
+void			esdl_clear_surface(SDL_Surface *surf, \
+	const SDL_Rect rect, const int color)
 {
 	register int		x;
 	register int		y;
 
+	(void)rect;
 	y = 0;
 	while (y < surf->h)
 	{

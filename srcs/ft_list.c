@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 19:21:04 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 12:57:38 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_iter		*lst_new_iter(t_iter **iter, int i)
 	return (*iter);
 }
 
-t_thread		*lst_new_thread(t_thread **thread)
+t_thread	*lst_new_thread(t_thread **thread)
 {
 	t_thread		*new;
 	t_thread		*curs;
@@ -55,4 +55,32 @@ t_thread		*lst_new_thread(t_thread **thread)
 		curs->next = new;
 	}
 	return (*thread);
+}
+
+t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
+	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int))
+{
+	t_surface		*new;
+	t_surface		*curs;
+
+	new = NULL;
+	new = (t_surface*)malloc(sizeof(t_surface));
+	if (new == NULL)
+		return (NULL);
+	new->rect = (t_rect*)malloc(sizeof(t_rect));
+	new->rect = &param.rect;
+	f(*(new->surf), &(new->rect), param.color);
+	new->text = SDL_CreateTextureFromSurface(render, new->surf);
+	SDL_FreeSurface(new->surf);
+	new->next = NULL;
+	if (*surface == NULL)
+		return (new);
+	else
+	{
+		curs = *surface;
+		while (curs->next != NULL)
+			curs = curs->next;
+		curs->next = new;
+	}
+	return (*surface);
 }

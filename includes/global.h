@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/12 23:14:15 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/13 12:20:51 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define OBJ_SKYBOX		0x20
 
 # define NULL_PARAM		0.0
+# define NULL_RECT		(SDL_Rect){0,0,0,0}
 
 # define MAT_LAMBERT	0x1
 # define MAT_METAL		0x2

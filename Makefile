@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+         #
+#    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/12 21:52:41 by popzelife        ###   ########.fr        #
+#    Updated: 2016/12/13 11:31:18 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,12 @@ ifeq ($(OS),Windows_NT)
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
+		ID_UN := $(shell id -un)
 		INCDIR =	includes\
 					libft/includes\
-					/Library/Frameworks/SDL2.framework/Headers
+					/Users/$(ID_UN)/.brew/Cellar/sdl2/2.0.5/include/SDL2\
+					/Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2\
+					-F -framework Cocoa 
 		CFSDL =		
 	endif
 	ifeq ($(UNAME_S),Linux)
@@ -61,6 +64,7 @@ SRC = \
 			esdl_image.c\
 			esdl_exit.c\
 			ft_list.c\
+			ft_utils.c\
 			v3_create.c\
 			v3_operation.c\
 			v3_transform.c\
@@ -91,7 +95,8 @@ else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		OPNCL =		-framework OpenCL
-		LSDL2 =		-F /Library/Frameworks -framework SDL2 -lSDL2_ttf
+		LSDL2 =		-L/Users/$(ID_UN)/.brew/Cellar/sdl2/2.0.5/lib -lSDL2\
+					-L/Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.14/lib -lSDL2_ttf
 		LMATH =		-lm
 		LPTHR =		-lpthread
 	endif
@@ -179,3 +184,11 @@ fclean:
 	@rm -f $(NAME)
 
 glu: re clean
+
+# SDL2 brew
+
+sdl2:
+	brew install sdl2
+	brew link sdl2
+	brew install sdl2_ttf
+	brew link sdl2_ttf

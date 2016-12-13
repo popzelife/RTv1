@@ -67,9 +67,10 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 	new = (t_surface*)malloc(sizeof(t_surface));
 	if (new == NULL)
 		return (NULL);
-	new->rect = (t_rect*)malloc(sizeof(t_rect));
+	new->rect = (SDL_Rect*)malloc(sizeof(SDL_Rect));
 	new->rect = &param.rect;
-	f(*(new->surf), &(new->rect), param.color);
+	new->surf = esdl_create_surface(new->rect->w, new->rect->h);
+	f(new->surf, *(new->rect), param.color);
 	new->text = SDL_CreateTextureFromSurface(render, new->surf);
 	SDL_FreeSurface(new->surf);
 	new->next = NULL;

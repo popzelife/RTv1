@@ -29,7 +29,6 @@ void		init_rt(t_rt *rt)
 	SDL_DestroyTexture(rt->t_load);
 	free(r_load);
 	rt->r_view = malloc(sizeof (SDL_Rect));
-	rt->r_menu = malloc(sizeof (SDL_Rect));
 }
 
 void	draw_view(t_rt *rt)
@@ -45,7 +44,8 @@ void		display_rt(t_rt *rt)
 {
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
-	SDL_RenderCopy(rt->esdl->eng.render, rt->t_menu, NULL, rt->r_menu);
+	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->lst_surf->text, NULL, \
+		rt->panel->lst_surf->rect);
 
 	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->objview.text, NULL, \
 		rt->panel->objview.rect);

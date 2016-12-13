@@ -16,23 +16,21 @@
 
 void	draw_menu(t_rt *rt)
 {
-	SDL_GetWindowSize(rt->win_temp, &rt->r_menu->x, &rt->r_menu->h);
-	rt->r_menu->x -= MENU_RX;
-	rt->r_menu->y = 0;
-	rt->r_menu->w = MENU_RX;
-	rt->s_menu = esdl_create_surface(rt->r_menu->w, rt->r_menu->h);
+	SDL_Rect		rect;
 
 	rt->panel = malloc(sizeof(t_panel));
 
-	rt->lst_surf = lst_new_surface(rt->lst_surf, surfparam(NULL_RECT, \
-		0xff373737), rt->esdl->eng.render, esdl_clear_surface);
-	esdl_clear_surface(rt->s_menu, NULL_RECT, 0xff373737);
-	esdl_draw_filled_square(rt->panel->s_3dview, 0xffffffff);
+	SDL_GetWindowSize(rt->win_temp, &rect.x, &rect.h);
+	rect.x -= MENU_RX;
+	rect.y = 0;
+	rect.w = MENU_RX;
+	rt->panel->lst_surf = lst_new_surface(&(rt->panel->lst_surf), surfparam( \
+		rect, 0xff373737), rt->esdl->eng.render, esdl_clear_surface);
+
+	/*esdl_draw_filled_square(rt->panel->s_3dview, 0xffffffff);
 	rt->t_menu = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_menu);
 	rt->t_3dview = SDL_CreateTextureFromSurface(rt->esdl->eng.render, \
-		rt->s_3dview);
-	SDL_FreeSurface(rt->s_menu);
-	SDL_FreeSurface(rt->s_3dview);
+		rt->s_3dview);*/
 
 	rt->panel->title1 = esdl_load_font(QUICKFONT, 20, 0xccccccff);
 

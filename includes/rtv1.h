@@ -89,7 +89,7 @@ typedef struct	s_iter
 	struct s_iter	*next;
 }				t_iter;
 
-typedef struc	s_surfparam
+typedef struct	s_surfparam
 {
 	SDL_Rect		rect;
 	int				color;
@@ -162,7 +162,7 @@ typedef struct	s_thread
 }				t_thread;
 
 int			*ft_tab2(const int x, const int y);
-t_surfparam	surf_param(SDL_Rect rect, int color)
+t_surfparam	surfparam(SDL_Rect rect, int color);
 
 t_iter		*lst_new_iter(t_iter **iter, int i);
 t_thread	*lst_new_thread(t_thread **thread);

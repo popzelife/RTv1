@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:57:38 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 21:23:46 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 	new = (t_surface*)malloc(sizeof(t_surface));
 	if (new == NULL)
 		return (NULL);
-	new->rect = (SDL_Rect*)malloc(sizeof(SDL_Rect));
-	new->rect = &param.rect;
+	new->rect = esdl_copy_rect(*(param.rect));
 	new->surf = esdl_create_surface(new->rect->w, new->rect->h);
 	f(new->surf, *(new->rect), param.color);
 	new->text = SDL_CreateTextureFromSurface(render, new->surf);
@@ -84,4 +83,30 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 		curs->next = new;
 	}
 	return (*surface);
+}
+
+t_text	*lst_new_string(t_text **text, t_strparam param, \
+	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int))
+{
+	t_text		*new;
+	t_text		*curs;
+
+	new = NULL;
+	new = (t_text*)malloc(sizeof(t_text));
+	if (new == NULL)
+		return (NULL);
+
+	new->text = f(param.string, param.font, param.rx, render);
+
+	new->next = NULL;
+	if (*text == NULL)
+		return (new);
+	else
+	{
+		curs = *text;
+		while (curs->next != NULL)
+			curs = curs->next;
+		curs->next = new;
+	}
+	return (*text);
 }

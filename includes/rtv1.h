@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:58:03 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 21:21:25 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct	s_iter
 
 typedef struct	s_surfparam
 {
-	SDL_Rect		rect;
+	SDL_Rect		*rect;
 	int				color;
 }				t_surfparam;
 
@@ -101,13 +101,14 @@ typedef struct	s_surface
 	SDL_Texture			*text;
 	SDL_Rect			*rect;
 	struct s_surface	*next;
-}				t_surface; 
+}				t_surface;
 
 typedef struct	s_panel
 {
 	t_surface		*lst_surf;
 
 	t_font			title1;
+	t_text			objview;
 	t_text			objview;
 }				t_panel;
 
@@ -162,7 +163,7 @@ typedef struct	s_thread
 }				t_thread;
 
 int			*ft_tab2(const int x, const int y);
-t_surfparam	surfparam(SDL_Rect rect, int color);
+t_surfparam	surfparam(SDL_Rect *rect, int color);
 
 t_iter		*lst_new_iter(t_iter **iter, int i);
 t_thread	*lst_new_thread(t_thread **thread);

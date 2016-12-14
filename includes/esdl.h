@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   esdl.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:13:54 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 20:09:57 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_text
 {
 	SDL_Texture		*text;
 	SDL_Rect		*rect;
+	struct s_text	*next;
 
 }						t_text;
 
@@ -86,6 +87,10 @@ int			esdl_color_to_int(SDL_Color color);
 SDL_Color	esdl_int_to_color(int color);
 void		esdl_put_pixel(SDL_Surface *surf, \
 	const int x, const int y, const int color);
+
+SDL_Rect	*esdl_copy_rect(const SDL_Rect rect);
+SDL_Rect	esdl_rect(const int x, const int y, const int w, const int h);
+SDL_Rect	esdl_fuse_rect(const SDL_Rect dst, const SDL_Rect src);
 
 void		esdl_draw_filled_square(SDL_Surface *surf, \
 	const SDL_Rect rect, const int color);

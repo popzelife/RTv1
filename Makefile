@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
+#    By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/13 11:31:18 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/13 18:45:54 by popzelife        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC = \
 			esdl_color.c\
 			esdl_pixel.c\
 			esdl_image.c\
+			esdl_rect.c\
 			esdl_exit.c\
 			ft_list.c\
 			ft_utils.c\

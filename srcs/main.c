@@ -6,7 +6,7 @@
 /*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 18:14:11 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/13 20:07:14 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,24 @@ void	draw_view(t_rt *rt)
 
 void		display_rt(t_rt *rt)
 {
+	t_surface		*panel_curs;
+	int				i;
+
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 
-	/*SDL_RenderCopy(rt->esdl->eng.render, rt->panel->lst_surf->text, NULL, \
-		rt->panel->lst_surf->rect);
+	panel_curs = rt->panel->lst_surf;
+	i = 0;
+	while (i < 3)
+	{
+		SDL_RenderCopy(rt->esdl->eng.render, panel_curs->text, NULL, \
+			panel_curs->rect);
+		panel_curs = panel_curs->next;
+		++i;
+	}
 
 	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->objview.text, NULL, \
-		rt->panel->objview.rect);*/
+		rt->panel->objview.rect);
 
 	SDL_RenderPresent(rt->esdl->eng.render);
 }

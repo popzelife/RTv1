@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 21:23:46 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/14 16:33:41 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_thread	*lst_new_thread(t_thread **thread)
 }
 
 t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
-	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int))
+	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \
+	void*))
 {
 	t_surface		*new;
 	t_surface		*curs;
@@ -69,7 +70,7 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 		return (NULL);
 	new->rect = esdl_copy_rect(*(param.rect));
 	new->surf = esdl_create_surface(new->rect->w, new->rect->h);
-	f(new->surf, *(new->rect), param.color);
+	f(new->surf, *(new->rect), param.color, param.param);
 	new->text = SDL_CreateTextureFromSurface(render, new->surf);
 	SDL_FreeSurface(new->surf);
 	new->next = NULL;
@@ -85,28 +86,26 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 	return (*surface);
 }
 
-t_text	*lst_new_string(t_text **text, t_strparam param, \
-	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int))
+t_string	*lst_new_string(t_string **string, t_strparam param, \
+	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*))
 {
-	t_text		*new;
-	t_text		*curs;
+	t_string		*new;
+	t_string		*curs;
 
 	new = NULL;
-	new = (t_text*)malloc(sizeof(t_text));
+	new = (t_string*)malloc(sizeof(t_string));
 	if (new == NULL)
 		return (NULL);
-
-	new->text = f(param.string, param.font, param.rx, render);
-
+	new->text = f(param.string, param.font, param.xy, render);
 	new->next = NULL;
-	if (*text == NULL)
+	if (*string == NULL)
 		return (new);
 	else
 	{
-		curs = *text;
+		curs = *string;
 		while (curs->next != NULL)
 			curs = curs->next;
 		curs->next = new;
 	}
-	return (*text);
+	return (*string);
 }

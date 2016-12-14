@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+         #
+#    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/13 18:45:54 by popzelife        ###   ########.fr        #
+#    Updated: 2016/12/14 18:56:41 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,24 +64,26 @@ SRC = \
 			esdl_image.c\
 			esdl_rect.c\
 			esdl_exit.c\
-			ft_list.c\
-			ft_utils.c\
 			v3_create.c\
 			v3_operation.c\
 			v3_transform.c\
 			v3_unit.c\
-			rt_raytrace.c\
-			rt_object.c\
-			rt_ray.c\
+			rt_skybox.c\
 			rt_menu.c\
+			rt_3dview.c\
 			rt_scene.c\
 			rt_camera.c\
-			rt_sphere.c\
-			rt_random.c\
 			rt_material.c\
 			rt_light.c\
+			rt_object.c\
+			rt_sphere.c\
+			rt_ray.c\
+			rt_raytrace.c\
 			rt_render.c\
 			rt_events.c\
+			rt_random.c\
+			ft_list.c\
+			ft_utils.c\
 			kernel_isopencl.c
 
 OBJ =		$(SRC:.c=.o)

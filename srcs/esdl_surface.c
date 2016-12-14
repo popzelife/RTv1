@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 12:55:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:14:21 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/14 16:29:08 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,13 @@ SDL_Surface		*esdl_create_surface(int width, int height)
 }
 
 void			esdl_clear_surface(SDL_Surface *surf, \
-	const SDL_Rect rect, const int color)
+	const SDL_Rect rect, const int color, void *param)
 {
 	register int		x;
 	register int		y;
 
 	(void)rect;
+	(void)param;
 	y = 0;
 	while (y < surf->h)
 	{

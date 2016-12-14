@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:57:38 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/14 16:33:41 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_thread	*lst_new_thread(t_thread **thread)
 }
 
 t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
-	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int))
+	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \
+	void*))
 {
 	t_surface		*new;
 	t_surface		*curs;
@@ -67,10 +68,9 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 	new = (t_surface*)malloc(sizeof(t_surface));
 	if (new == NULL)
 		return (NULL);
-	new->rect = (SDL_Rect*)malloc(sizeof(SDL_Rect));
-	new->rect = &param.rect;
+	new->rect = esdl_copy_rect(*(param.rect));
 	new->surf = esdl_create_surface(new->rect->w, new->rect->h);
-	f(new->surf, *(new->rect), param.color);
+	f(new->surf, *(new->rect), param.color, param.param);
 	new->text = SDL_CreateTextureFromSurface(render, new->surf);
 	SDL_FreeSurface(new->surf);
 	new->next = NULL;
@@ -84,4 +84,28 @@ t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 		curs->next = new;
 	}
 	return (*surface);
+}
+
+t_string	*lst_new_string(t_string **string, t_strparam param, \
+	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*))
+{
+	t_string		*new;
+	t_string		*curs;
+
+	new = NULL;
+	new = (t_string*)malloc(sizeof(t_string));
+	if (new == NULL)
+		return (NULL);
+	new->text = f(param.string, param.font, param.xy, render);
+	new->next = NULL;
+	if (*string == NULL)
+		return (new);
+	else
+	{
+		curs = *string;
+		while (curs->next != NULL)
+			curs = curs->next;
+		curs->next = new;
+	}
+	return (*string);
 }

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 12:58:03 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/14 19:18:44 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,176 +17,57 @@
 
 # include "global.h"
 # include "esdl.h"
-# include "kernel.h"
 # include "vec3.h"
+# include "kernel.h"
 
-typedef struct	s_ray
-{
-	t_vec3			*orig;
-	t_vec3			*dir;
-}				t_ray;
+# include "struct.h"
 
-typedef struct s_hit
-{
-	float			t;
-	t_vec3			*pos;
-	t_vec3			*normal;
-	struct s_mat	*material;
-}				t_hit;
+/*
+  Scene init
+*/
 
-typedef struct s_mat
-{
-	UCHAR			type_mat;
-	t_vec3			*albedo;
-	t_vec3			*emitted;
-	float			t;
-	BOOL			(*scatter)(const t_ray*, const t_hit, t_vec3*, t_ray*);
-}				t_mat;
-
-typedef struct	s_plane
-{
-	float			distance;
-}				t_plane;
-
-typedef struct	s_sphere
-{
-	t_vec3			*center;
-	float			radius;
-	float			radius2;
-}				t_sphere;
-
-typedef struct s_obj
-{
-	UCHAR			type_obj;
-	void			*p_obj;
-	BOOL			(*hit)(void*, const t_ray*, const float, const float, \
-		t_hit*);
-	t_mat			*p_mat;
-}				t_obj;
-
-typedef struct	s_cam
-{
-	t_vec3			*low_left_corner;
-	t_vec3			*horizontal;
-	t_vec3			*vertical;
-	t_vec3			*orig;
-	t_vec3			*u;
-	t_vec3			*v;
-	t_vec3			*w;
-	float			lens_radius;
-}				t_cam;
-
-typedef struct	s_scene
-{
-	t_cam			*cam;
-	t_obj			**obj;
-	int				obj_nb;
-}				t_scene;
-
-typedef struct	s_iter
-{
-	int				s;
-	struct s_iter	*next;
-}				t_iter;
-
-typedef struct	s_surfparam
-{
-	SDL_Rect		rect;
-	int				color;
-}				t_surfparam;
-
-typedef struct	s_surface
-{
-	SDL_Surface			*surf;
-	SDL_Texture			*text;
-	SDL_Rect			*rect;
-	struct s_surface	*next;
-}				t_surface; 
-
-typedef struct	s_panel
-{
-	t_surface		*lst_surf;
-
-	t_font			title1;
-	t_text			objview;
-}				t_panel;
-
-typedef struct	s_rt
-{
-	t_esdl			*esdl;
-	t_scene			*scene;
-
-	SDL_Window		*win_temp;
-	SDL_Texture		*t_load;
-
-	SDL_Rect		*r_view;
-	SDL_Surface		*s_view;
-	SDL_Texture		*t_view;
-
-	SDL_Rect		*r_menu;
-	SDL_Surface		*s_menu;
-	SDL_Texture		*t_menu;
-
-	t_panel			*panel;
-
-	int				render;
-
-	t_vec3			***tab;
-	t_iter			*iter;
-	void			*stack;
-	int				m_thread;
-	struct s_thread	*t;
-
-	pthread_t		render_th;
-	pthread_t		display_th;
-	pthread_mutex_t	mutex;
-	pthread_cond_t	display_cond;
-}				t_rt;
-
-typedef struct	s_tharg
-{
-	t_rt		*rt;
-	t_scene		*scene;
-	int			j;
-
-	t_vec3		***tab;
-	int			*s;
-}				t_tharg;
-
-typedef struct	s_thread
-{
-	pthread_t			thread;
-	pthread_attr_t		attr;
-	t_tharg				arg;
-	struct s_thread		*next;
-}				t_thread;
-
-int			*ft_tab2(const int x, const int y);
-t_surfparam	surfparam(SDL_Rect rect, int color);
-
-t_iter		*lst_new_iter(t_iter **iter, int i);
-t_thread	*lst_new_thread(t_thread **thread);
-t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
-	SDL_Renderer *render, void(f)(SDL_Surface*, const SDL_Rect, const int));
-
-t_scene		*new_scene(t_cam *cam, t_obj **obj);
+t_scene		*new_scene(t_cam *cam, t_obj **obj, t_skybox *skybox);
 t_scene		*init_scene(t_rt *rt);
+
+
+/*
+  Menu rendering
+*/
+
+t_viewparam	*new_viewparam(t_scene *scene);
+
+void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
+	const int color, void *param);
+
+/*
+  Raytracer rendering
+*/
+
+void		render(t_rt *rt);
+t_vec3		*rt_color(t_ray *ray, t_scene *scene, int depth, \
+	int max_depth);
+
+SDL_Color	vec3_to_sdlcolor(t_vec3 v);
+
+/*
+  Multithreading
+*/
+
+void		thread_render(t_tharg *arg);
+
+/*
+  Hook events
+*/
 
 void		draw_view(t_rt *rt);
 void		draw_menu(t_rt *rt);
 
-void		render(t_rt *rt);
-void		thread_render(t_tharg *arg);
-
+void		rt_events(t_rt *rt, int ret);
 void		reset_render(t_rt *rt);
 
-void		rt_events(t_rt *rt, int ret);
-
-t_vec3		*color(t_ray *ray, t_scene *scene, int depth, int max_depth);
-
-t_ray		*new_ray(t_vec3 *orig, t_vec3 *dir);
-t_vec3		*ray_point_at(const t_ray *ray, const float point);
-void		free_ray(t_ray *ray);
+/*
+  Cameras
+*/
 
 t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
 	t_vec3 *u, t_vec3 *v, t_vec3 *w, float lens_radius);
@@ -194,12 +75,30 @@ t_cam		*init_camera(const t_vec3 look_from, const t_vec3 look_at, \
 	const t_vec3 v_up, float vfov, float aspect, float aperture, float focus);
 t_ray		*camera_ray(t_cam *cam, float s, float t);
 
+/*
+  Skyboxes
+*/
+
+t_skybox	*new_skybox(t_vec3 *color1, t_vec3 *color2, const UCHAR type);
+
+t_vec3		*hit_gradient_skybox(const t_skybox *box, const t_ray *ray);
+t_vec3		*hit_none_skybox(const t_skybox *box, const t_ray *ray);
+
+/*
+  Objects
+*/
+
 t_obj		*new_object(t_vec3 *pos, const float param, \
 	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat, const float t);
+t_obj		*copy_object(t_obj *obj);
 
 t_sphere	*new_sphere(t_vec3 *center, const float radius);
 BOOL		hit_sphere(void *obj, const t_ray *r, const float t_min, \
 	const float t_max, t_hit *param);
+
+/*
+  Materials
+*/
 
 t_mat		*new_material(t_vec3 *albedo, float t);
 
@@ -211,8 +110,40 @@ BOOL		scatter_metal(const t_ray *ray, const t_hit param, \
 BOOL		scatter_dielectric(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
 
+/*
+  Light Materials
+*/
+
 BOOL		scatter_diffuse_light(const t_ray *ray, const t_hit param, \
 	t_vec3 *attenuation, t_ray *scattered);
+
+/*
+  Rays
+*/
+
+t_ray		*new_ray(t_vec3 *orig, t_vec3 *dir);
+t_vec3		*ray_point_at(const t_ray *ray, const float point);
+void		free_ray(t_ray *ray);
+
+/*
+  Utils & lists
+*/
+
+int			*ft_tab2(const int x, const int y);
+t_surfparam	surfparam(SDL_Rect *rect, int color, void *param);
+t_strparam	strparam(char* string, t_font font, int rx[2]);
+
+t_iter		*lst_new_iter(t_iter **iter, int i);
+t_thread	*lst_new_thread(t_thread **thread);
+t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
+	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \
+	void*));
+t_string	*lst_new_string(t_string **string, t_strparam param, \
+	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*));
+
+/*
+  Randomize
+*/
 
 t_vec3		*random_in_unit_sphere();
 t_vec3		*random_in_unit_disk();

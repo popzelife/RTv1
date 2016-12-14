@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 17:10:16 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/05 17:09:05 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/14 16:35:10 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void			esdl_put_pixel(SDL_Surface *surf, \
 }
 
 void			esdl_draw_filled_square(SDL_Surface *surf, \
-	const SDL_Rect rect, const int color)
+	const SDL_Rect rect, const int color, void *param)
 {
 	register int		x;
 	register int		y;
 
+	(void)param;
 	y = 0;
 	while (y < rect.h)
 	{

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 17:40:22 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 12:20:51 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@
 # define OBJ_PYRAMID	0x8
 # define OBJ_CYLINDER	0x10
 # define OBJ_SKYBOX		0x20
-
-# define SKYBX_NONE		0x0
-# define SKYBX_GRADIENT	0x1
 
 # define NULL_PARAM		0.0
 # define NULL_RECT		(SDL_Rect){0,0,0,0}

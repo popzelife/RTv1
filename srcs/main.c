@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 18:34:03 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 18:14:11 by popzelife        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,14 @@ void	draw_view(t_rt *rt)
 
 void		display_rt(t_rt *rt)
 {
-	t_surface		*surf_curs;
-	t_string		*string_curs;
-
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 
-	surf_curs = rt->panel->lst_surf;
-	while (surf_curs != NULL)
-	{
-		SDL_RenderCopy(rt->esdl->eng.render, surf_curs->text, NULL, \
-			surf_curs->rect);
-		surf_curs = surf_curs->next;
-	}
+	/*SDL_RenderCopy(rt->esdl->eng.render, rt->panel->lst_surf->text, NULL, \
+		rt->panel->lst_surf->rect);
 
-	string_curs = rt->panel->lst_string;
-	while (string_curs != NULL)
-	{
-		SDL_RenderCopy(rt->esdl->eng.render, string_curs->text.text, NULL, \
-			string_curs->text.rect);
-		string_curs = string_curs->next;
-	}
+	SDL_RenderCopy(rt->esdl->eng.render, rt->panel->objview.text, NULL, \
+		rt->panel->objview.rect);*/
 
 	SDL_RenderPresent(rt->esdl->eng.render);
 }
@@ -172,7 +159,7 @@ int			main(int ac, char **av)
 	int				j;
 	int				ret;	
 
-	rt = (t_rt*)malloc(sizeof(t_rt));
+	rt = malloc(sizeof(t_rt));
 	//kernel_isopencl();
 	init_rt(rt);
 
@@ -180,9 +167,10 @@ int			main(int ac, char **av)
 		SDL_WINDOWPOS_UNDEFINED, WIN_RX, WIN_RY, \
 		SDL_WINDOW_HIDDEN | SDL_WINDOW_ALLOW_HIGHDPI);
 	draw_view(rt);
-	rt->scene = init_scene(rt);
 	draw_menu(rt);
 	SDL_DestroyWindow(rt->win_temp);
+
+	rt->scene = init_scene(rt);
 
 	/*
 	  Fill tab[x][y] with (0.0, 0.0, 0.0) vec3 ptr*

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 18:20:43 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/13 12:13:54 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct			s_text
 {
 	SDL_Texture		*text;
 	SDL_Rect		*rect;
+
 }						t_text;
 
 typedef struct			s_input
@@ -72,10 +73,6 @@ typedef	struct			s_esdl
 	int				ttf;
 }						t_esdl;
 
-/*
-  eSDL
-*/
-
 int			esdl_init(t_esdl *esdl, const int rx, const int ry, char * name);
 SDL_Surface	*esdl_create_surface(int width, int height);
 
@@ -90,14 +87,10 @@ SDL_Color	esdl_int_to_color(int color);
 void		esdl_put_pixel(SDL_Surface *surf, \
 	const int x, const int y, const int color);
 
-SDL_Rect	*esdl_copy_rect(const SDL_Rect rect);
-SDL_Rect	esdl_rect(const int x, const int y, const int w, const int h);
-SDL_Rect	esdl_fuse_rect(const SDL_Rect dst, const SDL_Rect src);
-
 void		esdl_draw_filled_square(SDL_Surface *surf, \
-	const SDL_Rect rect, const int color, void *param);
+	const SDL_Rect rect, const int color);
 void		esdl_clear_surface(SDL_Surface *surf, \
-	const SDL_Rect rect, const int color, void *param);
+	const SDL_Rect rect, const int color);
 
 SDL_Texture	*esdl_load_texture(t_esdl *esdl, const char *path, int *w, int *h);
 

@@ -41,10 +41,10 @@ The raytracer use a personal libc provided under libft folder. Makefile just do 
 - Open CL to use GPU.
 
 # Preview
-#### What's Behind Camera
-![preview1](rtv1-preview3.jpg)
+#### Basic example with Skybox
+![preview1](rtv1-preview1.jpg)
 
-#### Light in the Dark
+#### Dark room test
 ![preview2](rtv1-preview5.jpg)
 
 #### Comic Mode

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 21:48:12 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 20:25:09 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ BOOL				hit_list(t_scene *scene, const t_ray *ray, \
 			hit_anything = TRUE;
 			closest_so_far = param->t;
 			param->material = scene->obj[i]->p_mat;
+			param->i_lst = i;
 		}
 		++i;
 	}
@@ -205,8 +206,7 @@ void				thread_render(t_tharg *arg)
 				return ;
 			}
 			pixel = vec3_to_sdlcolor(*(temp));
-			esdl_put_pixel(arg->rt->s_view, arg->rt->r_view->w - (x + 1), \
-				arg->rt->r_view->h - (y + 1), esdl_color_to_int(pixel));
+			esdl_put_pixel(arg->rt->s_view, x, y, esdl_color_to_int(pixel));
 			v3_free(temp);
 			++x;
 		}

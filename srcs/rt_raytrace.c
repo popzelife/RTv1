@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_raytrace.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 17:36:47 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/12 23:08:57 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/15 20:17:45 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,5 @@ void		render(t_rt *rt)
 		++i;
 	}
 
-	ft_printf("Render pass # %3d/%3d\r", rt->iter->s - 1, ALIASING);
-
-	/*
-	  Creates the textures from the surfaces
-	*/
-
-	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
+	//ft_printf("Render pass # %3d/%3d\r", rt->iter->s - 1, ALIASING);
 }

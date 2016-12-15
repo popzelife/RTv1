@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 14:47:31 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/06 18:30:27 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 17:46:00 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static int			esdl_get_mouse(SDL_Event *event, t_input *in)
 	if (event->type == SDL_MOUSEBUTTONDOWN)
 	{
 		in->button[event->button.button] = 1;
-		ret++;
+		ret = SDL_MOUSEBUTTONDOWN;
 	}
 	else if (event->type == SDL_MOUSEBUTTONUP)
 	{
 		in->button[event->button.button] = 0;
-		ret++;
+		ret = SDL_MOUSEBUTTONUP;
 	}
 	return (ret);
 }

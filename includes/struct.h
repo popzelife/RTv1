@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 21:15:15 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:57:20 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_ray
 typedef struct s_hit
 {
 	float			t;
+	int				i_lst;
 	t_vec3			*pos;
 	t_vec3			*normal;
 	struct s_mat	*material;
@@ -113,6 +114,7 @@ typedef struct	s_surfparam
 	SDL_Rect		*rect;
 	int				color;
 	void			*param;
+	int				i_lst;
 }				t_surfparam;
 
 typedef struct	s_strparam
@@ -120,6 +122,7 @@ typedef struct	s_strparam
 	t_font			font;
 	char*			string;
 	int				xy[2];
+	int				i_lst;
 }				t_strparam;
 
 typedef struct	s_surface
@@ -153,6 +156,11 @@ typedef struct	s_viewparam
 	char			str_param_m[128];
 }				t_viewparam;
 
+typedef struct	s_imgparam
+{
+	char			*path;
+}				t_imgparam;
+
 /*
   Menu view
 */
@@ -163,6 +171,7 @@ typedef struct	s_panel
 	t_string		*lst_string;
 
 	t_viewparam		*viewparam;
+	t_imgparam		*imgparam;
 
 	t_font			title1;
 	t_font			sub_title1;

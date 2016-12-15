@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 11:31:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 16:34:23 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 18:59:45 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ int				*ft_tab2(const int x, const int y)
 	return (xy);
 }
 
-t_surfparam		surfparam(SDL_Rect *rect, int color, void *param)
+t_surfparam		surfparam(SDL_Rect *rect, int color, void *param, int i)
 {
 	t_surfparam		p;
 
 	p.rect = rect;
 	p.color = color;
 	p.param = param;
+	p.i_lst = i;
 	return (p);
 }
 
-t_strparam		strparam(char* string, t_font font, int xy[2])
+t_strparam		strparam(char* string, t_font font, int xy[2], int i)
 {
 	t_strparam		p;
 
@@ -40,5 +41,20 @@ t_strparam		strparam(char* string, t_font font, int xy[2])
 	p.font = font;
 	p.xy[0] = xy[0];
 	p.xy[1] = xy[1];
+	p.i_lst = i;
 	return (p);
+}
+
+t_imgparam		*new_imgparam(char* name)
+{
+	t_imgparam		*p;
+
+	p = (t_imgparam*)malloc(sizeof(t_imgparam));
+	p->path = name;
+	return (p);
+}
+
+void			set_imgparam(t_imgparam *param, char* name)
+{
+	param->path = name;
 }

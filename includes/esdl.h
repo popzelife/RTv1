@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 18:20:43 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 17:15:53 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void		esdl_draw_filled_square(SDL_Surface *surf, \
 void		esdl_clear_surface(SDL_Surface *surf, \
 	const SDL_Rect rect, const int color, void *param);
 
-SDL_Texture	*esdl_load_texture(t_esdl *esdl, const char *path, int *w, int *h);
+SDL_Texture	*esdl_load_texture(SDL_Renderer *render, \
+	const char *path, int *w, int *h);
 
 void		esdl_exit(t_esdl *esdl);
 
@@ -114,4 +115,5 @@ t_text		esdl_render_blendedtext(char *text, t_font f, int xy[2], \
 	SDL_Renderer *render);
 t_text		esdl_render_solidtext(char *text, t_font f, int xy[2], \
 	SDL_Renderer *render);
+
 #endif

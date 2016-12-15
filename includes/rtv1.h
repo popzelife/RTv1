@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 19:18:44 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 19:19:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ t_scene		*init_scene(t_rt *rt);
 */
 
 t_viewparam	*new_viewparam(t_scene *scene);
+void		set_viewparam(t_viewparam *p, t_rt *rt, int x, int y);
+
+t_imgparam	*new_imgparam(char* name);
+void		set_imgparam(t_imgparam *param, char* name);
 
 void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 	const int color, void *param);
@@ -46,6 +50,9 @@ void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 void		render(t_rt *rt);
 t_vec3		*rt_color(t_ray *ray, t_scene *scene, int depth, \
 	int max_depth);
+
+BOOL		hit_list(t_scene *scene, const t_ray *ray, const float t_min,\
+	const float t_max, t_hit *param);
 
 SDL_Color	vec3_to_sdlcolor(t_vec3 v);
 
@@ -61,6 +68,8 @@ void		thread_render(t_tharg *arg);
 
 void		draw_view(t_rt *rt);
 void		draw_menu(t_rt *rt);
+
+void		update_menu(t_rt *rt);
 
 void		rt_events(t_rt *rt, int ret);
 void		reset_render(t_rt *rt);
@@ -130,15 +139,24 @@ void		free_ray(t_ray *ray);
 */
 
 int			*ft_tab2(const int x, const int y);
-t_surfparam	surfparam(SDL_Rect *rect, int color, void *param);
-t_strparam	strparam(char* string, t_font font, int rx[2]);
+t_surfparam	surfparam(SDL_Rect *rect, int color, void *param, int i);
+t_strparam	strparam(char* string, t_font font, int rx[2], int i);
 
 t_iter		*lst_new_iter(t_iter **iter, int i);
 t_thread	*lst_new_thread(t_thread **thread);
 t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \
 	void*));
+t_surface	*lst_new_image(t_surface **surface, t_surfparam param, \
+	SDL_Renderer *render, SDL_Texture* (f)(SDL_Renderer*, const char*, \
+	int*, int*));
 t_string	*lst_new_string(t_string **string, t_strparam param, \
+	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*));
+
+void		lst_set_surface(t_surface **surface, t_surfparam param, \
+	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \
+	void*));
+void		lst_set_string(t_string **string, t_strparam param, \
 	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*));
 
 /*

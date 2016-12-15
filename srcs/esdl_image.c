@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 17:57:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 16:35:33 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 17:08:03 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static SDL_Surface	*create_fallback_texture(SDL_Surface *surf)
 	return (surf);
 }
 
-SDL_Texture			*esdl_load_texture(t_esdl *esdl, const char *path, \
-	int *w, int *h)
+SDL_Texture			*esdl_load_texture(SDL_Renderer *render, \
+	const char *path, int *w, int *h)
 {
 	SDL_Surface		*surf;
 	SDL_Texture		*tex;
@@ -42,7 +42,7 @@ SDL_Texture			*esdl_load_texture(t_esdl *esdl, const char *path, \
 			fallback texture created\n", path);
 		surf = create_fallback_texture(surf);
 	}
-	tex = SDL_CreateTextureFromSurface(esdl->eng.render, surf);
+	tex = SDL_CreateTextureFromSurface(render, surf);
 	SDL_FreeSurface(surf);
 	return (tex);
 }

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 17:40:22 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 20:18:55 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@
 
 # define ALIASING		100
 # define NO_ALIASING	1
-# define MAX_DEPTH		2
+# define MAX_DEPTH		25
 
 # define API_NAME		"RTv1"
 # define MAX_FPS		60
 # define WIN_RX			1400
 # define WIN_RY			900
 # define MENU_RX		300
-# define LOAD_NAME		"Loader.bmp"
+# define LOAD_NAME		"image/Loader.bmp"
 # define LOAD_RX		900
 # define LOAD_RY		563
 # define QUICKFONT		"font/Quicksand_Book.otf"
+# define IMG_ADDSPHERE	"image/AddSphere.bmp"
+# define IMG_ADDPLANE	"image/AddPlane.bmp"
+# define IMG_ADDCUBE	"image/AddCube.bmp"
 
 # define HELP			-2
 # define ERROR			-1

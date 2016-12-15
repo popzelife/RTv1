@@ -6,11 +6,15 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 18:34:03 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 20:20:16 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+/*
+  Need work on mutex and pthread handling
+*/
 
 void		init_rt(t_rt *rt)
 {
@@ -22,7 +26,8 @@ void		init_rt(t_rt *rt)
 		esdl_exit(rt->esdl);
 	SDL_SetWindowBordered(rt->esdl->eng.win, FALSE);
 	r_load = malloc(sizeof(SDL_Rect));
-	rt->t_load = esdl_load_texture(rt->esdl, LOAD_NAME, &r_load->w, &r_load->h);
+	rt->t_load = esdl_load_texture(rt->esdl->eng.render, LOAD_NAME, \
+		&r_load->w, &r_load->h);
 	SDL_RenderClear(rt->esdl->eng.render);
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_load, NULL, NULL);
 	SDL_RenderPresent(rt->esdl->eng.render);
@@ -46,6 +51,7 @@ void		display_rt(t_rt *rt)
 	t_string		*string_curs;
 
 	SDL_RenderClear(rt->esdl->eng.render);
+
 	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
 
 	surf_curs = rt->panel->lst_surf;
@@ -85,21 +91,17 @@ void		render_loop(t_rt *rt)
 		{
 			render(rt);
 
-			if (rt->iter->s == 2 || rt->iter->s == 3 || rt->iter->s == 11 \
-				|| rt->iter->s == 26 || rt->iter->s == 51 || rt->iter->s == 101)
-			{
-				pthread_mutex_lock(&rt->mutex);
-				pthread_cond_signal(&rt->display_cond);
-				pthread_mutex_unlock(&rt->mutex);
-			}
+			pthread_mutex_lock(&rt->mutex);
+			pthread_cond_signal(&rt->display_cond);
+			pthread_mutex_unlock(&rt->mutex);
 		}
 
-		if (rt->render == -2)
+		/*if (rt->render == -2)
 			reset_render(rt);
 
 		pthread_mutex_lock(&rt->mutex);
 		pthread_cond_signal(&rt->display_cond);
-		pthread_mutex_unlock(&rt->mutex);
+		pthread_mutex_unlock(&rt->mutex);*/
 	}
 
 	pthread_exit(NULL);
@@ -112,9 +114,12 @@ void		display_loop(t_rt *rt)
 		pthread_mutex_lock(&rt->mutex);
 		pthread_cond_wait(&rt->display_cond, &rt->mutex);
 
-		display_rt(rt);
+		printf("%s\n", __FUNCTION__);
+		rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
 
 		pthread_mutex_unlock(&rt->mutex);
+
+		display_rt(rt);
 	}
 
 	pthread_exit(NULL);
@@ -238,6 +243,7 @@ int			main(int ac, char **av)
 	SDL_SetWindowBordered(rt->esdl->eng.win, TRUE);
 
 	SDL_Delay(100);
+	rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
 	display_rt(rt);
 
 	/*

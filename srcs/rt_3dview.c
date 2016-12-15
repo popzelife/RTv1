@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 18:01:12 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 21:55:03 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 20:26:35 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 		while (x < rect.w)
 		{
 			s = 0;
-			while (s < 15)
+			while (s < 10)
 			{
 				u = ((float)x + f_random()) / (float)rect.w;
 				v = ((float)y + f_random()) / (float)rect.h;
@@ -47,10 +47,9 @@ void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 				v3_free(ret);
 				++s;
 			}
-			temp = v3(temp.x / 15, temp.y / 15, temp.z / 15);
+			temp = v3(temp.x / 10, temp.y / 10, temp.z / 10);
 			pixel = vec3_to_sdlcolor(temp);
-			esdl_put_pixel(surf, rect.w - (x + 1), rect.h - (y + 1), \
-				esdl_color_to_int(pixel));
+			esdl_put_pixel(surf, x, y, esdl_color_to_int(pixel));
 			++x;
 		}
 		++y;

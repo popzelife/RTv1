@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 20:25:09 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 21:53:38 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,4 +213,68 @@ void				thread_render(t_tharg *arg)
 		y += arg->rt->m_thread;
 	}
 	++(*(arg->s));
+}
+
+void				paint_render(t_rt *rt)
+{
+	register int	x;
+	register int	y;
+	register float	u;
+	register float	v;
+	register int	i;
+	register int	j;
+
+	t_vec3			*temp;
+	t_ray			*ray;
+	SDL_Color		pixel;
+
+	y = rt->y - 50;
+	while (y < rt->y + 50)
+	{
+		j = y + i_random();
+		if ((j > rt->y + 50 && j < rt->y))// || (j < 0 && j > rt->r_view->h))
+		{
+			printf("break\n");
+			++y;
+			break;
+		}
+
+		x = rt->x - 50;
+		while (x < rt->x + 50)
+		{
+			i = x + i_random();
+			if ((i > rt->x + 50 && i < rt->x))// || (i < 0 && i > rt->r_view->w))
+			{
+				printf("break\n");
+				++x;
+				break;
+			}
+
+				u = (float)((float)x + f_random()) / (float)rt->r_view->w;
+				v = (float)((float)y + f_random()) / (float)rt->r_view->h;
+
+				ray = camera_ray(rt->scene->cam, u, v);
+
+				temp = rt_color(ray, rt->scene, 0, MAX_DEPTH);
+				v3_set(rt->paint[x][y][0], temp->x + rt->paint[x][y][0]->x, \
+					temp->y + rt->paint[x][y][0]->y, \
+					temp->z + rt->paint[x][y][0]->z);
+				free_ray(ray);
+
+
+				v3_set(temp, sqrt(rt->paint[x][y][0]->x / rt->paint[x][y][1]->x), \
+					sqrt(rt->paint[x][y][0]->y / rt->paint[x][y][1]->x), \
+					sqrt(rt->paint[x][y][0]->z / rt->paint[x][y][1]->x));
+
+				v3_set(rt->paint[x][y][1], rt->paint[x][y][1]->x + 1.0, \
+					0.0, 0.0);
+
+
+			pixel = vec3_to_sdlcolor(*(temp));
+			esdl_put_pixel(rt->s_view, x, y, esdl_color_to_int(pixel));
+			v3_free(temp);
+			++x;
+		}
+		++y;
+	}
 }

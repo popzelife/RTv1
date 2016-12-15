@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 18:57:20 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 21:43:59 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,12 @@ typedef struct	s_rt
 	t_panel			*panel;
 
 	int				render;
+
+	int				x;
+	int				y;
+	int				s;
+	t_vec3			*brush;
+	t_vec3			****paint;
 
 	t_vec3			***tab;
 	t_iter			*iter;

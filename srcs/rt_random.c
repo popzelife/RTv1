@@ -6,11 +6,16 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 14:54:32 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 10:29:51 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 21:29:51 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+int 				i_random()
+{
+    return (rand() % (100 - -100) + -100);
+}
 
 float				f_random()
 {

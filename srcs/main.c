@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 20:20:16 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 21:52:36 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ void		render_loop(t_rt *rt)
 {
 	while (rt->esdl->run)
 	{
-		while (rt->render)
+		if (rt->render)
 		{
-			render(rt);
+			paint_render(rt);
 
 			pthread_mutex_lock(&rt->mutex);
 			pthread_cond_signal(&rt->display_cond);
 			pthread_mutex_unlock(&rt->mutex);
+
+			rt->render = 0;
 		}
 
 		/*if (rt->render == -2)
@@ -114,7 +116,7 @@ void		display_loop(t_rt *rt)
 		pthread_mutex_lock(&rt->mutex);
 		pthread_cond_wait(&rt->display_cond, &rt->mutex);
 
-		printf("%s\n", __FUNCTION__);
+		//printf("%s\n", __FUNCTION__);
 		rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
 
 		pthread_mutex_unlock(&rt->mutex);
@@ -180,6 +182,9 @@ int			main(int ac, char **av)
 	rt = (t_rt*)malloc(sizeof(t_rt));
 	//kernel_isopencl();
 	init_rt(rt);
+	rt->s = 1;
+	rt->brush = v3_new_vec(0.0, 0.0, 0.0);
+	srand(time(NULL));
 
 	rt->win_temp = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, \
 		SDL_WINDOWPOS_UNDEFINED, WIN_RX, WIN_RY, \
@@ -202,6 +207,23 @@ int			main(int ac, char **av)
 		while (j < rt->r_view->h)
 		{
 			rt->tab[i][j] = v3_new_vec(0.0, 0.0, 0.0);
+			++j;
+		}
+		++i;
+	}
+
+	rt->paint = (t_vec3****)malloc(rt->r_view->w * sizeof(t_vec3***));
+	i = 0;
+	while (i < rt->r_view->w)
+	{
+		rt->paint[i] = (t_vec3***)malloc(rt->r_view->h * sizeof(t_vec3**));
+		j = 0;
+		while (j < rt->r_view->h)
+		{
+			rt->paint[i][j] = (t_vec3**)malloc(2 * sizeof(t_vec3*));
+			
+			rt->paint[i][j][0] = v3_new_vec(0.0, 0.0, 0.0);
+			rt->paint[i][j][1] = v3_new_vec(1.0, 0.0, 0.0);
 			++j;
 		}
 		++i;
@@ -233,8 +255,8 @@ int			main(int ac, char **av)
 	  Start first render while loading panel is still on screen
 	*/
 
-	rt->render = 1;
-	render(rt);
+	rt->render = 0;
+	//render(rt);
 
 	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
 	SDL_SetWindowMinimumSize(rt->esdl->eng.win, WIN_RX - 400, WIN_RY - 300);

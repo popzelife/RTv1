@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 19:19:27 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/15 21:18:12 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ BOOL		hit_list(t_scene *scene, const t_ray *ray, const float t_min,\
 	const float t_max, t_hit *param);
 
 SDL_Color	vec3_to_sdlcolor(t_vec3 v);
+
+/*
+  Paint
+*/
+
+void		paint_render(t_rt *rt);
 
 /*
   Multithreading
@@ -166,5 +172,6 @@ void		lst_set_string(t_string **string, t_strparam param, \
 t_vec3		*random_in_unit_sphere();
 t_vec3		*random_in_unit_disk();
 float		f_random();
+int 		i_random();
 
 #endif

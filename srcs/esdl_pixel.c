@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 17:10:16 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 16:35:10 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:31:45 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,23 @@ void			esdl_put_pixel(SDL_Surface *surf, \
 	Uint32		*pixels;
 
 	SDL_LockSurface(surf);
-	if ((x >= 0 && y >= 0) && (x < surf->w && y < surf->h))
+	if (x >= 0 && y >= 0 && x < surf->w && y < surf->h)
 	{
 		pixels = (Uint32 *)surf->pixels;
-		pixels[(y * surf->w) + x] = color;
+		pixels[y * surf->w + x] = color;
 	}
 	SDL_UnlockSurface(surf);
+}
+
+Uint32			esdl_read_pixel(SDL_Surface *surf, const int x, const int y)
+{
+	Uint32		pixel;
+
+	if (x >= 0 && y >= 0 && x < surf->w && y < surf->h)
+		pixel = (Uint32)(surf->pixels + y * surf->w + x);
+	else
+		pixel = 0;
+	return (pixel);
 }
 
 void			esdl_draw_filled_square(SDL_Surface *surf, \

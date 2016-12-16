@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 12:55:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 16:29:08 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:32:58 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,48 @@ SDL_Surface		*esdl_create_surface(int width, int height)
 		exit(1);
 	}
 	return (surf);
+}
+
+SDL_Surface		*esdl_scale_surface(SDL_Surface *surf, int width, int height)
+{
+	SDL_Surface			*ret;
+	/*float				scale_x;
+	float				scale_y;
+	int					x;
+	int					y;
+	int					o_x;
+	int					o_y;*/
+
+	if(!surf || !width || !height)
+		return (NULL);
+	ret = SDL_CreateRGBSurface(surf->flags, width, height, \
+		surf->format->BitsPerPixel, surf->format->Rmask, surf->format->Gmask, \
+		surf->format->Bmask, surf->format->Amask);
+	/*scale_x = (float)width  / (float)surf->w;
+	scale_y = (float)height / (float)surf->h;
+	y = 0;
+	while(y < surf->h)
+	{
+		x = 0;
+		while(x < surf->w)
+		{
+			o_y = 0;
+			while(o_y < scale_y)
+			{
+				o_x = 0;
+				while(o_x < scale_x)
+				{
+					esdl_put_pixel(ret, (int)scale_x * x + o_x, (int)scale_y * y + o_y, \
+						esdl_read_pixel(surf, x, y));
+					++o_x;
+				}
+				++o_y;
+			}
+			++x;
+		}
+		++y;
+	}*/
+	return (ret);
 }
 
 void			esdl_clear_surface(SDL_Surface *surf, \

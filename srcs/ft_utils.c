@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 11:31:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 18:59:45 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 16:37:45 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,4 @@ t_strparam		strparam(char* string, t_font font, int xy[2], int i)
 	p.xy[1] = xy[1];
 	p.i_lst = i;
 	return (p);
-}
-
-t_imgparam		*new_imgparam(char* name)
-{
-	t_imgparam		*p;
-
-	p = (t_imgparam*)malloc(sizeof(t_imgparam));
-	p->path = name;
-	return (p);
-}
-
-void			set_imgparam(t_imgparam *param, char* name)
-{
-	param->path = name;
 }

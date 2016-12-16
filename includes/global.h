@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 20:18:55 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:47:24 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # endif
 # define STACK_SIZE		(1 * PAGE_SIZE)
 
-# define ALIASING		100
+# define ALIASING		10
 # define NO_ALIASING	1
 # define MAX_DEPTH		25
 

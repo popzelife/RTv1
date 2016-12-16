@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 14:47:31 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 17:46:00 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:46:15 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int					esdl_check_input(t_input *in, const int input)
 	return (0);
 }
 
-int					esdl_update_events(t_input *in, int *run)
+void				esdl_update_events(t_input *in, int *run)
 {
 	SDL_Event		event;
 	int				ret;	
@@ -67,18 +67,17 @@ int					esdl_update_events(t_input *in, int *run)
 	{
 		if (event.type == SDL_QUIT || esdl_check_input(in, SDL_SCANCODE_ESCAPE))
 		{
+			in->quit = 1;
 			*run = 0;
-			return (EV_EXIT);
 		}
 		else if (event.type == SDL_WINDOWEVENT)
 		{
 			if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-				return (EV_RESIZE);
+				in->window = SDL_WINDOWEVENT_RESIZED;
 		}
 		if ((ret += esdl_get_input(&event, in)) > 0)
 			break ;
 		if ((ret += esdl_get_mouse(&event, in)) > 0)
 			break ;
 	}
-	return (ret);
 }

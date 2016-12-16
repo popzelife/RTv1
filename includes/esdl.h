@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:14:03 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 17:15:53 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:11:04 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct			s_input
 	int				m_y;
 	int				m_r_x;
 	int				m_r_y;
+	char			quit;
+	char			window;
 }						t_input;
 
 typedef	struct			s_timer
@@ -61,7 +63,7 @@ typedef struct			s_engine
 	int				rx;
 	int				ry;
 	SDL_Renderer	*render;
-	t_input			input;
+	t_input			*input;
 }						t_engine;
 
 typedef	struct			s_esdl
@@ -78,8 +80,9 @@ typedef	struct			s_esdl
 
 int			esdl_init(t_esdl *esdl, const int rx, const int ry, char * name);
 SDL_Surface	*esdl_create_surface(int width, int height);
+SDL_Surface	*esdl_scale_surface(SDL_Surface *surf, int width, int height);
 
-int			esdl_update_events(t_input *in, int *run);
+void		esdl_update_events(t_input *in, int *run);
 int			esdl_check_input(t_input *in, const int input);
 
 void		esdl_fps_limit(t_esdl *esdl);
@@ -87,8 +90,9 @@ void		esdl_fps_counter(t_esdl *esdl);
 
 int			esdl_color_to_int(SDL_Color color);
 SDL_Color	esdl_int_to_color(int color);
-void		esdl_put_pixel(SDL_Surface *surf, \
-	const int x, const int y, const int color);
+void		esdl_put_pixel(SDL_Surface *surf, const int x, const int y, \
+	const int color);
+Uint32		esdl_read_pixel(SDL_Surface *surf, const int x, const int y);
 
 SDL_Rect	*esdl_copy_rect(const SDL_Rect rect);
 SDL_Rect	esdl_rect(const int x, const int y, const int w, const int h);

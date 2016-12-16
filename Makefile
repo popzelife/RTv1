@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/14 18:56:41 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/16 16:38:51 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,8 +68,10 @@ SRC = \
 			v3_operation.c\
 			v3_transform.c\
 			v3_unit.c\
+			rt_init.c\
 			rt_skybox.c\
 			rt_menu.c\
+			rt_view.c\
 			rt_3dview.c\
 			rt_scene.c\
 			rt_camera.c\
@@ -78,12 +80,16 @@ SRC = \
 			rt_object.c\
 			rt_sphere.c\
 			rt_ray.c\
-			rt_raytrace.c\
+			rt_thread.c\
+			rt_hook.c\
 			rt_render.c\
 			rt_events.c\
 			rt_random.c\
+			rt_quit.c\
 			ft_list.c\
+			ft_list2.c\
 			ft_utils.c\
+			ft_utils2.c\
 			kernel_isopencl.c
 
 OBJ =		$(SRC:.c=.o)

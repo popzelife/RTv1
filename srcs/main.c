@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 20:20:16 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 18:29:52 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,224 +16,29 @@
   Need work on mutex and pthread handling
 */
 
-void		init_rt(t_rt *rt)
-{
-	SDL_Rect		*r_load;
-
-	rt->esdl = malloc(sizeof(t_esdl));
-	if (esdl_init(rt->esdl, LOAD_RX, LOAD_RY, API_NAME) == -1 ||
-		esdl_init_ttf(rt->esdl) == -1)
-		esdl_exit(rt->esdl);
-	SDL_SetWindowBordered(rt->esdl->eng.win, FALSE);
-	r_load = malloc(sizeof(SDL_Rect));
-	rt->t_load = esdl_load_texture(rt->esdl->eng.render, LOAD_NAME, \
-		&r_load->w, &r_load->h);
-	SDL_RenderClear(rt->esdl->eng.render);
-	SDL_RenderCopy(rt->esdl->eng.render, rt->t_load, NULL, NULL);
-	SDL_RenderPresent(rt->esdl->eng.render);
-	SDL_DestroyTexture(rt->t_load);
-	free(r_load);
-	rt->r_view = malloc(sizeof (SDL_Rect));
-}
-
-void	draw_view(t_rt *rt)
-{
-	SDL_GetWindowSize(rt->win_temp, &rt->r_view->w, &rt->r_view->h);
-	rt->r_view->x = 0;
-	rt->r_view->y = 0;
-	rt->r_view->w -= MENU_RX;
-	rt->s_view = esdl_create_surface(rt->r_view->w, rt->r_view->h);
-}
-
-void		display_rt(t_rt *rt)
-{
-	t_surface		*surf_curs;
-	t_string		*string_curs;
-
-	SDL_RenderClear(rt->esdl->eng.render);
-
-	SDL_RenderCopy(rt->esdl->eng.render, rt->t_view, NULL, rt->r_view);
-
-	surf_curs = rt->panel->lst_surf;
-	while (surf_curs != NULL)
-	{
-		SDL_RenderCopy(rt->esdl->eng.render, surf_curs->text, NULL, \
-			surf_curs->rect);
-		surf_curs = surf_curs->next;
-	}
-
-	string_curs = rt->panel->lst_string;
-	while (string_curs != NULL)
-	{
-		SDL_RenderCopy(rt->esdl->eng.render, string_curs->text.text, NULL, \
-			string_curs->text.rect);
-		string_curs = string_curs->next;
-	}
-
-	SDL_RenderPresent(rt->esdl->eng.render);
-}
-
-void		quit_rt(t_rt *rt)
-{
-	SDL_FreeSurface(rt->s_view);
-	SDL_FreeSurface(rt->s_menu);
-	SDL_DestroyTexture(rt->t_view);
-	SDL_DestroyTexture(rt->t_menu);
-
-	esdl_exit(rt->esdl);
-}
-
-void		render_loop(t_rt *rt)
-{
-	while (rt->esdl->run)
-	{
-		while (rt->render)
-		{
-			render(rt);
-
-			pthread_mutex_lock(&rt->mutex);
-			pthread_cond_signal(&rt->display_cond);
-			pthread_mutex_unlock(&rt->mutex);
-		}
-
-		/*if (rt->render == -2)
-			reset_render(rt);
-
-		pthread_mutex_lock(&rt->mutex);
-		pthread_cond_signal(&rt->display_cond);
-		pthread_mutex_unlock(&rt->mutex);*/
-	}
-
-	pthread_exit(NULL);
-}
-
-void		display_loop(t_rt *rt)
-{
-	while (rt->esdl->run)
-	{
-		pthread_mutex_lock(&rt->mutex);
-		pthread_cond_wait(&rt->display_cond, &rt->mutex);
-
-		printf("%s\n", __FUNCTION__);
-		rt->t_view = SDL_CreateTextureFromSurface(rt->esdl->eng.render, rt->s_view);
-
-		pthread_mutex_unlock(&rt->mutex);
-
-		display_rt(rt);
-	}
-
-	pthread_exit(NULL);
-}
-
-void		reset_render(t_rt *rt)
-{
-	int			i;
-	int			j;
-
-	pthread_cancel(rt->render_th);
-	pthread_cancel(rt->display_th);
-
-	rt->tab = (t_vec3***)malloc(rt->r_view->w * sizeof(t_vec3**));
-	i = 0;
-	while (i < rt->r_view->w)
-	{
-		rt->tab[i] = (t_vec3**)malloc(rt->r_view->h * sizeof(t_vec3*));
-		j = 0;
-		while (j < rt->r_view->h)
-		{
-			rt->tab[i][j] = v3_new_vec(0.0, 0.0, 0.0);
-			++j;
-		}
-		++i;
-	}
-
-	rt->iter = NULL;
-	i = 0;
-	while (i < rt->m_thread)
-	{
-		rt->iter = lst_new_iter(&(rt->iter), 1);
-		++i;
-	}
-
-	posix_memalign(&(rt->stack), PAGE_SIZE, STACK_SIZE);
-	rt->t = NULL;
-	i = 0;
-	while (i < rt->m_thread)
-	{
-		rt->t = lst_new_thread(&(rt->t));
-		++i;
-	}
-
-	pthread_create(&rt->render_th, NULL, (void*)render_loop, (void*)rt);
-	pthread_create(&rt->display_th, NULL, (void*)display_loop, (void*)rt);
-}
-
 int			main(int ac, char **av)
 {
 	(void)			av;
 	(void)			ac;
 	t_rt			*rt;
-	int				i;
-	int				j;
-	int				ret;	
 
 	rt = (t_rt*)malloc(sizeof(t_rt));
-	//kernel_isopencl();
+
+	kernel_isopencl();
+
+	/*
+	  Init RT and scene while displaying loading
+	*/
+
 	init_rt(rt);
-
-	rt->win_temp = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, \
-		SDL_WINDOWPOS_UNDEFINED, WIN_RX, WIN_RY, \
-		SDL_WINDOW_HIDDEN | SDL_WINDOW_ALLOW_HIGHDPI);
-	draw_view(rt);
-	rt->scene = init_scene(rt);
-	draw_menu(rt);
-	SDL_DestroyWindow(rt->win_temp);
-
-	/*
-	  Fill tab[x][y] with (0.0, 0.0, 0.0) vec3 ptr*
-	*/
-
-	rt->tab = (t_vec3***)malloc(rt->r_view->w * sizeof(t_vec3**));
-	i = 0;
-	while (i < rt->r_view->w)
-	{
-		rt->tab[i] = (t_vec3**)malloc(rt->r_view->h * sizeof(t_vec3*));
-		j = 0;
-		while (j < rt->r_view->h)
-		{
-			rt->tab[i][j] = v3_new_vec(0.0, 0.0, 0.0);
-			++j;
-		}
-		++i;
-	}
-
-	/*
-	  Prepare the rendering thread conditions
-	*/
-
-	rt->m_thread = 16;
-	rt->iter = NULL;
-	i = 0;
-	while (i < rt->m_thread)
-	{
-		rt->iter = lst_new_iter(&(rt->iter), 1);
-		++i;
-	}
-
-	posix_memalign(&(rt->stack), PAGE_SIZE, STACK_SIZE);
-	rt->t = NULL;
-	i = 0;
-	while (i < rt->m_thread)
-	{
-		rt->t = lst_new_thread(&(rt->t));
-		++i;
-	}
+	loader(rt);
+	init_screen_buffer(rt);
+	init_multithread(rt);
 
 	/*
 	  Start first render while loading panel is still on screen
 	*/
 
-	rt->render = 1;
 	render(rt);
 
 	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
@@ -254,19 +59,17 @@ int			main(int ac, char **av)
 	pthread_cond_init(&rt->display_cond, NULL);
 	
 	pthread_create(&rt->render_th, NULL, (void*)render_loop, (void*)rt);
-	pthread_create(&rt->display_th, NULL, (void*)display_loop, (void*)rt);
 
+	rt->esdl->eng.input->quit = 0;
 	while (rt->esdl->run)
 	{
-		ret = esdl_update_events(&(rt->esdl->eng.input), &(rt->esdl->run));
-		rt_events(rt, ret);
+		rt_events(rt, rt->esdl->eng.input);
+
+		display_rt(rt);
 
 		esdl_fps_limit(rt->esdl);
 		esdl_fps_counter(rt->esdl);
 	}
-
-	pthread_join(rt->render_th, NULL);
-	pthread_join(rt->display_th, NULL);
 
 	quit_rt(rt);
 	return (0);

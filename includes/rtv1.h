@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 19:19:27 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/16 19:25:26 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@
 # include "struct.h"
 
 /*
-  Scene init
+  Init RT
 */
+
+void		init_rt(t_rt *rt);
+void		loader(t_rt *rt);
+void		init_screen_buffer(t_rt *rt);
+void		init_multithread(t_rt *rt);
 
 t_scene		*new_scene(t_cam *cam, t_obj **obj, t_skybox *skybox);
 t_scene		*init_scene(t_rt *rt);
-
 
 /*
   Menu rendering
@@ -60,19 +64,27 @@ SDL_Color	vec3_to_sdlcolor(t_vec3 v);
   Multithreading
 */
 
+void		event_loop(t_rt *rt);
+void		render_loop(t_rt *rt);
+void		display_loop(t_rt *rt);
+
 void		thread_render(t_tharg *arg);
 
 /*
   Hook events
 */
 
+void		rt_events(t_rt *rt, t_input *in);
+
 void		draw_view(t_rt *rt);
 void		draw_menu(t_rt *rt);
 
 void		update_menu(t_rt *rt);
+void		udpate_view(t_rt *rt);
 
-void		rt_events(t_rt *rt, int ret);
-void		reset_render(t_rt *rt);
+void		reset_menu(t_rt *rt);
+
+void		display_rt(t_rt *rt);
 
 /*
   Cameras
@@ -166,5 +178,11 @@ void		lst_set_string(t_string **string, t_strparam param, \
 t_vec3		*random_in_unit_sphere();
 t_vec3		*random_in_unit_disk();
 float		f_random();
+
+/*
+  Exit
+*/
+
+void		quit_rt(t_rt *rt);
 
 #endif

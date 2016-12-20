@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 18:21:45 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 19:06:26 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,28 @@ typedef struct	s_scene
   Param for menu with lists rendering
 */
 
+typedef struct	s_surface
+{
+	SDL_Surface			*surf;
+	SDL_Texture			*text;
+	SDL_Rect			*rect;
+	struct s_surface	*next;
+}				t_surface;
+
+typedef struct	s_string
+{
+	t_text				text;
+	struct s_string		*next;
+}				t_string;
+
+typedef struct	s_button
+{
+	t_string			*string;
+	t_surface			*surface;
+	SDL_Rect			*rect;
+	struct s_button		*next;
+}				t_button;
+
 typedef struct	s_surfparam
 {
 	SDL_Rect		*rect;
@@ -125,19 +147,13 @@ typedef struct	s_strparam
 	int				i_lst;
 }				t_strparam;
 
-typedef struct	s_surface
+typedef struct	s_butnparam
 {
-	SDL_Surface			*surf;
-	SDL_Texture			*text;
-	SDL_Rect			*rect;
-	struct s_surface	*next;
-}				t_surface;
-
-typedef struct	s_string
-{
-	t_text			text;
-	struct s_string	*next;
-}				t_string;
+	t_string		*string;
+	t_surface		*surface;
+	SDL_Rect		*rect;
+	int				i_lst;
+}				t_butnparam;
 
 /*
   Mini 3D view rendering for menu
@@ -169,6 +185,7 @@ typedef struct	s_panel
 {
 	t_surface		*lst_surf;
 	t_string		*lst_string;
+	t_button		*lst_button;
 
 	t_viewparam		*viewparam;
 	t_imgparam		*imgparam;

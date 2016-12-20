@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/13 11:31:00 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 16:37:45 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 18:57:47 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,18 @@ t_strparam		strparam(char* string, t_font font, int xy[2], int i)
 	p.font = font;
 	p.xy[0] = xy[0];
 	p.xy[1] = xy[1];
+	p.i_lst = i;
+	return (p);
+}
+
+t_butnparam		butnparam(t_string *string, t_surface *surface, SDL_Rect *rect, \
+	int i)
+{
+	t_butnparam		p;
+
+	p.string = string;
+	p.surface = surface;
+	p.rect = rect;
 	p.i_lst = i;
 	return (p);
 }

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 19:25:26 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 18:56:57 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void		free_ray(t_ray *ray);
 int			*ft_tab2(const int x, const int y);
 t_surfparam	surfparam(SDL_Rect *rect, int color, void *param, int i);
 t_strparam	strparam(char* string, t_font font, int rx[2], int i);
+t_butnparam	butnparam(t_string *string, t_surface *surface, SDL_Rect *rect, \
+	int i);
 
 t_iter		*lst_new_iter(t_iter **iter, int i);
 t_thread	*lst_new_thread(t_thread **thread);
@@ -164,6 +166,9 @@ t_surface	*lst_new_image(t_surface **surface, t_surfparam param, \
 	int*, int*));
 t_string	*lst_new_string(t_string **string, t_strparam param, \
 	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*));
+
+t_button	*lst_new_button(t_button **button, t_butnparam param, \
+	SDL_Renderer *render);
 
 void		lst_set_surface(t_surface **surface, t_surfparam param, \
 	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \

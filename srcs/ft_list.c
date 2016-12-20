@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 16:38:11 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 20:04:51 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,4 +137,32 @@ t_string	*lst_new_string(t_string **string, t_strparam param, \
 		curs->next = new;
 	}
 	return (*string);
+}
+
+t_button	*lst_new_button(t_button **button, t_butnparam param, \
+	SDL_Renderer *render)
+{
+	t_button		*new;
+	t_button		*curs;
+
+	new = NULL;
+	new = (t_button*)malloc(sizeof(t_button));
+	if (new == NULL)
+		return (NULL);
+	new->rect = esdl_copy_rect(*(param.rect));
+	new->surface = lst_new_surface(&new->surface, surfparam(new->rect, \
+		0xff888888, NULL, 0), render, esdl_clear_surface);
+	new->surface->next = param.surface;
+	new->string = param.string;
+	new->next = NULL;
+	if (*button == NULL)
+		return (new);
+	else
+	{
+		curs = *button;
+		while (curs->next != NULL)
+			curs = curs->next;
+		curs->next = new;
+	}
+	return (*button);
 }

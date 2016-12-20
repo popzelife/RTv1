@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 19:47:24 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 20:08:34 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 # endif
 # define STACK_SIZE		(1 * PAGE_SIZE)
 
-# define ALIASING		10
+# define ALIASING		100
 # define NO_ALIASING	1
 # define MAX_DEPTH		25
 
 # define API_NAME		"RTv1"
-# define MAX_FPS		60
+# define MAX_FPS		30
 # define WIN_RX			1400
 # define WIN_RY			900
 # define MENU_RX		300
@@ -40,6 +40,9 @@
 # define IMG_ADDSPHERE	"image/AddSphere.bmp"
 # define IMG_ADDPLANE	"image/AddPlane.bmp"
 # define IMG_ADDCUBE	"image/AddCube.bmp"
+# define IMG_TOOLRENDER	"image/Render.bmp"
+# define IMG_TOOLPAINT	"image/Paint.bmp"
+# define IMG_TOOLSAVE	"image/Save.bmp"
 
 # define HELP			-2
 # define ERROR			-1

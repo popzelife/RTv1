@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/15 20:24:28 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 15:24:30 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_scene		*init_scene(t_rt *rt)
 		v3_new_vec(0.8, 0.8, 0.8), MAT_DIFF_LIGHT, NULL_PARAM);
 
 	skybox = new_skybox(v3_new_vec(1.0, 1.0, 0.5), \
-		v3_new_vec(0.0, 0.25, 0.3), SKYBX_GRADIENT);
+		v3_new_vec(0.0, 0.25, 0.3), SKYBX_NONE);
 
 	scene = new_scene(cam, obj, skybox);
 	scene->obj_nb = obj_nb;

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:37:29 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 19:46:36 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 18:46:50 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,3 +70,5 @@ void			set_viewparam(t_viewparam *p, t_rt *rt, int x, int y)
 	v3_free(param.normal);
 	free_ray(ray);
 }
+
+//join_free

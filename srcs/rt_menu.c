@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 21:17:20 by popzelife         #+#    #+#             */
-/*   Updated: 2016/12/16 19:25:50 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/20 20:11:23 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void		draw_menu(t_rt *rt)
 {
+	t_surface		*nullsurf = NULL;
+	t_string		*nullstring = NULL;
 	SDL_Rect		rect;
+	SDL_Rect		rect2;
 
 	rt->panel = malloc(sizeof(t_panel));
 	rt->panel->lst_surf = NULL;
 	rt->panel->lst_string = NULL;
+	rt->panel->lst_button = NULL;
 	rt->panel->viewparam = new_viewparam(rt->scene);
 	rt->panel->imgparam = new_imgparam(IMG_ADDCUBE);
 	rt->r_menu = malloc(sizeof (SDL_Rect));
@@ -69,6 +73,30 @@ void		draw_menu(t_rt *rt)
 
 	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 * 2 + 27 * 3, 520, 0, 0));
 	set_imgparam(rt->panel->imgparam, IMG_ADDSPHERE);
+	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
+		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
+		rt->esdl->eng.render, esdl_load_texture);
+
+	//title3
+	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(0, 750, MENU_RX, 30));
+	rt->panel->lst_surf = lst_new_surface(&(rt->panel->lst_surf), surfparam( \
+		&rect, 0xff888888, NULL, 0), rt->esdl->eng.render, esdl_clear_surface);
+
+	//rendering tools
+	/*rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(27, 790, 0, 0));
+	set_imgparam(rt->panel->imgparam, IMG_TOOLRENDER);
+	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
+		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
+		rt->esdl->eng.render, esdl_load_texture);*/
+
+	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 + 27 * 2, 790, 0, 0));
+	set_imgparam(rt->panel->imgparam, IMG_TOOLSAVE);
+	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
+		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
+		rt->esdl->eng.render, esdl_load_texture);
+
+	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 * 2 + 27 * 3, 790, 0, 0));
+	set_imgparam(rt->panel->imgparam, IMG_TOOLPAINT);
 	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
 		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
 		rt->esdl->eng.render, esdl_load_texture);
@@ -166,16 +194,53 @@ void		draw_menu(t_rt *rt)
 		rt->esdl->eng.render, esdl_render_blendedtext);
 
 	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
-		"Cube", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27, 530 + 64) , 0), \
+		"Cube", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 32, 530 + 64) , 0), \
 		rt->esdl->eng.render, esdl_render_blendedtext);
 
 	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
-		"Plane", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27 * 2 + 64, \
+		"Plane", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 29 * 2 + 64, \
 		530 + 64), 0), rt->esdl->eng.render, esdl_render_blendedtext);
 
 	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
 		"Sphere", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27 * 3 + 64 * \
 		2, 530 + 64), 0), rt->esdl->eng.render, esdl_render_blendedtext);
+
+	//Rendering tools
+	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
+		"Render Tools:", rt->panel->title1, ft_tab2(WIN_RX - MENU_RX + 5, 757), 0), \
+		rt->esdl->eng.render, esdl_render_blendedtext);
+
+	/*rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
+		"Render", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27, 800 + 64) , 0), \
+		rt->esdl->eng.render, esdl_render_blendedtext);*/
+
+	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
+		"Snap", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 32 * 2 + 64, 800 + 64) , 0), \
+		rt->esdl->eng.render, esdl_render_blendedtext);
+
+	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
+		"Paint", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 30 * 3 + 64 * 2, 800 + 64) , 0), \
+		rt->esdl->eng.render, esdl_render_blendedtext);
+
+	/*
+	  Button interface
+	*/
+
+	/*rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(27, 790, 0, 0));
+	rect2 = esdl_fuse_rect(*(rt->r_menu), esdl_rect(27, 790, 128, 128));
+	set_imgparam(rt->panel->imgparam, IMG_TOOLRENDER);
+
+	rt->panel->lst_button = lst_new_button(&rt->panel->lst_button, \
+	butnparam( \
+		lst_new_string(&nullstring, strparam( "Render", \
+			rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27, 800 + 64) , 0), \
+			rt->esdl->eng.render, esdl_render_blendedtext), \
+		lst_new_image(&nullsurf, surfparam(&rect, 0, (void*)rt->panel->imgparam, \
+			0), rt->esdl->eng.render, esdl_load_texture), \
+		&rect2, 0), \
+	rt->esdl->eng.render);*/
+
+
 }
 
 void		update_menu(t_rt *rt)

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/20 15:21:29 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/22 15:46:04 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,10 +202,12 @@ void				thread_render(t_tharg *arg)
 			}
 			else
 			{
-				arg->rt->render = 0;
+				printf("thread stop %40s\r", "");
+				arg->rt->suspend = TRUE;
 				return ;
 			}
 			pixel = vec3_to_sdlcolor(*(temp));
+			//printf("%4d %4d %2d = %3d %3d %3d %3d%20s\r", x, y, *(arg->s), pixel.r, pixel.g, pixel.b, pixel.a, "");
 			esdl_put_pixel(arg->rt->s_view, x, y, esdl_color_to_int(pixel));
 			v3_free(temp);
 			++x;

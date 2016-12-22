@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/20 18:56:57 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/22 14:19:20 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ void		set_imgparam(t_imgparam *param, char* name);
 
 void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 	const int color, void *param);
+
+/*
+  Button action
+*/
+
+t_action	actionparam(void *param, void (f)(void*));
+
+void		button_render(void *param);
 
 /*
   Raytracer rendering
@@ -91,9 +99,13 @@ void		display_rt(t_rt *rt);
 */
 
 t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
-	t_vec3 *u, t_vec3 *v, t_vec3 *w, float lens_radius);
-t_cam		*init_camera(const t_vec3 look_from, const t_vec3 look_at, \
-	const t_vec3 v_up, float vfov, float aspect, float aperture, float focus);
+	t_vec3 *u, t_vec3 *v, t_vec3 *w, float lens_radius, float half_width, \
+	float half_height, t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up);
+t_cam		*init_camera(t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up, \
+	float vfov, float aspect, float aperture, float focus);
+void		set_camera(t_cam *cam, const t_vec3 look_from, const t_vec3 look_at, \
+	const t_vec3 v_up);
+
 t_ray		*camera_ray(t_cam *cam, float s, float t);
 
 /*
@@ -168,7 +180,7 @@ t_string	*lst_new_string(t_string **string, t_strparam param, \
 	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*));
 
 t_button	*lst_new_button(t_button **button, t_butnparam param, \
-	SDL_Renderer *render);
+	SDL_Renderer *render, t_action action);
 
 void		lst_set_surface(t_surface **surface, t_surfparam param, \
 	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \

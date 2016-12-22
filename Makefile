@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2016/12/16 16:38:51 by qfremeau         ###   ########.fr        #
+#    Updated: 2016/12/21 16:36:26 by qfremeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,7 @@ SRC = \
 			rt_ray.c\
 			rt_thread.c\
 			rt_hook.c\
+			rt_button.c\
 			rt_render.c\
 			rt_events.c\
 			rt_random.c\

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/20 19:06:26 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/21 18:07:55 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ typedef struct	s_cam
 	t_vec3			*v;
 	t_vec3			*w;
 	float			lens_radius;
+	float			half_width;
+	float			half_height;
+	t_vec3			*look_from;
+	t_vec3			*look_at;
+	t_vec3			*v_up;
 }				t_cam;
 
 typedef struct	s_skybox
@@ -123,13 +128,6 @@ typedef struct	s_string
 	struct s_string		*next;
 }				t_string;
 
-typedef struct	s_button
-{
-	t_string			*string;
-	t_surface			*surface;
-	SDL_Rect			*rect;
-	struct s_button		*next;
-}				t_button;
 
 typedef struct	s_surfparam
 {
@@ -147,6 +145,21 @@ typedef struct	s_strparam
 	int				i_lst;
 }				t_strparam;
 
+/*
+  Button event and action
+*/
+
+typedef struct	s_button
+{
+	t_string			*string;
+	t_surface			*surface;
+	SDL_Rect			*rect;
+	BOOL				hover;
+	void				*param;
+	void				(*action)(void*);
+	struct s_button		*next;
+}				t_button;
+
 typedef struct	s_butnparam
 {
 	t_string		*string;
@@ -154,6 +167,12 @@ typedef struct	s_butnparam
 	SDL_Rect		*rect;
 	int				i_lst;
 }				t_butnparam;
+
+typedef struct	s_action
+{
+	void			*param;
+	void			(*f)(void*);
+}				t_action;
 
 /*
   Mini 3D view rendering for menu
@@ -228,7 +247,8 @@ typedef struct	s_rt
 
 	t_panel			*panel;
 
-	int				render;
+	BOOL			render;
+	BOOL			suspend;
 
 	t_vec3			***tab;
 	t_iter			*iter;

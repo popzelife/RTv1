@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 14:05:44 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 19:46:58 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/22 15:24:15 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ void		render(t_rt *rt)
 		++i;
 	}
 
+	printf("Render thread%50s\r", "");
 	render2(rt, th_curs);
 
-	ft_printf("Render pass # %3d/%3d\r", rt->iter->s - 1, ALIASING);
+	ft_printf("Render pass # %3d/%3d %20s\r", rt->iter->s - 1, ALIASING, "");
 }

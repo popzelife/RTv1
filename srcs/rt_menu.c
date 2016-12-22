@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 21:17:20 by popzelife         #+#    #+#             */
-/*   Updated: 2016/12/20 20:11:23 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/21 16:37:41 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,6 @@ void		draw_menu(t_rt *rt)
 	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(0, 750, MENU_RX, 30));
 	rt->panel->lst_surf = lst_new_surface(&(rt->panel->lst_surf), surfparam( \
 		&rect, 0xff888888, NULL, 0), rt->esdl->eng.render, esdl_clear_surface);
-
-	//rendering tools
-	/*rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(27, 790, 0, 0));
-	set_imgparam(rt->panel->imgparam, IMG_TOOLRENDER);
-	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
-		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
-		rt->esdl->eng.render, esdl_load_texture);*/
-
-	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 + 27 * 2, 790, 0, 0));
-	set_imgparam(rt->panel->imgparam, IMG_TOOLSAVE);
-	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
-		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
-		rt->esdl->eng.render, esdl_load_texture);
-
-	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 * 2 + 27 * 3, 790, 0, 0));
-	set_imgparam(rt->panel->imgparam, IMG_TOOLPAINT);
-	rt->panel->lst_surf = lst_new_image(&(rt->panel->lst_surf), \
-		surfparam(&rect, 0, (void*)rt->panel->imgparam, 0), \
-		rt->esdl->eng.render, esdl_load_texture);
 
 	/*
 	  Get param from object
@@ -210,36 +191,48 @@ void		draw_menu(t_rt *rt)
 		"Render Tools:", rt->panel->title1, ft_tab2(WIN_RX - MENU_RX + 5, 757), 0), \
 		rt->esdl->eng.render, esdl_render_blendedtext);
 
-	/*rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
-		"Render", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27, 800 + 64) , 0), \
-		rt->esdl->eng.render, esdl_render_blendedtext);*/
-
-	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
-		"Snap", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 32 * 2 + 64, 800 + 64) , 0), \
-		rt->esdl->eng.render, esdl_render_blendedtext);
-
-	rt->panel->lst_string = lst_new_string(&(rt->panel->lst_string), strparam( \
-		"Paint", rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 30 * 3 + 64 * 2, 800 + 64) , 0), \
-		rt->esdl->eng.render, esdl_render_blendedtext);
-
 	/*
 	  Button interface
 	*/
 
-	/*rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(27, 790, 0, 0));
-	rect2 = esdl_fuse_rect(*(rt->r_menu), esdl_rect(27, 790, 128, 128));
+	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(24, 790, 0, 0));
+	rect2 = esdl_fuse_rect(*(rt->r_menu), esdl_rect(15, 790, 82, 95));
 	set_imgparam(rt->panel->imgparam, IMG_TOOLRENDER);
-
 	rt->panel->lst_button = lst_new_button(&rt->panel->lst_button, \
 	butnparam( \
-		lst_new_string(&nullstring, strparam( "Render", \
-			rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 27, 800 + 64) , 0), \
+		lst_new_string(&nullstring, strparam("Render", \
+			rt->panel->word1, ft_tab2(WIN_RX - MENU_RX + 25, 800 + 64) , 0), \
 			rt->esdl->eng.render, esdl_render_blendedtext), \
-		lst_new_image(&nullsurf, surfparam(&rect, 0, (void*)rt->panel->imgparam, \
-			0), rt->esdl->eng.render, esdl_load_texture), \
+		lst_new_image(&nullsurf, surfparam(&rect, 0, (void*) \
+			rt->panel->imgparam, 0), rt->esdl->eng.render, esdl_load_texture), \
 		&rect2, 0), \
-	rt->esdl->eng.render);*/
+	rt->esdl->eng.render, actionparam((void*)rt, button_render));
 
+	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 + 27 * 2, 790, 0, 0));
+	rect2 = esdl_fuse_rect(*(rt->r_menu), esdl_rect(14 * 2 + 81, 790, 84, 95));
+	set_imgparam(rt->panel->imgparam, IMG_TOOLSAVE);
+	rt->panel->lst_button = lst_new_button(&rt->panel->lst_button, \
+	butnparam( \
+		lst_new_string(&nullstring, strparam("Snap", rt->panel->word1, \
+			ft_tab2(WIN_RX - MENU_RX + 32 * 2 + 64, 800 + 64) , 0), \
+			rt->esdl->eng.render, esdl_render_blendedtext), \
+		lst_new_image(&nullsurf, surfparam(&rect, 0, (void*) \
+			rt->panel->imgparam, 0), rt->esdl->eng.render, esdl_load_texture), \
+		&rect2, 0), \
+	rt->esdl->eng.render, actionparam((void*)rt, button_render));
+
+	rect = esdl_fuse_rect(*(rt->r_menu), esdl_rect(64 * 2 + 29 * 3, 790, 0, 0));
+	rect2 = esdl_fuse_rect(*(rt->r_menu), esdl_rect(14 * 3 + 82 * 2, 790, 80, 95));
+	set_imgparam(rt->panel->imgparam, IMG_TOOLPAINT);
+	rt->panel->lst_button = lst_new_button(&rt->panel->lst_button, \
+	butnparam( \
+		lst_new_string(&nullstring, strparam("Paint", rt->panel->word1, \
+			ft_tab2(WIN_RX - MENU_RX + 32 * 3 + 64 * 2, 800 + 64) , 0), \
+			rt->esdl->eng.render, esdl_render_blendedtext), \
+		lst_new_image(&nullsurf, surfparam(&rect, 0, (void*) \
+			rt->panel->imgparam, 0), rt->esdl->eng.render, esdl_load_texture), \
+		&rect2, 0), \
+	rt->esdl->eng.render, actionparam((void*)rt, button_render));
 
 }
 

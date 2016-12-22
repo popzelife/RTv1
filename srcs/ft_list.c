@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/20 20:04:51 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/21 16:33:09 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ t_string	*lst_new_string(t_string **string, t_strparam param, \
 }
 
 t_button	*lst_new_button(t_button **button, t_butnparam param, \
-	SDL_Renderer *render)
+	SDL_Renderer *render, t_action action)
 {
 	t_button		*new;
 	t_button		*curs;
@@ -150,10 +150,15 @@ t_button	*lst_new_button(t_button **button, t_butnparam param, \
 	if (new == NULL)
 		return (NULL);
 	new->rect = esdl_copy_rect(*(param.rect));
+	new->surface = NULL;
 	new->surface = lst_new_surface(&new->surface, surfparam(new->rect, \
-		0xff888888, NULL, 0), render, esdl_clear_surface);
+		0x88888888, NULL, 0), render, esdl_clear_surface);
+	new->surface->next = (t_surface*)malloc(sizeof(t_surface));
 	new->surface->next = param.surface;
 	new->string = param.string;
+	new->hover = FALSE;
+	new->param = action.param;
+	new->action = action.f;
 	new->next = NULL;
 	if (*button == NULL)
 		return (new);

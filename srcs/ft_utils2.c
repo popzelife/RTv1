@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:37:29 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/20 18:46:50 by qfremeau         ###   ########.fr       */
+/*   Updated: 2016/12/22 14:50:17 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_viewparam		*new_viewparam(t_scene *scene)
 	t_skybox		*skybox;
 	t_cam			*cam;
 
-	cam = init_camera(v3(-0.6, 0.0, -0.6), v3(0.0, 0.0, 0.0), \
-		v3(0.0, -1.0, 0.0), 60.0, 1.0, 0.0, 0.5);
+	cam = init_camera(v3_new_vec(-0.6, 0.0, -0.6), v3_new_vec(0.0, 0.0, 0.0), \
+		v3_new_vec(0.0, -1.0, 0.0), 60.0, 1.0, 0.0, 0.5);
 	obj = (t_obj**)malloc(2 * sizeof(t_obj*));
 	obj[0] = copy_object(scene->obj[0]);
 	obj[1] = new_object(v3_new_vec(0.0, 1.5, 0.0), 0.5, OBJ_SPHERE, \
@@ -71,4 +71,11 @@ void			set_viewparam(t_viewparam *p, t_rt *rt, int x, int y)
 	free_ray(ray);
 }
 
-//join_free
+t_action		actionparam(void *param, void (f)(void*))
+{
+	t_action		p;
+
+	p.param = param;
+	p.f = f;
+	return (p);
+}

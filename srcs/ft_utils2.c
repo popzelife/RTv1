@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 16:37:29 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/22 14:50:17 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 15:03:32 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ t_viewparam		*new_viewparam(t_scene *scene)
 		v3_new_vec(0.0, -1.0, 0.0), 60.0, 1.0, 0.0, 0.5);
 	obj = (t_obj**)malloc(2 * sizeof(t_obj*));
 	obj[0] = copy_object(scene->obj[0]);
-	obj[1] = new_object(v3_new_vec(0.0, 1.5, 0.0), 0.5, OBJ_SPHERE, \
-		v3_new_vec(1.0, 1.0, 1.0), MAT_DIFF_LIGHT, NULL_PARAM);
+	obj[1] = new_object((void*)new_sphere(v3_new_vec(0.0, 1.5, 0.0), 0.5), \
+		OBJ_SPHERE, new_material(v3_new_vec(1.0, 1.0, 1.0), NULL_PARAM), \
+		MAT_DIFF_LIGHT);
 	skybox = new_skybox(v3_new_vec(0.4, 0.4, 0.4), \
 		v3_new_vec(0.9, 0.9, 0.9), SKYBX_GRADIENT);
 	p = (t_viewparam*)malloc(sizeof(t_viewparam));

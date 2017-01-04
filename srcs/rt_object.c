@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 00:30:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/14 20:33:12 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 16:31:07 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	*select_obj(t_vec3 *p, const float f, const UCHAR t)
 
 	if (t == OBJ_SPHERE)
 		o = (void*)new_sphere(p, f);
+	else if (t == OBJ_PLANE_XY)
+		o = (void*)new_plane_xy(1, 2, 1, 1, 1);
 	else
 		o = NULL;
 	return (o);
@@ -44,6 +46,8 @@ static void	*select_hit(const UCHAR t)
 
 	if (t == OBJ_SPHERE)
 		f = (void*)&hit_sphere;
+	else if (t == OBJ_PLANE_XY)
+		f = (void*)&hit_plane_xy;
 	else
 		f = NULL;
 	return (f);
@@ -66,20 +70,20 @@ static void	*select_scatter(const UCHAR t)
 	return (s);
 }
 
-t_obj		*new_object(t_vec3 *pos, const float param, \
-	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat, const float t)
+t_obj		*new_object(void *obj, const UCHAR type_obj, t_mat *mat, \
+	const UCHAR type_mat)
 {
 	t_obj	*o;
 
 	o = malloc(sizeof(t_obj));
 	o->type_obj = type_obj;
-	o->p_obj = select_obj(pos, param, o->type_obj);
+	o->p_obj = obj;
 	o->hit = select_hit(o->type_obj);
-	o->p_mat = new_material(albedo, t);
+	o->p_mat = mat;
 	o->p_mat->type_mat = type_mat;
 	o->p_mat->scatter = select_scatter(o->type_obj);
 	if (type_mat == MAT_DIFF_LIGHT)
-		o->p_mat->emitted = albedo;
+		o->p_mat->emitted = o->p_mat->albedo;
 	else
 		o->p_mat->emitted = v3_new_vec(0.0, 0.0, 0.0);
 	return (o);

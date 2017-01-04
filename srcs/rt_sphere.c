@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:43:54 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/11/29 19:48:24 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 20:44:15 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,24 @@ t_sphere	*new_sphere(t_vec3 *center, const float radius)
 	s->radius = radius;
 	s->radius2 = radius * radius;
 	return (s);
+}
+
+BOOL		bound_box_sphere(void *obj, t_bound_box *box, const float t0, \
+	const float t1)
+{
+	t_sphere	*sphere;
+	t_vec3		*vmin;
+	t_vec3		*vmax;
+
+	(void)t0;
+	(void)t1;
+	sphere = (t_sphere*)obj;
+	vmin = v3_sub_vec(*(sphere->center), \
+		v3(sphere->radius, sphere->radius, sphere->radius));
+	vmax = v3_add_vec(*(sphere->center), \
+		v3(sphere->radius, sphere->radius, sphere->radius));
+	box = new_bound_box(vmin, vmax);
+	return (TRUE);
 }
 
 BOOL		hit_sphere(void *obj, const t_ray *ray, const float t_min, \

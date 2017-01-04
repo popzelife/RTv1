@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/21 18:07:55 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 18:55:18 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct	s_ray
 typedef struct s_hit
 {
 	float			t;
+	float			u;
+	float			v;
 	int				i_lst;
 	t_vec3			*pos;
 	t_vec3			*normal;
@@ -50,13 +52,27 @@ typedef struct s_mat
 }				t_mat;
 
 /*
+  Bounding box
+*/
+
+typedef struct	s_bound_box
+{
+	t_vec3			*min;
+	t_vec3			*max;
+}				t_bound_box;
+
+/*
   Objects
 */
 
-typedef struct	s_plane
+typedef struct	s_plane_xy
 {
-	float			distance;
-}				t_plane;
+	float		x0;
+	float		x1;
+	float		y0;
+	float		y1;
+	float		k;
+}				t_plane_xy;
 
 typedef struct	s_sphere
 {
@@ -75,6 +91,7 @@ typedef struct s_obj
 	void			*p_obj;
 	BOOL			(*hit)(void*, const t_ray*, const float, const float, \
 		t_hit*);
+	BOOL			(*bound_box)(void*, t_bound_box*, const float, const float);
 	t_mat			*p_mat;
 }				t_obj;
 

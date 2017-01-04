@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/12 21:17:20 by popzelife         #+#    #+#             */
-/*   Updated: 2016/12/21 16:37:41 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 15:00:19 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void		draw_menu(t_rt *rt)
 		sprintf(rt->panel->viewparam->str_param_o, "Radius: %10.3g", \
 			sphere->radius);
 	}
-	else if (rt->panel->viewparam->obj->type_obj == OBJ_PLANE)
+	else if (rt->panel->viewparam->obj->type_obj == OBJ_PLANE_XY)
 		sprintf(rt->panel->viewparam->str_obj, "Plane Param:");
 	else if (rt->panel->viewparam->obj->type_obj == OBJ_CUBE)
 		sprintf(rt->panel->viewparam->str_obj, "Cube Param:");
@@ -268,7 +268,7 @@ void		update_menu(t_rt *rt)
 		sprintf(rt->panel->viewparam->str_param_o, "Radius: %10.3g", \
 			sphere->radius);
 	}
-	else if (rt->panel->viewparam->obj->type_obj == OBJ_PLANE)
+	else if (rt->panel->viewparam->obj->type_obj == OBJ_PLANE_XY)
 		sprintf(rt->panel->viewparam->str_obj, "Plane Param:");
 	else if (rt->panel->viewparam->obj->type_obj == OBJ_CUBE)
 		sprintf(rt->panel->viewparam->str_obj, "Cube Param:");
@@ -404,7 +404,7 @@ void		reset_menu(t_rt *rt)
 		sprintf(rt->panel->viewparam->str_param_o, "Radius: %10.3g", \
 			sphere->radius);
 	}
-	else if (rt->panel->viewparam->obj->type_obj == OBJ_PLANE)
+	else if (rt->panel->viewparam->obj->type_obj == OBJ_PLANE_XY)
 		sprintf(rt->panel->viewparam->str_obj, "Plane Param:");
 	else if (rt->panel->viewparam->obj->type_obj == OBJ_CUBE)
 		sprintf(rt->panel->viewparam->str_obj, "Cube Param:");

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/22 14:19:20 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 20:43:47 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,30 @@ t_vec3		*hit_gradient_skybox(const t_skybox *box, const t_ray *ray);
 t_vec3		*hit_none_skybox(const t_skybox *box, const t_ray *ray);
 
 /*
+  Bounding box
+*/
+
+t_bound_box	*new_bound_box(t_vec3 *min, t_vec3 *max);
+BOOL		hit_bound_box(t_bound_box *box, const t_ray *ray, float t_min, \
+	float t_max);
+
+/*
   Objects
 */
 
-t_obj		*new_object(t_vec3 *pos, const float param, \
-	const UCHAR type_obj, t_vec3 *albedo, const UCHAR type_mat, const float t);
+t_obj		*new_object(void *obj, const UCHAR type_obj, t_mat *mat, \
+	const UCHAR type_mat);
 t_obj		*copy_object(t_obj *obj);
 
 t_sphere	*new_sphere(t_vec3 *center, const float radius);
 BOOL		hit_sphere(void *obj, const t_ray *r, const float t_min, \
+	const float t_max, t_hit *param);
+BOOL		bound_box_sphere(void *obj, t_bound_box *box, float const t0, \
+	float const t1);
+
+t_plane_xy	*new_plane_xy(const float x0, const float x1, float const y0, \
+	float const y1, float const k);
+BOOL		hit_plane_xy(void *obj, const t_ray *ray, const float t_min, \
 	const float t_max, t_hit *param);
 
 /*
@@ -189,12 +204,15 @@ void		lst_set_string(t_string **string, t_strparam param, \
 	SDL_Renderer *render, t_text (f)(char*, t_font, int[2], SDL_Renderer*));
 
 /*
-  Randomize
+  Randomize & Min/Max
 */
 
 t_vec3		*random_in_unit_sphere();
 t_vec3		*random_in_unit_disk();
 float		f_random();
+
+float		f_min(float const a, float const b);
+float		f_max(float const a, float const b);
 
 /*
   Exit

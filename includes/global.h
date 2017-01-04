@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/20 20:08:34 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/04 14:38:18 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,14 @@
 # define EV_EXIT		-1
 # define EV_RESIZE		-2
 
-# define OBJ_PLANE		0x1
-# define OBJ_SPHERE		0x2
-# define OBJ_CUBE		0x4
-# define OBJ_PYRAMID	0x8
-# define OBJ_CYLINDER	0x10
-# define OBJ_SKYBOX		0x20
+# define OBJ_PLANE_XY	0x1
+# define OBJ_PLANE_YZ	0x2
+# define OBJ_PLANE_XZ	0x4
+# define OBJ_SPHERE		0x5
+# define OBJ_CUBE		0x10
+# define OBJ_PYRAMID	0x20
+# define OBJ_CYLINDER	0x40
+# define OBJ_SKYBOX		0x50
 
 # define SKYBX_NONE		0x0
 # define SKYBX_GRADIENT	0x1

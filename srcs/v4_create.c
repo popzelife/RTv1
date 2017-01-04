@@ -1,66 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v3_create.c                                        :+:      :+:    :+:   */
+/*   v4_create.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/15 15:04:21 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/04 18:08:34 by qfremeau         ###   ########.fr       */
+/*   Created: 2017/01/04 10:03:01 by qfremeau          #+#    #+#             */
+/*   Updated: 2017/01/04 10:05:36 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "rtv1.h"
 
-t_vec3		v3(float const x, float const y, float const z)
+t_vec4		v4(float const x, float const y, float const z, float const w)
 {
-	t_vec3		vec;
+	t_vec4		vec;
 
 	vec.x = x;
 	vec.y = y;
 	vec.z = z;
+	vec.w = w;
 	return (vec);
 }
 
-t_vec3		*v3_new_vec(float const x, float const y, float const z)
+t_vec4		*v4_new_vec(float const x, float const y, float const z, \
+	float const w)
 {
-	t_vec3		*vec;
+	t_vec4		*vec;
 
-	vec = malloc(sizeof(t_vec3));
+	vec = malloc(sizeof(t_vec4));
 	vec->x = x;
 	vec->y = y;
 	vec->z = z;
+	vec->w = w;
 	return (vec);
 }
 
-t_vec3		*v3_copy_vec(t_vec3 const v)
+t_vec4		*v4_copy_vec(t_vec4 const v)
 {
-	return (v3_new_vec(v.x, v.y, v.z));
+	return (v4_new_vec(v.x, v.y, v.z, v.w));
 }
 
-void		v3_set(t_vec3 *v, float const x, float const y, float const z)
+void		v4_set(t_vec4 *v, t_vec3 const xyz, float const w)
 {
-	v->x = x;
-	v->y = y;
-	v->z = z;
+	v->x = xyz.x;
+	v->y = xyz.y;
+	v->z = xyz.z;
+	v->w = w;
 }
 
-void		v3_free(t_vec3 *v)
+void		v4_free(t_vec4 *v)
 {
 	if (v)
 		free(v);
-}
-
-float		v3_access(t_vec3 *v, int i)
-{
-	if (v)
-	{
-		if (i == 0)
-			return (v->x);
-		else if (i == 1)
-			return (v->y);
-		else if (i == 2)
-			return (v->z);
-	}
-	return (0.0);
 }

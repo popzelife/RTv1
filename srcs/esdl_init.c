@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   esdl_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: popzelife <popzelife@student.42.fr>        +#+  +:+       +#+        */
+/*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:11:48 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/12 21:39:09 by popzelife        ###   ########.fr       */
+/*   Updated: 2016/12/16 18:07:21 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	esdl_init_esdl(t_esdl *esdl, const int rx, const int ry)
 {
-	ft_memset(&esdl->eng.input, 0, sizeof(t_input));
+	esdl->eng.input = (t_input*)malloc(sizeof(t_input));
+	ft_memset(esdl->eng.input, 0, sizeof(t_input));
 	esdl->fps.current = 0;
 	esdl->fps.fps = 0;
 	esdl->fps.update = 0;

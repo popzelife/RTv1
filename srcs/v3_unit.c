@@ -16,6 +16,6 @@ t_vec3		*v3_unit_vec(t_vec3 const v)
 {
 	t_vec3		*vec;
 
-	vec = v3_div_vec(v, v3_lenght_float(v));
+	vec = v3_div_vec(v, v3_lenght_double(v));
 	return (vec);
 }

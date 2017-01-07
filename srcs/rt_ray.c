@@ -22,7 +22,7 @@ t_ray		*new_ray(t_vec3 *orig, t_vec3 *dir)
 	return (r);
 }
 
-t_vec3		*ray_point_at(const t_ray *ray, const float point)
+t_vec3		*ray_point_at(const t_ray *ray, const double point)
 {
 	t_vec3		*v;
 	t_vec3		*s;

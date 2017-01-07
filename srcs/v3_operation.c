@@ -52,7 +52,7 @@ t_vec3		*v3_multiply_vec(t_vec3 const v1, t_vec3 const v2)
 	return (vec);
 }
 
-t_vec3		*v3_scale_vec(t_vec3 const v, float const c)
+t_vec3		*v3_scale_vec(t_vec3 const v, double const c)
 {
 	t_vec3		*vec;
 
@@ -62,7 +62,7 @@ t_vec3		*v3_scale_vec(t_vec3 const v, float const c)
 	return (vec);
 }
 
-t_vec3		*v3_div_vec(t_vec3 const v, float const c)
+t_vec3		*v3_div_vec(t_vec3 const v, double const c)
 {
 	t_vec3		*vec;
 

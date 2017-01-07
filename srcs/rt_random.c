@@ -6,15 +6,15 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/29 14:54:32 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/13 10:29:51 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 20:48:30 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-float				f_random()
+double				f_random()
 {
-	return ((float)rand() / RAND_MAX);
+	return ((double)rand() / (double)RAND_MAX);
 }
 
 t_vec3				*random_in_unit_sphere()
@@ -23,7 +23,7 @@ t_vec3				*random_in_unit_sphere()
 
 	p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, \
 			2.0 * f_random() - 1.0);
-	while (v3_dot_float(p, p) >= 1.0)
+	while (v3_dot_double(p, p) >= 1.0)
 	{
 		p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, \
 			2.0 * f_random() - 1.0);
@@ -36,7 +36,7 @@ t_vec3				*random_in_unit_disk()
 	t_vec3		p;
 
 	p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, 0);
-	while (v3_dot_float(p, p) >= 1.0)
+	while (v3_dot_double(p, p) >= 1.0)
 	{
 		p = v3(2.0 * f_random() - 1.0, 2.0 * f_random() - 1.0, 0);
 	}

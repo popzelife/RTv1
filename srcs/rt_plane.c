@@ -12,8 +12,8 @@
 
 #include "rtv1.h"
 
-t_plane_xy	*new_plane_xy(const float x0, const float x1, float const y0, \
-	float const y1, float const k)
+t_plane_xy	*new_plane_xy(const double x0, const double x1, double const y0, \
+	double const y1, double const k)
 {
 	t_plane_xy		*p;
 
@@ -26,13 +26,13 @@ t_plane_xy	*new_plane_xy(const float x0, const float x1, float const y0, \
 	return (p);
 }
 
-BOOL		hit_plane_xy(void *obj, const t_ray *ray, const float t_min, \
-	const float t_max, t_hit *param)
+BOOL		hit_plane_xy(void *obj, const t_ray *ray, const double t_min, \
+	const double t_max, t_hit *param)
 {
 	t_plane_xy	*plane;
-	float		t;
-	float		x;
-	float		y;
+	double		t;
+	double		x;
+	double		y;
 	t_vec3		*set;
 
 	plane = (t_plane_xy*)obj;

@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_vec3		v3(float const x, float const y, float const z)
+t_vec3		v3(double const x, double const y, double const z)
 {
 	t_vec3		vec;
 
@@ -22,7 +22,7 @@ t_vec3		v3(float const x, float const y, float const z)
 	return (vec);
 }
 
-t_vec3		*v3_new_vec(float const x, float const y, float const z)
+t_vec3		*v3_new_vec(double const x, double const y, double const z)
 {
 	t_vec3		*vec;
 
@@ -38,7 +38,7 @@ t_vec3		*v3_copy_vec(t_vec3 const v)
 	return (v3_new_vec(v.x, v.y, v.z));
 }
 
-void		v3_set(t_vec3 *v, float const x, float const y, float const z)
+void		v3_set(t_vec3 *v, double const x, double const y, double const z)
 {
 	v->x = x;
 	v->y = y;
@@ -51,7 +51,7 @@ void		v3_free(t_vec3 *v)
 		free(v);
 }
 
-float		v3_access(t_vec3 *v, int i)
+double		v3_access(t_vec3 *v, int i)
 {
 	if (v)
 	{

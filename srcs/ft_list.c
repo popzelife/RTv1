@@ -6,13 +6,13 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/05 18:46:53 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/21 16:33:09 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 15:36:20 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_iter		*lst_new_iter(t_iter **iter, int i)
+t_iter		*lst_new_iter(t_iter **iter, int i, int x, int y)
 {
 	t_iter		*new;
 	t_iter		*curs;
@@ -22,6 +22,8 @@ t_iter		*lst_new_iter(t_iter **iter, int i)
 	if (new == NULL)
 		return (NULL);
 	new->s = i;
+	new->x = x;
+	new->y = y;
 	new->next = NULL;
 	if (*iter == NULL)
 		return (new);

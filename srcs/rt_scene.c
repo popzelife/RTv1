@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/04 18:20:06 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 16:53:07 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,32 @@ t_scene		*init_scene(t_rt *rt)
 	t_vec3		*cam_lookfrom;
 	t_vec3		*cam_lookat;
 	t_vec3		*cam_vup;
-	float		focus;
-	float		aperture;
+	double		focus;
+	double		aperture;
 	int			obj_nb;
 
 	cam_lookfrom = v3_new_vec(13.0, 2.0, 3.0);
 	cam_lookat = v3_new_vec(0.0, 0.0, 0.0);
 	cam_vup = v3_new_vec(0.0, -1.0, 0.0);
 	temp = v3_sub_vec(*cam_lookfrom, *cam_lookat);
-	focus = v3_lenght_float(*temp);
-	aperture = 0.2;
+	focus = v3_lenght_double(*temp);
+	aperture = 0.0;
 	v3_free(temp);
 	cam = init_camera(cam_lookfrom, cam_lookat, cam_vup, 60.0, \
-		(float)rt->r_view->w / (float)rt->r_view->h, aperture, focus);
+		(double)rt->r_view->w / (double)rt->r_view->h, aperture, focus);
 
-	obj_nb = 4;
+	obj_nb = 3;
 	obj = (t_obj**)malloc(obj_nb * sizeof(t_obj*));
 	obj[0] = new_object((void*)new_sphere(v3_new_vec(0, -1000, 0), 1000), \
-		OBJ_SPHERE, new_material(v3_new_vec(0.7, 0.7, 0.7), NULL_PARAM), \
+		OBJ_SPHERE, new_material(v3_new_vec(0.9, 0.0, 0.0), 0.0), \
 		MAT_LAMBERT);
 	obj[1] = new_object((void*)new_sphere(v3_new_vec(0, 2, 0), 2), \
-		OBJ_SPHERE, new_material(v3_new_vec(0.1, 0.8, 1.0), NULL_PARAM), \
+		OBJ_SPHERE, new_material(v3_new_vec(0.1, 0.8, 1.0), 0.2), \
 		MAT_LAMBERT);
-	obj[2] = new_object((void*)new_plane_xy(3, 5, 4, 6, -2), \
-		OBJ_PLANE_XY, new_material(v3_new_vec(4, 4, 4), NULL_PARAM), \
-		MAT_DIFF_LIGHT);
-	obj[3] = new_object((void*)new_sphere(v3_new_vec(-1, 7, -1), 2), \
+	//obj[1] = new_object((void*)new_sphere(v3_new_vec(2, 2, 0), 2), \
+		OBJ_PLANE_XY, new_material(v3_new_vec(0.5, 0.5, 1.0), 0.0), \
+		MAT_LAMBERT);
+	obj[2] = new_object((void*)new_sphere(v3_new_vec(-1, 7, -1), 2), \
 		OBJ_SPHERE, new_material(v3_new_vec(4, 4, 4), NULL_PARAM), \
 		MAT_DIFF_LIGHT);
 	/*obj[0] = new_object(v3_new_vec(0.0, 0.0, 0.0), 0.2, OBJ_SPHERE, \

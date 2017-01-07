@@ -13,8 +13,8 @@
 #include "rtv1.h"
 
 t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
-	t_vec3 *u, t_vec3 *v, t_vec3 *w, float lens_radius, float half_width, \
-	float half_height, t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up)
+	t_vec3 *u, t_vec3 *v, t_vec3 *w, double lens_radius, double half_width, \
+	double half_height, t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up)
 {
 	t_cam		*c;
 
@@ -36,7 +36,7 @@ t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
 }
 
 t_cam		*init_camera(t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up, \
-	float vfov, float aspect, float aperture, float focus)
+	double vfov, double aspect, double aperture, double focus)
 {
 	t_vec3			*origin;
 	t_vec3			*low_left_corner;
@@ -48,10 +48,10 @@ t_cam		*init_camera(t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up, \
 	t_vec3			*v1;
 	t_vec3			*v2;
 	t_vec3			*sum;
-	float			theta;
-	float			half_height;
-	float			half_width;
-	float			lens_radius;
+	double			theta;
+	double			half_height;
+	double			half_width;
+	double			lens_radius;
 	
 	lens_radius = aperture / 2;
 	theta = vfov * M_PI / 180.0;
@@ -93,7 +93,7 @@ void		set_camera(t_cam *cam, t_vec3 look_from, t_vec3 look_at, \
 	t_vec3			*v1;
 	t_vec3			*v2;
 	t_vec3			*sum;
-	float			focus;
+	double			focus;
 
 	v3_free(cam->orig);
 	cam->orig = v3_copy_vec(look_from);
@@ -109,7 +109,7 @@ void		set_camera(t_cam *cam, t_vec3 look_from, t_vec3 look_at, \
 	cam->v = v3_cross_vec(*(cam->w), *(cam->u));
 
 	v1 = v3_sub_vec(look_from, look_at);
-	focus = v3_lenght_float(*v1);
+	focus = v3_lenght_double(*v1);
 	v3_free(v1);
 
 	v1 = v3_scale_vec(*(cam->u), cam->half_width * focus);
@@ -135,7 +135,7 @@ void		set_camera(t_cam *cam, t_vec3 look_from, t_vec3 look_at, \
 	v3_set(cam->v_up, v_up.x, v_up.y, v_up.z);
 }
 
-t_ray		*camera_ray(t_cam *cam, float s, float t)
+t_ray		*camera_ray(t_cam *cam, double s, double t)
 {
 	t_vec3			*radius;
 	t_vec3			*offset;

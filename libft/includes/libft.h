@@ -105,8 +105,8 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 long			ft_atoi(const char *str);
 double			ft_atof(const char *str);
 void			ft_swap(int *a, int *b);
-float			ft_sqrt(float x);
-float			ft_invsqrt(float x);
+double			ft_sqrt(double x);
+double			ft_invsqrt(double x);
 
 size_t			ft_strlen_w(wchar_t *str);
 void			ft_putnbrlong(long long int nb);

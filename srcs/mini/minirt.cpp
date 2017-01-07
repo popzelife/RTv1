@@ -30,7 +30,7 @@ struct vec3
 {
 	vec3(){}
 
-	vec3(float a, float b, float c)
+	vec3(double a, double b, double c)
 	{
 		x = a; //b
 		y = b; //g
@@ -44,7 +44,7 @@ struct vec3
 	}
 
 	//scale
-	vec3 operator*(float r)
+	vec3 operator*(double r)
 	{
 		return vec3(x * r, y * r, z * r);
 	}
@@ -64,12 +64,12 @@ struct vec3
 	}
 
 	//dot
-	float operator%(vec3 r)
+	double operator%(vec3 r)
 	{
 		return x * r.x + y * r.y + z * r.z;
 	}
 
-	float		x,y,z;
+	double		x,y,z;
 };
 
 int		obj[OBJ_NB] = {	B(1000000000000000000),
@@ -82,15 +82,15 @@ int		obj[OBJ_NB] = {	B(1000000000000000000),
 						B(0011000000000010001),
 						B(0000000000000001110) };
 
-float		f_random()
+double		f_random()
 {
-	return(float)rand() / RAND_MAX;
+	return(double)rand() / RAND_MAX;
 }
 
-int		get_material(vec3 v_orig, vec3 v_dir, float &t, vec3 &v_normal)
+int		get_material(vec3 v_orig, vec3 v_dir, double &t, vec3 &v_normal)
 {
 	int		material = MAT_SKY;
-	float	p = -v_orig.z / v_dir.z;
+	double	p = -v_orig.z / v_dir.z;
 	t = 1e9; //infinite dist
 	if(.01 < p)
 	{
@@ -108,12 +108,12 @@ int		get_material(vec3 v_orig, vec3 v_dir, float &t, vec3 &v_normal)
 			{
 				//intersect_sphere
 				vec3	v_pos = v_orig + vec3(-k, POSY_OBJ, j - POSZ_OBJ);
-				float	b = v_pos % v_dir;
-				float	c = v_pos % v_pos - 1;
-				float	q = b * b - c;
+				double	b = v_pos % v_dir;
+				double	c = v_pos % v_pos - 1;
+				double	q = b * b - c;
 				if(q > 0)
 				{
-					float	s = -b - sqrt(q); //rounded reflection
+					double	s = -b - sqrt(q); //rounded reflection
 					if(s < t && s > DIST_REF) 
 					{
 						t = s;
@@ -129,7 +129,7 @@ int		get_material(vec3 v_orig, vec3 v_dir, float &t, vec3 &v_normal)
 
 vec3		scene(vec3 v_orig, vec3 v_dir)
 {
-	float		t;
+	double		t;
 	vec3		v_normal;
 	int			material = get_material(v_orig, v_dir, t, v_normal);
 	//skybox
@@ -140,7 +140,7 @@ vec3		scene(vec3 v_orig, vec3 v_dir)
 	vec3	v_light = !(vec3(9 + f_random(),9 + f_random(),16) + \
 		v_emission * -1);
 	vec3	v_reflect = v_dir + v_normal * (v_normal % v_dir * -2);
-	float	shadow = v_light % v_normal;
+	double	shadow = v_light % v_normal;
 	//shadow
 	if(shadow < 0 || get_material(v_emission, v_light, t, v_normal))
 		shadow = 0;
@@ -154,7 +154,7 @@ vec3		scene(vec3 v_orig, vec3 v_dir)
 			return vec3(3, 1, 1) * (shadow * .2 + .1);
 	}
 	//mirror_specular
-	float	specular = pow(v_light % v_reflect * (shadow > 0), 99);
+	double	specular = pow(v_light % v_reflect * (shadow > 0), 99);
 	return vec3(specular, specular, specular) + \
 		scene(v_emission, v_reflect) * (shadow ? .5 : shadow + .2);
 }

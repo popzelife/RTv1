@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 14:05:44 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/22 15:24:15 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 21:29:46 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
   Need also a pthread_mutex handling as rt->tab is shared between threads
 */
 
-void		set_thread(t_thread *t, t_rt *rt, int i, int *s)
+void		set_thread(t_thread *t, t_rt *rt, int *i, int *j, int *s)
 {
 	int		ret;
 
 	t->arg.rt = rt;
 	t->arg.scene = rt->scene;
-	t->arg.j = i;
+	t->arg.i = i;
+	t->arg.j = j;
 	t->arg.tab = rt->tab;
 	t->arg.s = s;
 	if ((ret = pthread_attr_init(&t->attr)) != 0)
@@ -66,28 +67,28 @@ void		destroy_thread_attr(t_thread *t)
 	}
 }
 
-static void	render2(t_rt *rt, t_thread *th_curs)
+/*static void	render2(t_rt *rt, t_thread *th_curs)
 {
-	int			i;
+	int			i;*/
 
 	/*
 	  Join all threads
 	*/
 
-	i = 0;
+	/*i = 0;
 	th_curs = rt->t;
 	while (i < rt->m_thread)
 	{
 		join_thread(th_curs);
 		th_curs = th_curs->next;
 		++i;
-	}
+	}*/
 
 	/*
 	  Destroy all threads
 	*/
 
-	i = 0;
+	/*i = 0;
 	th_curs = rt->t;
 	while (i < rt->m_thread)
 	{
@@ -95,7 +96,7 @@ static void	render2(t_rt *rt, t_thread *th_curs)
 		th_curs = th_curs->next;
 		++i;
 	}
-}
+}*/
 
 void		render(t_rt *rt)
 {
@@ -103,23 +104,39 @@ void		render(t_rt *rt)
 	t_iter		*it_curs;
 	int			i;
 
-	/*
-	  Set all threads
-	*/
+	esdl_clear_surface(rt->s_process, NULL_RECT, 0x00000000, NULL);
+	//while (y < rt->r_view->h)
+	//{
+		//printf("y = %4d\n", y);
+		i = 0;
+		th_curs = rt->t;
+		it_curs = rt->iter;
+		while (i < rt->m_thread)
+		{
+			set_thread(th_curs, rt, &(it_curs->x), &(it_curs->y), &(it_curs->s));
+			th_curs = th_curs->next;
+			it_curs = it_curs->next;
+			++i;
+		}
 
-	i = 0;
-	th_curs = rt->t;
-	it_curs = rt->iter;
-	while (i < rt->m_thread)
-	{
-		set_thread(th_curs, rt, i, &(it_curs->s));
-		th_curs = th_curs->next;
-		it_curs = it_curs->next;
-		++i;
-	}
+		i = 0;
+		th_curs = rt->t;
+		while (i < rt->m_thread)
+		{
+			join_thread(th_curs);
+			th_curs = th_curs->next;
+			++i;
+		}
 
-	printf("Render thread%50s\r", "");
-	render2(rt, th_curs);
+		i = 0;
+		th_curs = rt->t;
+		while (i < rt->m_thread)
+		{
+			destroy_thread_attr(th_curs);
+			th_curs = th_curs->next;
+			++i;
+		}
+	//}
 
 	ft_printf("Render pass # %3d/%3d %20s\r", rt->iter->s - 1, ALIASING, "");
 }

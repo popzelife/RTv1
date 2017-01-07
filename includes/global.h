@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 10:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/04 14:38:18 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 21:14:27 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@
 # define ALIASING		100
 # define NO_ALIASING	1
 # define MAX_DEPTH		25
+# define RT_SUBXY		60
+# define MULTISAMP		2
 
 # define API_NAME		"RTv1"
-# define MAX_FPS		30
+# define MAX_FPS		25
 # define WIN_RX			1400
 # define WIN_RY			900
 # define MENU_RX		300

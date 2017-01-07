@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/16 14:02:22 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/16 17:42:13 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 21:29:30 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ void		init_screen_buffer(t_rt *rt)
 	int			i;
 	int			j;
 
-	rt->tab = (t_vec3***)malloc(rt->r_view->w * sizeof(t_vec3**));
+	rt->tab = (t_vec3***)malloc(rt->r_view->w * MULTISAMP * \
+		sizeof(t_vec3**));
 	i = 0;
-	while (i < rt->r_view->w)
+	while (i < rt->r_view->w * MULTISAMP)
 	{
-		rt->tab[i] = (t_vec3**)malloc(rt->r_view->h * sizeof(t_vec3*));
+		rt->tab[i] = (t_vec3**)malloc(rt->r_view->h * MULTISAMP * \
+			sizeof(t_vec3*));
 		j = 0;
-		while (j < rt->r_view->h)
+		while (j < rt->r_view->h * MULTISAMP)
 		{
 			rt->tab[i][j] = v3_new_vec(0.0, 0.0, 0.0);
 			++j;
@@ -67,13 +69,23 @@ void		init_screen_buffer(t_rt *rt)
 void		init_multithread(t_rt *rt)
 { 
 	int			i;
+	int			x;
+	int			y;
 
 	rt->m_thread = 16;
 	rt->iter = NULL;
 	i = 0;
+	x = 0;
+	y = 0;
 	while (i < rt->m_thread)
 	{
-		rt->iter = lst_new_iter(&(rt->iter), 1);
+		rt->iter = lst_new_iter(&(rt->iter), 1, x, y);
+		x += RT_SUBXY;
+		if (x > rt->r_view->w)
+		{
+			x = 0;
+			y += RT_SUBXY;
+		}
 		++i;
 	}
 	posix_memalign(&(rt->stack), PAGE_SIZE, STACK_SIZE);

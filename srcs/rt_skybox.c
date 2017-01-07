@@ -42,7 +42,7 @@ t_vec3		*hit_gradient_skybox(const t_skybox *box, const t_ray *ray)
 	t_vec3		*unit_dir;
 	t_vec3		*v1;
 	t_vec3		*v2;
-	float		t;
+	double		t;
 
 	unit_dir = v3_unit_vec(*ray->dir);
 	t = 0.5 * (unit_dir->y + 1.0);

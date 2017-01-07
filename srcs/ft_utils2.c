@@ -53,11 +53,11 @@ void			set_viewparam(t_viewparam *p, t_rt *rt, int x, int y)
 {
 	t_hit		param;
 	t_ray		*ray;
-	float		u;
-	float		v;
+	double		u;
+	double		v;
 
-	u = (float)x / (float)rt->r_view->w;
-	v = (float)y / (float)rt->r_view->h;
+	u = (double)x / (double)rt->r_view->w;
+	v = (double)y / (double)rt->r_view->h;
 	ray = camera_ray(rt->scene->cam, u, v);
 	param.pos = v3_new_vec(0.0, 0.0, 0.0);
 	param.normal = v3_new_vec(0.0, 0.0, 0.0);

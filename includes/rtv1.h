@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/04 20:43:47 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 19:43:17 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ void		render(t_rt *rt);
 t_vec3		*rt_color(t_ray *ray, t_scene *scene, int depth, \
 	int max_depth);
 
-BOOL		hit_list(t_scene *scene, const t_ray *ray, const float t_min,\
-	const float t_max, t_hit *param);
+BOOL		hit_list(t_scene *scene, const t_ray *ray, const double t_min,\
+	const double t_max, t_hit *param);
 
 SDL_Color	vec3_to_sdlcolor(t_vec3 v);
+t_vec3		*v3_multisampling_x2(t_vec3 c1, t_vec3 c2, t_vec3 c3, t_vec3 c4);
 
 /*
   Multithreading
@@ -99,14 +100,14 @@ void		display_rt(t_rt *rt);
 */
 
 t_cam		*new_camera(t_vec3 *lw_lf, t_vec3 *hor, t_vec3 *ver, t_vec3 *ori, \
-	t_vec3 *u, t_vec3 *v, t_vec3 *w, float lens_radius, float half_width, \
-	float half_height, t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up);
+	t_vec3 *u, t_vec3 *v, t_vec3 *w, double lens_radius, double half_width, \
+	double half_height, t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up);
 t_cam		*init_camera(t_vec3 *look_from, t_vec3 *look_at, t_vec3 *v_up, \
-	float vfov, float aspect, float aperture, float focus);
+	double vfov, double aspect, double aperture, double focus);
 void		set_camera(t_cam *cam, const t_vec3 look_from, const t_vec3 look_at, \
 	const t_vec3 v_up);
 
-t_ray		*camera_ray(t_cam *cam, float s, float t);
+t_ray		*camera_ray(t_cam *cam, double s, double t);
 
 /*
   Skyboxes
@@ -122,8 +123,8 @@ t_vec3		*hit_none_skybox(const t_skybox *box, const t_ray *ray);
 */
 
 t_bound_box	*new_bound_box(t_vec3 *min, t_vec3 *max);
-BOOL		hit_bound_box(t_bound_box *box, const t_ray *ray, float t_min, \
-	float t_max);
+BOOL		hit_bound_box(t_bound_box *box, const t_ray *ray, double t_min, \
+	double t_max);
 
 /*
   Objects
@@ -133,22 +134,22 @@ t_obj		*new_object(void *obj, const UCHAR type_obj, t_mat *mat, \
 	const UCHAR type_mat);
 t_obj		*copy_object(t_obj *obj);
 
-t_sphere	*new_sphere(t_vec3 *center, const float radius);
-BOOL		hit_sphere(void *obj, const t_ray *r, const float t_min, \
-	const float t_max, t_hit *param);
-BOOL		bound_box_sphere(void *obj, t_bound_box *box, float const t0, \
-	float const t1);
+t_sphere	*new_sphere(t_vec3 *center, const double radius);
+BOOL		hit_sphere(void *obj, const t_ray *r, const double t_min, \
+	const double t_max, t_hit *param);
+BOOL		bound_box_sphere(void *obj, t_bound_box *box, double const t0, \
+	double const t1);
 
-t_plane_xy	*new_plane_xy(const float x0, const float x1, float const y0, \
-	float const y1, float const k);
-BOOL		hit_plane_xy(void *obj, const t_ray *ray, const float t_min, \
-	const float t_max, t_hit *param);
+t_plane_xy	*new_plane_xy(const double x0, const double x1, double const y0, \
+	double const y1, double const k);
+BOOL		hit_plane_xy(void *obj, const t_ray *ray, const double t_min, \
+	const double t_max, t_hit *param);
 
 /*
   Materials
 */
 
-t_mat		*new_material(t_vec3 *albedo, float t);
+t_mat		*new_material(t_vec3 *albedo, double t);
 
 t_vec3		*reflect(const t_vec3 v, const t_vec3 n);
 BOOL		scatter_lambertian(const t_ray *ray, const t_hit param, \
@@ -170,7 +171,7 @@ BOOL		scatter_diffuse_light(const t_ray *ray, const t_hit param, \
 */
 
 t_ray		*new_ray(t_vec3 *orig, t_vec3 *dir);
-t_vec3		*ray_point_at(const t_ray *ray, const float point);
+t_vec3		*ray_point_at(const t_ray *ray, const double point);
 void		free_ray(t_ray *ray);
 
 /*
@@ -183,7 +184,7 @@ t_strparam	strparam(char* string, t_font font, int rx[2], int i);
 t_butnparam	butnparam(t_string *string, t_surface *surface, SDL_Rect *rect, \
 	int i);
 
-t_iter		*lst_new_iter(t_iter **iter, int i);
+t_iter		*lst_new_iter(t_iter **iter, int i, int x, int y);
 t_thread	*lst_new_thread(t_thread **thread);
 t_surface	*lst_new_surface(t_surface **surface, t_surfparam param, \
 	SDL_Renderer *render, void (f)(SDL_Surface*, const SDL_Rect, const int, \
@@ -209,10 +210,10 @@ void		lst_set_string(t_string **string, t_strparam param, \
 
 t_vec3		*random_in_unit_sphere();
 t_vec3		*random_in_unit_disk();
-float		f_random();
+double		f_random();
 
-float		f_min(float const a, float const b);
-float		f_max(float const a, float const b);
+double		f_min(double const a, double const b);
+double		f_max(double const a, double const b);
 
 /*
   Exit

@@ -56,7 +56,7 @@ t_vec4		*v4_multiply_vec(t_vec4 const v1, t_vec4 const v2)
 	return (vec);
 }
 
-t_vec4		*v4_scale_vec(t_vec4 const v, float const c)
+t_vec4		*v4_scale_vec(t_vec4 const v, double const c)
 {
 	t_vec4		*vec;
 
@@ -67,7 +67,7 @@ t_vec4		*v4_scale_vec(t_vec4 const v, float const c)
 	return (vec);
 }
 
-t_vec4		*v4_div_vec(t_vec4 const v, float const c)
+t_vec4		*v4_div_vec(t_vec4 const v, double const c)
 {
 	t_vec4		*vec;
 

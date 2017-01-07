@@ -21,25 +21,25 @@ void		v3_negative(t_vec3 *v)
 
 void		v3_normalize(t_vec3 *v)
 {
-	float	m;
+	double	m;
 
-	m = v3_magnitude_float(*v);
+	m = v3_magnitude_double(*v);
 	v->x *= m;
 	v->y *= m;
 	v->z *= m;
 }
 
-float		v3_dot_float(t_vec3 const v1, t_vec3 const v2)
+double		v3_dot_double(t_vec3 const v1, t_vec3 const v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-float		v3_magnitude_float(t_vec3 const v)
+double		v3_magnitude_double(t_vec3 const v)
 {
-	return (1 / sqrt(v3_dot_float(v, v)));
+	return (1 / sqrt(v3_dot_double(v, v)));
 }
 
-float		v3_lenght_float(t_vec3 const v)
+double		v3_lenght_double(t_vec3 const v)
 {
-	return (sqrt(v3_dot_float(v, v)));
+	return (sqrt(v3_dot_double(v, v)));
 }

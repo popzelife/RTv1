@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 15:38:18 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/22 15:46:04 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 21:41:14 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ SDL_Color			vec3_to_sdlcolor(t_vec3 v)
 }
 
 BOOL				hit_list(t_scene *scene, const t_ray *ray, \
-	const float t_min, const float t_max, t_hit *param)
+	const double t_min, const double t_max, t_hit *param)
 {
 	BOOL		hit_anything;
 	double		closest_so_far;
@@ -95,7 +95,7 @@ t_vec3				*rt_color(t_ray *ray, t_scene *scene, int depth, \
 				scattered = new_ray(v3_copy_vec(*param.pos), v1);
 				attenuation = param.material->albedo;
 
-				if (v3_dot_float(*(scattered->dir), *(param.normal)) <= 0)
+				if (v3_dot_double(*(scattered->dir), *(param.normal)) <= 0)
 				{
 					v3_free(param.pos);
 					v3_free(param.normal);
@@ -165,12 +165,12 @@ t_vec3				*rt_color(t_ray *ray, t_scene *scene, int depth, \
 	return (NULL);
 }
 
-void				thread_render(t_tharg *arg)
+/*void				thread_render(t_tharg *arg)
 {
 	register int	x;
 	register int	y;
-	register float	u;
-	register float	v;
+	register double	u;
+	register double	v;
 	t_vec3	        *temp;
 	t_ray			*ray;
 	SDL_Color		pixel;
@@ -183,10 +183,10 @@ void				thread_render(t_tharg *arg)
 		{
 			if (*(arg->s) <= ALIASING)
 			{
-				u = (float)((float)x + (*(arg->s) == NO_ALIASING ? 0 : \
-					f_random())) / (float)arg->rt->r_view->w;
-				v = (float)((float)y + (*(arg->s) == NO_ALIASING ? 0 : \
-					f_random())) / (float)arg->rt->r_view->h;
+				u = (double)((double)x + (*(arg->s) == NO_ALIASING ? 0 : \
+					f_random())) / (double)arg->rt->r_view->w;
+				v = (double)((double)y + (*(arg->s) == NO_ALIASING ? 0 : \
+					f_random())) / (double)arg->rt->r_view->h;
 
 				ray = camera_ray(arg->scene->cam, u, v);
 
@@ -215,4 +215,108 @@ void				thread_render(t_tharg *arg)
 		y += arg->rt->m_thread;
 	}
 	++(*(arg->s));
+}*/
+
+void				thread_render(t_tharg *arg)
+{
+	register int	x;
+	register int	y;
+	register double	u;
+	register double	v;
+	t_vec3	        *temp;
+	t_ray			*ray;
+	SDL_Color		pixel;
+
+	y = *(arg->j);
+	while (y < *(arg->j) + RT_SUBXY && y < arg->rt->r_view->h * MULTISAMP)
+	{
+		x = *(arg->i);
+		while (x < *(arg->i) + RT_SUBXY && x < arg->rt->r_view->w * MULTISAMP)
+		{
+			if (*(arg->s) <= ALIASING)
+			{
+				u = (double)((double)x + (*(arg->s) == NO_ALIASING ? 0 : \
+					f_random())) / (double)arg->rt->r_view->w / MULTISAMP;
+				v = (double)((double)y + (*(arg->s) == NO_ALIASING ? 0 : \
+					f_random())) / (double)arg->rt->r_view->h / MULTISAMP;
+
+				ray = camera_ray(arg->scene->cam, u, v);
+
+				temp = rt_color(ray, arg->scene, 0, \
+					(*(arg->s) == -NO_ALIASING ? 1 : MAX_DEPTH));
+				if (*(arg->s) > 1)
+				{
+					v3_set(arg->tab[x][y], temp->x + arg->tab[x][y]->x, \
+						temp->y + arg->tab[x][y]->y, \
+						temp->z + arg->tab[x][y]->z);
+				}
+				else
+					v3_set(arg->tab[x][y], temp->x + arg->tab[x][y]->x, \
+						temp->y + arg->tab[x][y]->y, \
+						temp->z + arg->tab[x][y]->z);
+				free_ray(ray);
+				v3_free(temp);
+				//v3_set(temp, sqrt(arg->tab[x][y]->x / *(arg->s)), \
+					sqrt(arg->tab[x][y]->y / *(arg->s)), \
+					sqrt(arg->tab[x][y]->z / *(arg->s)));
+			}
+			else
+			{
+				printf("thread stop %40s\r", "");
+				arg->rt->suspend = TRUE;
+				return ;
+			}
+			//pixel = vec3_to_sdlcolor(*(temp));
+			//printf("x;y(%4d;%4d;%3d) = %3d %3d %3d %3d%20s\n", x, y, *(arg->s), pixel.r, pixel.g, pixel.b, pixel.a, "");
+			/*esdl_put_pixel(arg->rt->s_view, x, y, esdl_color_to_int(pixel));
+			if (x == *(arg->i) || x == *(arg->i) + RT_SUBXY - 1 ||
+				y == *(arg->j) || y == *(arg->j) + RT_SUBXY - 1)
+				esdl_put_pixel(arg->rt->s_process, x, y, 0xff0055ff);
+			v3_free(temp);*/
+			++x;
+		}
+		++y;
+	}
+
+	y = *(arg->j);
+	while (y < *(arg->j) + RT_SUBXY && y < arg->rt->r_view->h * MULTISAMP)
+	{
+		x = *(arg->i);
+		while (x < *(arg->i) + RT_SUBXY && x < arg->rt->r_view->w * MULTISAMP)
+		{
+			if (x % MULTISAMP != 0 && y % MULTISAMP != 0)
+			{
+				temp = v3_multisampling_x2(*(arg->tab[x][y]), \
+					*(arg->tab[x - 1][y]), *(arg->tab[x][y - 1]), \
+					*(arg->tab[x - 1][y - 1]));
+				v3_set(temp, sqrt(temp->x / *(arg->s)), \
+					sqrt(temp->y / *(arg->s)), sqrt(temp->z / *(arg->s)));
+				pixel = vec3_to_sdlcolor(*(temp));
+				v3_free(temp);
+				esdl_put_pixel(arg->rt->s_view, x / 2, y / 2, \
+					esdl_color_to_int(pixel));
+			}
+			if (x == *(arg->i) || x == *(arg->i) + RT_SUBXY * 2 ||
+				y == *(arg->j) || y == *(arg->j) + RT_SUBXY * 2)
+				esdl_put_pixel(arg->rt->s_process, x / 2, y / 2, 0xff0055ff);
+			++x;
+		}
+		++y;
+	}
+
+	*(arg->i) += RT_SUBXY * arg->rt->m_thread;
+	if (*(arg->i) > arg->rt->r_view->w  * MULTISAMP)
+	{
+		*(arg->i) -= arg->rt->r_view->w * MULTISAMP;
+		*(arg->i) -= (*(arg->i) % RT_SUBXY);
+		//*(arg->i) -= RT_SUBXY;
+		*(arg->j) += RT_SUBXY;
+	}
+	if (*(arg->j) > arg->rt->r_view->h  * MULTISAMP)
+	{
+		++(*(arg->s));
+		*(arg->j) -= arg->rt->r_view->h * MULTISAMP;
+		*(arg->j) -= (*(arg->j) % RT_SUBXY);
+		*(arg->j) -= RT_SUBXY;
+	}
 }

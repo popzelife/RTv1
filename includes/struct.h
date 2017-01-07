@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/04 18:55:18 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 17:36:08 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ typedef struct	s_ray
 
 typedef struct s_hit
 {
-	float			t;
-	float			u;
-	float			v;
+	double			t;
+	double			u;
+	double			v;
 	int				i_lst;
 	t_vec3			*pos;
 	t_vec3			*normal;
@@ -47,7 +47,7 @@ typedef struct s_mat
 	UCHAR			type_mat;
 	t_vec3			*albedo;
 	t_vec3			*emitted;
-	float			t;
+	double			t;
 	BOOL			(*scatter)(const t_ray*, const t_hit, t_vec3*, t_ray*);
 }				t_mat;
 
@@ -67,18 +67,18 @@ typedef struct	s_bound_box
 
 typedef struct	s_plane_xy
 {
-	float		x0;
-	float		x1;
-	float		y0;
-	float		y1;
-	float		k;
+	double		x0;
+	double		x1;
+	double		y0;
+	double		y1;
+	double		k;
 }				t_plane_xy;
 
 typedef struct	s_sphere
 {
 	t_vec3			*center;
-	float			radius;
-	float			radius2;
+	double			radius;
+	double			radius2;
 }				t_sphere;
 
 /*
@@ -89,9 +89,9 @@ typedef struct s_obj
 {
 	UCHAR			type_obj;
 	void			*p_obj;
-	BOOL			(*hit)(void*, const t_ray*, const float, const float, \
+	BOOL			(*hit)(void*, const t_ray*, const double, const double, \
 		t_hit*);
-	BOOL			(*bound_box)(void*, t_bound_box*, const float, const float);
+	BOOL			(*bound_box)(void*, t_bound_box*, const double, const double);
 	t_mat			*p_mat;
 }				t_obj;
 
@@ -104,9 +104,9 @@ typedef struct	s_cam
 	t_vec3			*u;
 	t_vec3			*v;
 	t_vec3			*w;
-	float			lens_radius;
-	float			half_width;
-	float			half_height;
+	double			lens_radius;
+	double			half_width;
+	double			half_height;
 	t_vec3			*look_from;
 	t_vec3			*look_at;
 	t_vec3			*v_up;
@@ -239,6 +239,8 @@ typedef struct	s_panel
 typedef struct	s_iter
 {
 	int				s;
+	int				x;
+	int				y;
 	struct s_iter	*next;
 }				t_iter;
 
@@ -257,6 +259,9 @@ typedef struct	s_rt
 	SDL_Rect		*r_view;
 	SDL_Surface		*s_view;
 	SDL_Texture		*t_view;
+
+	SDL_Surface		*s_process;
+	SDL_Texture		*t_process;
 
 	SDL_Rect		*r_menu;
 	SDL_Surface		*s_menu;
@@ -286,10 +291,12 @@ typedef struct	s_tharg
 {
 	t_rt		*rt;
 	t_scene		*scene;
-	int			j;
+
+	int			*i;
+	int			*j;
+	int			*s;
 
 	t_vec3		***tab;
-	int			*s;
 }				t_tharg;
 
 typedef struct	s_thread

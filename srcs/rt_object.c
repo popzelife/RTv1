@@ -27,7 +27,7 @@ static void	*select_copied_obj(const UCHAR t, void *p_obj)
 	return (o);
 }
 
-static void	*select_obj(t_vec3 *p, const float f, const UCHAR t)
+static void	*select_obj(t_vec3 *p, const double f, const UCHAR t)
 {
 	void	*o;
 

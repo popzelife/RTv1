@@ -18,8 +18,8 @@ void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 	register int	x;
 	register int	y;
 	register int	s;
-	register float	u;
-	register float	v;
+	register double	u;
+	register double	v;
 	t_ray			*ray;
 	t_vec3			*ret;
 	t_vec3			temp;
@@ -38,8 +38,8 @@ void		rt_3dview_surface(SDL_Surface *surf, const SDL_Rect rect, \
 			s = 0;
 			while (s < 10)
 			{
-				u = ((float)x + f_random()) / (float)rect.w;
-				v = ((float)y + f_random()) / (float)rect.h;
+				u = ((double)x + f_random()) / (double)rect.w;
+				v = ((double)y + f_random()) / (double)rect.h;
 				ray = camera_ray(viewparam->scene->cam, u, v);
 				ret = rt_color(ray, viewparam->scene, 0, 2);
 				free_ray(ray);

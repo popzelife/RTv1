@@ -53,8 +53,8 @@ SDL_Surface		*esdl_create_surface(int width, int height)
 SDL_Surface		*esdl_scale_surface(SDL_Surface *surf, int width, int height)
 {
 	SDL_Surface			*ret;
-	/*float				scale_x;
-	float				scale_y;
+	/*double				scale_x;
+	double				scale_y;
 	int					x;
 	int					y;
 	int					o_x;
@@ -65,8 +65,8 @@ SDL_Surface		*esdl_scale_surface(SDL_Surface *surf, int width, int height)
 	ret = SDL_CreateRGBSurface(surf->flags, width, height, \
 		surf->format->BitsPerPixel, surf->format->Rmask, surf->format->Gmask, \
 		surf->format->Bmask, surf->format->Amask);
-	/*scale_x = (float)width  / (float)surf->w;
-	scale_y = (float)height / (float)surf->h;
+	/*scale_x = (double)width  / (double)surf->w;
+	scale_y = (double)height / (double)surf->h;
 	y = 0;
 	while(y < surf->h)
 	{

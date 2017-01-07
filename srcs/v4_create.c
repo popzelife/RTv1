@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "rtv1.h"
 
-t_vec4		v4(float const x, float const y, float const z, float const w)
+t_vec4		v4(double const x, double const y, double const z, double const w)
 {
 	t_vec4		vec;
 
@@ -22,8 +22,8 @@ t_vec4		v4(float const x, float const y, float const z, float const w)
 	return (vec);
 }
 
-t_vec4		*v4_new_vec(float const x, float const y, float const z, \
-	float const w)
+t_vec4		*v4_new_vec(double const x, double const y, double const z, \
+	double const w)
 {
 	t_vec4		*vec;
 
@@ -40,7 +40,7 @@ t_vec4		*v4_copy_vec(t_vec4 const v)
 	return (v4_new_vec(v.x, v.y, v.z, v.w));
 }
 
-void		v4_set(t_vec4 *v, t_vec3 const xyz, float const w)
+void		v4_set(t_vec4 *v, t_vec3 const xyz, double const w)
 {
 	v->x = xyz.x;
 	v->y = xyz.y;

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/01 21:40:50 by qfremeau          #+#    #+#             */
-/*   Updated: 2016/12/21 16:21:04 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/07 17:55:58 by qfremeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			main(int ac, char **av)
 	  Start first render while loading panel is still on screen
 	*/
 
-	render(rt);
+	//render(rt);
 
 	SDL_SetWindowSize(rt->esdl->eng.win, WIN_RX, WIN_RY);
 	SDL_SetWindowMinimumSize(rt->esdl->eng.win, WIN_RX - 400, WIN_RY - 300);

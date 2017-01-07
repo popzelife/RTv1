@@ -16,21 +16,21 @@
 
 #include "libft.h"
 
-float		ft_invsqrt(float x)
+double		ft_invsqrt(double x)
 {
 	int		i;
-	float	xhalf;
+	double	xhalf;
 
 	xhalf = 0.5f * x;
 	i = *(int*)&x;
 	i = 0x5f3759df - (i >> 1);
-	x = *(float*)&i;
+	x = *(double*)&i;
 	x = x * (1.5f - xhalf * x * x);
 	x = x * (1.5f - (xhalf * x * x));
 	return (x);
 }
 
-float		ft_sqrt(float x)
+double		ft_sqrt(double x)
 {
 	return (1.0 / ft_invsqrt(x));
 }

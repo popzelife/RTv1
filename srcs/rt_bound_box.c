@@ -12,12 +12,12 @@
 
 #include "rtv1.h"
 
-float		f_min(float const a, float const b)
+double		f_min(double const a, double const b)
 {
 	return (a < b ? a : b);
 }
 
-float		f_max(float const a, float const b)
+double		f_max(double const a, double const b)
 {
 	return (a > b ? a : b);
 }
@@ -32,11 +32,11 @@ t_bound_box	*new_bound_box(t_vec3 *min, t_vec3 *max)
 	return (b);
 }
 
-BOOL		hit_bound_box(t_bound_box *box, const t_ray *ray, float t_min, \
-	float t_max)
+BOOL		hit_bound_box(t_bound_box *box, const t_ray *ray, double t_min, \
+	double t_max)
 {
-	float		t0;
-	float		t1;
+	double		t0;
+	double		t1;
 	int			i;
 
 	i = 0;

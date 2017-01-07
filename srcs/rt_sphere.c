@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-t_sphere	*new_sphere(t_vec3 *center, const float radius)
+t_sphere	*new_sphere(t_vec3 *center, const double radius)
 {
 	t_sphere		*s;
 
@@ -23,8 +23,8 @@ t_sphere	*new_sphere(t_vec3 *center, const float radius)
 	return (s);
 }
 
-BOOL		bound_box_sphere(void *obj, t_bound_box *box, const float t0, \
-	const float t1)
+BOOL		bound_box_sphere(void *obj, t_bound_box *box, const double t0, \
+	const double t1)
 {
 	t_sphere	*sphere;
 	t_vec3		*vmin;
@@ -41,24 +41,24 @@ BOOL		bound_box_sphere(void *obj, t_bound_box *box, const float t0, \
 	return (TRUE);
 }
 
-BOOL		hit_sphere(void *obj, const t_ray *ray, const float t_min, \
-	const float t_max, t_hit *param)
+BOOL		hit_sphere(void *obj, const t_ray *ray, const double t_min, \
+	const double t_max, t_hit *param)
 {
 	t_sphere	*sphere;
 	t_vec3		*oc;
 	t_vec3		*v;
 	t_vec3		*set;
-	float		a;
-	float		b;
-	float		c;
-	float		discriminant;
-	float		temp;
+	double		a;
+	double		b;
+	double		c;
+	double		discriminant;
+	double		temp;
 
 	sphere = (t_sphere*)obj;
 	oc = v3_sub_vec(*(ray->orig), *(sphere->center));
-	a = v3_dot_float(*(ray->dir), *(ray->dir));
-	b = v3_dot_float(*oc, *(ray->dir));
-	c = v3_dot_float(*oc, *oc) - sphere->radius2;
+	a = v3_dot_double(*(ray->dir), *(ray->dir));
+	b = v3_dot_double(*oc, *(ray->dir));
+	c = v3_dot_double(*oc, *oc) - sphere->radius2;
 
 	discriminant = b * b - a * c;
 	v3_free(oc);

@@ -44,8 +44,8 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 	double	c;
 	double	discriminant;
 	double	temp;
-	t_vec3	yo;
-	t_vec3	tmp;
+	t_vec3	*tmp1;
+	t_vec3	*tmp2;
 
 	cyl = (t_cylinder*)obj;
 	oc = v3_sub_vec(*(ray->orig), *(cyl->center));
@@ -66,9 +66,10 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(cyl->center));
 			set = v3_div_vec(*v, cyl->radius);
-			yo = v3_scale_vec(((param->rot, v3_dot_double(*ray->dir, *(param->rot) * param->t + v3_dot_double(v3_sub_vec(*(ray->orig) , *(param->pos), *(param->rot));
-			tmp = v3_sub_vec(ray, *(param->pos);
-			set = v3_sub_vec(*(tmp), *(yo));
+
+			tmp1 = v3_scale_vec(*(cyl->rot), v3_dot_double(*(ray->dir), *(cyl->rot)) + v3_dot_double(*(v3_sub_vec(*(ray->orig), *(cyl->center))), *(cyl->rot)));
+			tmp2 = v3_sub_vec(*(ray->orig), *(cyl->center));
+			set = v3_sub_vec(*tmp2, *tmp1);
 			v3_set(param->normal, set->x, set->y, set->z);
 			v3_free(set);
 			v3_free(v);
@@ -82,9 +83,11 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 			v3_set(param->pos, set->x, set->y, set->z);
 			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(cyl->center));
+			tmp1 = v3_scale_vec(*(cyl->rot), v3_dot_double(*(ray->dir), *(cyl->rot)) + v3_dot_double(*(v3_sub_vec(*(ray->orig), *(cyl->center))), *(cyl->rot)));
+			tmp2 = v3_sub_vec(*(ray->orig), *(cyl->center));
+			set = v3_sub_vec(*tmp2, *tmp1);
 			set = v3_div_vec(*v, cyl->radius);
 			v3_set(param->normal, set->x, set->y, set->z); // normale a changer ?
-			cylinder_norm(param->normal);
 			v3_free(set);
 			v3_free(v);
 			return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 17:40:28 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/07 17:36:08 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/26 15:03:30 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ typedef struct	s_sphere
 	double			radius;
 	double			radius2;
 }				t_sphere;
+
+typedef struct	s_cylinder
+{
+	t_vec3			*center;
+	t_vec3			*rot;
+	double			radius;
+	double			radius2;
+}				t_cylinder;
 
 /*
   Scene holder

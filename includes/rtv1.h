@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/07 19:43:17 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/26 15:08:29 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,9 @@ BOOL		bound_box_sphere(void *obj, t_bound_box *box, double const t0, \
 
 t_plane_xy	*new_plane_xy(const double x0, const double x1, double const y0, \
 	double const y1, double const k);
-BOOL		hit_plane_xy(void *obj, const t_ray *ray, const double t_min, \
-	const double t_max, t_hit *param);
-
+BOOL		hit_plane_xy(void *obj, const t_ray *ray, const double t_min, const double t_max, t_hit *param);
+BOOL    hit_cylinder(void *obj, const t_ray *ray, const double t_min, const double t_max, t_hit *param);
+t_cylinder  *new_cylinder(t_vec3 *center, const double radius);
 /*
   Materials
 */

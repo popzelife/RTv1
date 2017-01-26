@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/07 16:53:07 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/26 18:07:54 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_scene		*init_scene(t_rt *rt)
 	cam = init_camera(cam_lookfrom, cam_lookat, cam_vup, 60.0, \
 		(double)rt->r_view->w / (double)rt->r_view->h, aperture, focus);
 
-	obj_nb = 3;
+	obj_nb = 4;
 	obj = (t_obj**)malloc(obj_nb * sizeof(t_obj*));
 	obj[0] = new_object((void*)new_sphere(v3_new_vec(0, -1000, 0), 1000), \
 		OBJ_SPHERE, new_material(v3_new_vec(0.9, 0.0, 0.0), 0.0), \
@@ -61,6 +61,9 @@ t_scene		*init_scene(t_rt *rt)
 	obj[2] = new_object((void*)new_sphere(v3_new_vec(-1, 7, -1), 2), \
 		OBJ_SPHERE, new_material(v3_new_vec(4, 4, 4), NULL_PARAM), \
 		MAT_DIFF_LIGHT);
+	obj[3] = new_object((void*)new_cylinder(v3_new_vec(9, 12, 2), 2), \
+		OBJ_CYLINDER, new_material(v3_new_vec(0.1, 0.8, 1.0), 0.2), \
+		MAT_LAMBERT);
 	/*obj[0] = new_object(v3_new_vec(0.0, 0.0, 0.0), 0.2, OBJ_SPHERE, \
 		v3_new_vec(1.0, 0.1, 0.1), MAT_LAMBERT, NULL_PARAM);
 	obj[1] = new_object(v3_new_vec(0.0, -100.5, -1.0), 100.0, OBJ_SPHERE, \

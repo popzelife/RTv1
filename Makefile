@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2017/01/04 18:11:30 by qfremeau         ###   ########.fr        #
+#    Updated: 2017/01/26 15:08:55 by pmartine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DEFRULE =	all
 
 # Binary
 NAME =		rtv1
-DST =		
+DST =
 
 # Directories
 SRCDIR =	srcs
@@ -31,7 +31,7 @@ OBJDIR =	objs
 ifeq ($(OS),Windows_NT)
 	INCDIR =	includes\
 				libft/includes
-	CFSDL =		
+	CFSDL =
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
@@ -40,8 +40,8 @@ else
 					libft/includes\
 					/Users/$(ID_UN)/.brew/Cellar/sdl2/2.0.5/include/SDL2\
 					/Users/$(ID_UN)/.brew/Cellar/sdl2_ttf/2.0.14/include/SDL2\
-					-F -framework Cocoa 
-		CFSDL =		
+					-F -framework Cocoa
+		CFSDL =
 	endif
 	ifeq ($(UNAME_S),Linux)
 		INCDIR =	includes\
@@ -80,6 +80,7 @@ SRC = \
 			rt_bound_box.c\
 			rt_object.c\
 			rt_sphere.c\
+			rt_cylinder.c\
 			rt_plane.c\
 			rt_ray.c\
 			rt_thread.c\
@@ -101,8 +102,8 @@ OBJ =		$(SRC:.c=.o)
 ifeq ($(OS),Windows_NT)
 	OPNCL =		-L/lib/ -lOpenCL
 	LSDL2 =		-L/lib/ -lSDL2 -lSDL2_ttf
-	LMATH =		
-	LPTHR =		
+	LMATH =
+	LPTHR =
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)

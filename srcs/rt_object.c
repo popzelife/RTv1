@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 00:30:30 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/04 16:31:07 by qfremeau         ###   ########.fr       */
+/*   Updated: 2017/01/11 17:30:02 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 static void	*select_copied_obj(const UCHAR t, void *p_obj)
 {
 	t_sphere	*sphere;
+	t_cylinder	*cyl;
 	void		*o;
 
 	if (t == OBJ_SPHERE)
 	{
 		sphere = (t_sphere*)p_obj;
 		o = (void*)new_sphere(sphere->center, sphere->radius);
+	}
+	else if (t == OBJ_CYLINDER)
+	{
+		cyl = (t_cylinder*)p_obj;
+		o = (void*)new_cylinder(cyl->center, cyl->radius);
 	}
 	else
 		o = NULL;
@@ -33,6 +39,8 @@ static void	*select_obj(t_vec3 *p, const double f, const UCHAR t)
 
 	if (t == OBJ_SPHERE)
 		o = (void*)new_sphere(p, f);
+	else if (t == OBJ_CYLINDER)
+		o = (void*)new_cylinder(p, f);
 	else if (t == OBJ_PLANE_XY)
 		o = (void*)new_plane_xy(1, 2, 1, 1, 1);
 	else
@@ -46,6 +54,8 @@ static void	*select_hit(const UCHAR t)
 
 	if (t == OBJ_SPHERE)
 		f = (void*)&hit_sphere;
+	else if (t == OBJ_CYLINDER)
+		f = (void*)&hit_cylinder;
 	else if (t == OBJ_PLANE_XY)
 		f = (void*)&hit_plane_xy;
 	else

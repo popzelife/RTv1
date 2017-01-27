@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/26 18:07:54 by pmartine         ###   ########.fr       */
+/*   Updated: 2017/01/27 17:44:53 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_scene		*init_scene(t_rt *rt)
 	obj[0] = new_object((void*)new_sphere(v3_new_vec(0, -1000, 0), 1000), \
 		OBJ_SPHERE, new_material(v3_new_vec(0.9, 0.0, 0.0), 0.0), \
 		MAT_LAMBERT);
-	obj[1] = new_object((void*)new_sphere(v3_new_vec(0, 2, 0), 2), \
+	obj[1] = new_object((void*)new_sphere(v3_new_vec(0, 1, -5), 2), \
 		OBJ_SPHERE, new_material(v3_new_vec(0.1, 0.8, 1.0), 0.2), \
 		MAT_LAMBERT);
 	//obj[1] = new_object((void*)new_sphere(v3_new_vec(2, 2, 0), 2), \
@@ -61,9 +61,9 @@ t_scene		*init_scene(t_rt *rt)
 	obj[2] = new_object((void*)new_sphere(v3_new_vec(-1, 7, -1), 2), \
 		OBJ_SPHERE, new_material(v3_new_vec(4, 4, 4), NULL_PARAM), \
 		MAT_DIFF_LIGHT);
-	obj[3] = new_object((void*)new_cylinder(v3_new_vec(9, 12, 2), 2), \
-		OBJ_CYLINDER, new_material(v3_new_vec(0.1, 0.8, 1.0), 0.2), \
-		MAT_LAMBERT);
+	obj[3] = new_object((void*)new_sphere(v3_new_vec(4, 4, 5), 3), \
+		OBJ_SPHERE, new_material(v3_new_vec(0.9, 0.8, 0.4), 0.5), \
+		MAT_METAL);
 	/*obj[0] = new_object(v3_new_vec(0.0, 0.0, 0.0), 0.2, OBJ_SPHERE, \
 		v3_new_vec(1.0, 0.1, 0.1), MAT_LAMBERT, NULL_PARAM);
 	obj[1] = new_object(v3_new_vec(0.0, -100.5, -1.0), 100.0, OBJ_SPHERE, \

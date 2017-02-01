@@ -6,7 +6,7 @@
 #    By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/23 17:10:25 by qfremeau          #+#    #+#              #
-#    Updated: 2017/01/26 15:08:55 by pmartine         ###   ########.fr        #
+#    Updated: 2017/02/01 16:35:44 by pmartine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,8 @@ SRC = \
 			ft_list2.c\
 			ft_utils.c\
 			ft_utils2.c\
-			kernel_isopencl.c
+			kernel_isopencl.c\
+			normals.c
 
 OBJ =		$(SRC:.c=.o)
 

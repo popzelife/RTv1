@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 17:31:05 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/26 15:08:29 by pmartine         ###   ########.fr       */
+/*   Updated: 2017/02/01 16:53:13 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,12 @@ double		f_random();
 
 double		f_min(double const a, double const b);
 double		f_max(double const a, double const b);
-
+/*
+  Normals
+*/
+void    rotation_matrix(double *absc, double *ord, double angle[3], int neg);
+void    vector_rotation(t_vec3 *vec, t_hit *obj, int neg);
+void	get_normal(t_vec3 *norm, t_hit *param, t_vec3 *hit_pt);
 /*
   Exit
 */

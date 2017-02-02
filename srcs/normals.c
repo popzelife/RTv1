@@ -6,7 +6,7 @@
 /*   By: pmartine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/27 19:08:37 by pmartine          #+#    #+#             */
-/*   Updated: 2017/02/01 16:59:02 by pmartine         ###   ########.fr       */
+/*   Updated: 2017/02/02 15:09:58 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	cone_normal(t_vec3 *norm, t_hit *hit_obj, t_vec3 *hit_pt)
 	v3_normalize(norm);
 }
 
-void		get_normal(t_vec3 *norm, t_hit *param, t_vec3 *hit_pt)
+/*void		get_normal(t_vec3 *norm, t_hit *param, t_vec3 *hit_pt)
 {
 	if (param->type == OBJ_PLANE_XY)
 		plane_normal(norm, hit_obj);
@@ -90,7 +90,7 @@ void		get_normal(t_vec3 *norm, t_hit *param, t_vec3 *hit_pt)
 	else if (param->type == OBJ_CYLINDER)
 		cylinder_normal(norm, hit_obj, hit_pt);
 }
-
+*/
 /*t_vec		normale(t_obj *obj, t_env *env, t_vec cam)
   {
   t_vec	result;

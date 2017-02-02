@@ -66,7 +66,7 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(cyl->center));
 			set = v3_div_vec(*v, cyl->radius);
-			get_normal(set, obj, param->pos);
+			//get_normal(set, obj, param->pos);
 			v3_set(param->normal, set->x, set->y, set->z);
 			v3_free(set);
 			v3_free(v);
@@ -81,7 +81,7 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(cyl->center));
 			set = v3_div_vec(*v, cyl->radius);
-			get_normal(set, obj, param->pos);
+			//get_normal(set, obj, param->pos);
 			v3_set(param->normal, set->x, set->y, set->z);
 			v3_free(set);
 			v3_free(v);

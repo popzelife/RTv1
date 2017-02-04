@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/24 22:26:38 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/02/04 15:26:04 by pmartine         ###   ########.fr       */
+/*   Updated: 2017/02/04 16:02:16 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_scene		*init_scene(t_rt *rt)
 	double		aperture;
 	int			obj_nb;
 
-	cam_lookfrom = v3_new_vec(13.0, 2.0, 3.0);
+	cam_lookfrom = v3_new_vec(13.0, 2.0, 6.0);
 	cam_lookat = v3_new_vec(0.0, 0.0, 0.0);
 	cam_vup = v3_new_vec(0.0, -1.0, 0.0);
 	temp = v3_sub_vec(*cam_lookfrom, *cam_lookat);
@@ -67,8 +67,8 @@ t_scene		*init_scene(t_rt *rt)
 	obj[4] = new_object((void*)new_sphere(v3_new_vec(2, 2, -2), 3), \
 		OBJ_SPHERE, new_material(v3_new_vec(0.95, 0.8, 0.5), 0.5), \
 		MAT_METAL);
-	obj[5] = new_object((void*)new_sphere(v3_new_vec(-7, 1, 2), 3), \
-		OBJ_SPHERE, new_material(v3_new_vec(0.95, 0.8, 0.5), 0.5), \
+	obj[5] = new_object((void*)new_sphere(v3_new_vec(-10, 1, 2), 3), \
+		OBJ_SPHERE, new_material(v3_new_vec(0.95, 0.8, 0.5), 0.8), \
 		MAT_METAL);
 	obj[6] = new_object((void*)new_sphere(v3_new_vec(-10, -3, 9), 2.6), \
 		OBJ_SPHERE, new_material(v3_new_vec(0.5, 0.6, 0.7), 0.7), \

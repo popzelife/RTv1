@@ -58,6 +58,8 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 	if (discriminant > 0)
 	{
 		temp = (-b - sqrt(discriminant) / (2 * a));
+		if (!(temp < t_max && temp > t_min))
+			temp = (-b + sqrt(discriminant) / (2 * a));
 		if (temp < t_max && temp > t_min)
 		{
 			param->t = temp;
@@ -66,22 +68,7 @@ BOOL	hit_cylinder(void *obj, const t_ray *ray, const double t_min, \
 			v3_free(set);
 			v = v3_sub_vec(*(param->pos), *(cyl->center));
 			set = v3_div_vec(*v, cyl->radius);
-			//get_normal(set, obj, param);
-			v3_set(param->normal, set->x, set->y, set->z);
-			v3_free(set);
-			v3_free(v);
-			return (TRUE);
-		}
-		temp = (-b + sqrt(discriminant) / (2 * a));
-		if (temp < t_max && temp > t_min)
-		{
-			param->t = temp;
-			set = ray_point_at(ray, param->t);
-			v3_set(param->pos, set->x, set->y, set->z);
-			v3_free(set);
-			v = v3_sub_vec(*(param->pos), *(cyl->center));
-			set = v3_div_vec(*v, cyl->radius);
-			//get_normal(set, obj, param);
+			//normale(set, obj, param);
 			v3_set(param->normal, set->x, set->y, set->z);
 			v3_free(set);
 			v3_free(v);

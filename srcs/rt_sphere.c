@@ -6,7 +6,7 @@
 /*   By: qfremeau <qfremeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 01:43:54 by qfremeau          #+#    #+#             */
-/*   Updated: 2017/01/26 15:37:13 by pmartine         ###   ########.fr       */
+/*   Updated: 2017/02/05 21:40:41 by pmartine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,8 @@ BOOL		hit_sphere(void *obj, const t_ray *ray, const double t_min, \
 	{
 
 		temp = (-b - sqrt(discriminant)) / a;
-		if (temp < t_max && temp > t_min)
-		{
-			param->t = temp;
-			set = ray_point_at(ray, param->t);
-			v3_set(param->pos, set->x, set->y, set->z);
-			v3_free(set);
-			v = v3_sub_vec(*(param->pos), *(sphere->center));
-			set = v3_div_vec(*v, sphere->radius);
-			v3_set(param->normal, set->x, set->y, set->z);
-			v3_free(set);
-			v3_free(v);
-			return (TRUE);
-		}
-
-		temp = (-b + sqrt(discriminant)) / a;
+		if (!(temp < t_max && temp > t_min))
+			temp = (-b + sqrt(discriminant)) / a;
 		if (temp < t_max && temp > t_min)
 		{
 			param->t = temp;
